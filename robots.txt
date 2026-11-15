@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mansurahmed833-debug.github.io/Akini-website/sitemap.xml
+Sitemap: https://akiniit26-debug.github.io/Akini-website/sitemap.xml
