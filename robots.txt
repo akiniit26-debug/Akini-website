@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://akiniit26-debug.github.io/Akini-website/sitemap.xml
+Sitemap: https://akini.eu/sitemap.xml
