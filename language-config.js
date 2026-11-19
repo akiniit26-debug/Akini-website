@@ -216,7 +216,7 @@
       const save=card.querySelector('.save'); if(save) save.setAttribute('aria-label',pc[15]+' '+(h?h.textContent:''));
     });
     const nav=document.querySelectorAll('#siteNav a');
-    const navMap=[pc[7],pc[7],pc[7],pc[7],pc[8],pc[9],pc[10],pc[11]];
+    const navMap=[pc[7],(localeCopy&&localeCopy[10])||pc[7],(localeCopy&&localeCopy[11])||pc[7],(localeCopy&&localeCopy[12])||pc[7],pc[8],pc[9],pc[10],pc[11]];
     nav.forEach((a,i)=>{if(navMap[i]){const icon=(a.textContent.match(/^[^A-Za-zА-Яа-яÀ-ÿΑ-ωĀ-ž]+/)||[''])[0];a.textContent=icon+' '+navMap[i]+(a.dataset.category?'⌄':'');}});
     const disclosure=document.querySelector('#affiliate-note');
     if(disclosure) disclosure.textContent=pc[19];
@@ -224,7 +224,8 @@
     const wishTitle=document.querySelector('#wishlistDialogTitle'); if(wishTitle) wishTitle.textContent=pc[15];
     document.querySelectorAll('#cartDialog button').forEach(b=>b.textContent=pc[17]);
     document.querySelectorAll('#wishlistDialog button').forEach(b=>b.textContent=pc[16]);
-    const search=document.getElementById('searchInput'); if(search) search.placeholder=pc[10];
+    window.AKINI_PRODUCT_COPY={addCart:pc[12],added:pc[13],cart:pc[14],wishlist:pc[15],close:pc[16],continueShopping:pc[17],emptyWishlist:pc[18]};
+    const search=document.getElementById('searchInput'); if(search) search.placeholder=(localeCopy&&localeCopy[7])||pc[10];
     document.querySelectorAll('.footer > div').forEach((el,i)=>{if(i===1){const strong=el.querySelector('strong');if(strong)strong.textContent=pc[9];} if(i===2){const strong=el.querySelector('strong');if(strong)strong.textContent=pc[10];}});
     document.querySelectorAll('.add-cart').forEach(b=>b.textContent='+ '+pc[12]);
   }
