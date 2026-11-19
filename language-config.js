@@ -3,10 +3,10 @@
 (() => {
   'use strict';
   const languages = [
-    { code: 'bg', name: 'Български', locale: 'bg-BG', path: 'bg', enabled: false },
-    { code: 'hr', name: 'Hrvatski', locale: 'hr-HR', path: 'hr', enabled: false },
-    { code: 'cs', name: 'Čeština', locale: 'cs-CZ', path: 'cs', enabled: false },
-    { code: 'da', name: 'Dansk', locale: 'da-DK', path: 'da', enabled: false },
+    { code: 'bg', name: 'Български', locale: 'bg-BG', path: 'index-bg.html', enabled: true },
+    { code: 'hr', name: 'Hrvatski', locale: 'hr-HR', path: 'index-hr.html', enabled: true },
+    { code: 'cs', name: 'Čeština', locale: 'cs-CZ', path: 'index-cs.html', enabled: true },
+    { code: 'da', name: 'Dansk', locale: 'da-DK', path: 'index-da.html', enabled: true },
     { code: 'nl', name: 'Nederlands', locale: 'nl-NL', path: 'nl', enabled: false },
     { code: 'en', name: 'English', locale: 'en', path: '/', enabled: true },
     { code: 'et', name: 'Eesti', locale: 'et-EE', path: 'et', enabled: false },
@@ -45,6 +45,6 @@
 
   selector.addEventListener('change', event => {
     const selected = languages.find(item => item.code === event.target.value && item.enabled);
-    if (selected) window.location.assign(selected.code === 'it' ? '/index-it.html' : '/');
+    if (selected) window.location.assign(selected.code === 'en' ? '/' : '/' + selected.path);
   });
 })();

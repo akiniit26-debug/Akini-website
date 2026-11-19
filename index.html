@@ -9,21 +9,24 @@
 <meta name="description" content="Explore pet, home and lifestyle product ideas with AKINI. Compare options and visit independent retailers to shop directly.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AKINI">
-<meta property="og:title" content="AKINI | Pets, Home &amp; Lifestyle">
+<meta property="og:title" content="AKINI | Pets, Home & Lifestyle">
 <meta property="og:description" content="Explore pet, home and lifestyle product ideas with AKINI. Compare options and visit independent retailers to shop directly.">
 <meta property="og:url" content="https://akini.eu/">
 <meta property="og:locale" content="en_GB">
-<meta property="og:locale:alternate" content="it_IT">
 <meta property="og:image" content="https://images.unsplash.com/photo-1450778869180-41d0601e046e?auto=format&fit=crop&w=1200&h=630&q=85">
 <meta property="og:image:alt" content="AKINI pet, home and lifestyle product discovery">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="AKINI | Pets, Home &amp; Lifestyle">
+<meta name="twitter:title" content="AKINI | Pets, Home & Lifestyle">
 <meta name="twitter:description" content="Explore pet, home and lifestyle product ideas with AKINI. Compare options and visit independent retailers to shop directly.">
 <meta name="twitter:image" content="https://images.unsplash.com/photo-1450778869180-41d0601e046e?auto=format&fit=crop&w=1200&h=630&q=85">
 
 <link rel="canonical" href="https://akini.eu/">
 <link rel="alternate" hreflang="en" href="https://akini.eu/">
 <link rel="alternate" hreflang="it" href="https://akini.eu/index-it.html">
+<link rel="alternate" hreflang="bg" href="https://akini.eu/index-bg.html">
+<link rel="alternate" hreflang="hr" href="https://akini.eu/index-hr.html">
+<link rel="alternate" hreflang="cs" href="https://akini.eu/index-cs.html">
+<link rel="alternate" hreflang="da" href="https://akini.eu/index-da.html">
 <link rel="alternate" hreflang="x-default" href="https://akini.eu/">
 <meta name="robots" content="index,follow">
 <script type="application/ld+json">
@@ -61,7 +64,7 @@
 </style>
 </head>
 <body>
-<a class="skip-link" href="#mainContent">Skip to content</a>
+<a class="skip-link" href="#mainContent">Gå til indhold</a>
 <div class="topbar"><div class="top-left"><span>🚚 Retailer shipping terms apply</span><span>🛡 Checkout on retailer sites</span><span>🎧 Contact AKINI</span></div><div>🇮🇹 Italy　<select id="lang" aria-label="Choose website language"><option value="en">English</option><option value="it">Italiano</option></select></div></div>
 <header class="header"><a class="brand" href="#"><div class="symbol">A</div><div><div class="brandname">AKINI</div><div class="tagline">I buy. I choose. I love.</div></div></a>
 <form class="search" id="searchForm"><input id="searchInput" placeholder="Search for pets, home & lifestyle products..." aria-label="Search products"><button aria-label="Search">⌕</button></form>
@@ -121,7 +124,7 @@ let wishlist = readStore('akiniWishlist', []).filter(name => typeof name === 'st
 
 function saveStore(key, value) {
   try { localStorage.setItem(key, JSON.stringify(value)); }
-  catch (_) { showMessage('Your browser could not save this list. Check your storage settings.'); }
+  catch (_) { showMessage(','); }
 }
 function updateCartCount() {
   document.getElementById('cartCount').textContent = cart.reduce((n, item) => n + item.qty, 0);
@@ -258,7 +261,7 @@ function openCart() {
       minus.type = 'button'; minus.textContent = '−'; minus.setAttribute('aria-label', 'Decrease ' + item.name);
       minus.addEventListener('click', () => changeQty(index, -1));
       const quantity = document.createElement('span');
-      quantity.textContent = 'Qty: ' + item.qty;
+      quantity.textContent = ',' + item.qty;
       const plus = document.createElement('button');
       plus.type = 'button'; plus.textContent = '+'; plus.setAttribute('aria-label', 'Increase ' + item.name);
       plus.addEventListener('click', () => changeQty(index, 1));
@@ -267,7 +270,7 @@ function openCart() {
       row.append(details);
       cartItems.append(row);
     });
-    cartTotal.textContent = 'Total products: ' + cart.reduce((n, item) => n + item.qty, 0);
+    cartTotal.textContent = ',' + cart.reduce((n, item) => n + item.qty, 0);
   }
   if (cartDialog.showModal) cartDialog.showModal();
   else alert(cartItems.textContent);
