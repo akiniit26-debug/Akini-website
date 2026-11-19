@@ -67,8 +67,8 @@
     const replacements = new Map([
       [source[0],words[0]],[source[1],words[1]],[source[2],words[1]],
       [source[3],words[2]],[source[4],words[3]],["☰ Menu","☰ "+words[4]],
-      ["Happy Pets,\nHappier You!",words[5]],["Happy pets,",words[5].split(/[!,]/)[0]],
-      ["Happier you!",words[5]],["✔ Explore useful finds","✔ "+words[6]],
+      ["Happy Pets,\nHappier You!",words[5]],["Happy pets,",words[5].split(/[!,]/)[0]],["Happy Pets,",words[5].split(/[!,]/)[0]],
+      ["Happier you!",words[5]],["Happier You!",words[5]],["✔ Explore useful finds","✔ "+words[6]],
       ["✔ Discover useful finds","✔ "+words[6]],["Explore useful finds",words[6]],
       ["Discover useful finds",words[6]],["✔ Compare retailer options","✔ "+words[7]],
       ["Compare retailer options",words[7]],["✔ Shop directly with retailers","✔ "+words[8]],
