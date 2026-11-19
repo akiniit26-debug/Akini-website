@@ -73,7 +73,7 @@
 <div class="topbar"><div class="top-left"><span>🚚 Retailer shipping terms apply</span><span>🛡 Checkout on retailer sites</span><span>🎧 Contact AKINI</span></div><div>🇪🇺 България　<select id="lang" aria-label="Изберете език на сайта"><option value="en">English</option><option value="it">Italiano</option></select></div></div>
 <header class="header"><a class="brand" href="#"><div class="symbol">A</div><div><div class="brandname">AKINI</div><div class="tagline">Купувам. Избирам. Обичам.</div></div></a>
 <form class="search" id="searchForm"><input id="searchInput" placeholder="Търсене на продукти за любимци, дома и начина на живот..." aria-label="Търсене"><button aria-label="Търсене">⌕</button></form>
-<div class="header-actions"><button type="button" onclick="showWishlist()"><b>♡</b>Wishlist</button><button type="button" onclick="openCart()"><b>🛒</b>Cart (<span id="cartCount">0</span>)</button></div></header>
+<div class="header-actions"><button type="button" onclick="showWishlist()"><b>♡</b>Любими</button><button type="button" onclick="openCart()"><b>🛒</b>Количка (<span id="cartCount">0</span>)</button></div></header>
 <button class="mobile-menu-toggle" type="button" aria-controls="siteNav" aria-expanded="false" onclick="toggleMobileMenu(this)">☰ Menu</button>
 <nav class="nav" id="siteNav" aria-label="Основна навигация"><a href="#">⌂ Начало</a><a href="#products" data-category="Pets">🐾 Любимци⌄</a><a href="#products" data-category="Home">⌂ Дом⌄</a><a href="#products" data-category="Lifestyle">✿ Начин на живот⌄</a><a href="#products">◆ Оферти</a><a href="about.html">ⓘ За нас</a><a href="guides.html">▤ Ръководства</a><a href="#footer">✉ Контакт</a></nav>
 <main id="mainContent">
@@ -293,7 +293,7 @@ function toggleMobileMenu(button) {
   const nav = document.getElementById('siteNav');
   const isOpen = nav.classList.toggle('open');
   button.setAttribute('aria-expanded', String(isOpen));
-  button.textContent = isOpen ? '✕ Close Menu' : '☰ Menu';
+  button.textContent = isOpen ? '✕ Затвори меню' : '☰ Меню';
 }
 updateCartCount();
 updateWishlistButtons();

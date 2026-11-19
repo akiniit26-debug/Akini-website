@@ -73,7 +73,7 @@
 <div class="topbar"><div class="top-left"><span>🚚 Retailer shipping terms apply</span><span>🛡 Checkout on retailer sites</span><span>🎧 Contact AKINI</span></div><div>🇪🇺 Hrvatska　<select id="lang" aria-label="Odaberite jezik web-stranice"><option value="en">English</option><option value="it">Italiano</option></select></div></div>
 <header class="header"><a class="brand" href="#"><div class="symbol">A</div><div><div class="brandname">AKINI</div><div class="tagline">Kupujem. Biram. Volim.</div></div></a>
 <form class="search" id="searchForm"><input id="searchInput" placeholder="Pretražite proizvode za ljubimce, dom i stil života..." aria-label="Pretraži"><button aria-label="Pretraži">⌕</button></form>
-<div class="header-actions"><button type="button" onclick="showWishlist()"><b>♡</b>Wishlist</button><button type="button" onclick="openCart()"><b>🛒</b>Cart (<span id="cartCount">0</span>)</button></div></header>
+<div class="header-actions"><button type="button" onclick="showWishlist()"><b>♡</b>Lista želja</button><button type="button" onclick="openCart()"><b>🛒</b>Košarica (<span id="cartCount">0</span>)</button></div></header>
 <button class="mobile-menu-toggle" type="button" aria-controls="siteNav" aria-expanded="false" onclick="toggleMobileMenu(this)">☰ Menu</button>
 <nav class="nav" id="siteNav" aria-label="Glavna navigacija"><a href="#">⌂ Početna</a><a href="#products" data-category="Pets">🐾 Ljubimci⌄</a><a href="#products" data-category="Home">⌂ Dom⌄</a><a href="#products" data-category="Lifestyle">✿ Stil života⌄</a><a href="#products">◆ Ponude</a><a href="about.html">ⓘ O nama</a><a href="guides.html">▤ Vodiči</a><a href="#footer">✉ Kontakt</a></nav>
 <main id="mainContent">
@@ -293,7 +293,7 @@ function toggleMobileMenu(button) {
   const nav = document.getElementById('siteNav');
   const isOpen = nav.classList.toggle('open');
   button.setAttribute('aria-expanded', String(isOpen));
-  button.textContent = isOpen ? '✕ Close Menu' : '☰ Menu';
+  button.textContent = isOpen ? '✕ Zatvori izbornik' : '☰ Izbornik';
 }
 updateCartCount();
 updateWishlistButtons();

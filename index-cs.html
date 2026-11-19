@@ -73,7 +73,7 @@
 <div class="topbar"><div class="top-left"><span>🚚 Retailer shipping terms apply</span><span>🛡 Checkout on retailer sites</span><span>🎧 Contact AKINI</span></div><div>🇪🇺 Česko　<select id="lang" aria-label="Vyberte jazyk webu"><option value="en">English</option><option value="it">Italiano</option></select></div></div>
 <header class="header"><a class="brand" href="#"><div class="symbol">A</div><div><div class="brandname">AKINI</div><div class="tagline">Nakupuji. Vybírám. Miluji.</div></div></a>
 <form class="search" id="searchForm"><input id="searchInput" placeholder="Hledat produkty pro mazlíčky, domácnost a životní styl..." aria-label="Hledat"><button aria-label="Hledat">⌕</button></form>
-<div class="header-actions"><button type="button" onclick="showWishlist()"><b>♡</b>Wishlist</button><button type="button" onclick="openCart()"><b>🛒</b>Cart (<span id="cartCount">0</span>)</button></div></header>
+<div class="header-actions"><button type="button" onclick="showWishlist()"><b>♡</b>Seznam přání</button><button type="button" onclick="openCart()"><b>🛒</b>Košík (<span id="cartCount">0</span>)</button></div></header>
 <button class="mobile-menu-toggle" type="button" aria-controls="siteNav" aria-expanded="false" onclick="toggleMobileMenu(this)">☰ Menu</button>
 <nav class="nav" id="siteNav" aria-label="Hlavní navigace"><a href="#">⌂ Domů</a><a href="#products" data-category="Pets">🐾 Mazlíčci⌄</a><a href="#products" data-category="Home">⌂ Domácnost⌄</a><a href="#products" data-category="Lifestyle">✿ Životní styl⌄</a><a href="#products">◆ Nabídky</a><a href="about.html">ⓘ O nás</a><a href="guides.html">▤ Průvodci</a><a href="#footer">✉ Kontakt</a></nav>
 <main id="mainContent">
@@ -293,7 +293,7 @@ function toggleMobileMenu(button) {
   const nav = document.getElementById('siteNav');
   const isOpen = nav.classList.toggle('open');
   button.setAttribute('aria-expanded', String(isOpen));
-  button.textContent = isOpen ? '✕ Close Menu' : '☰ Menu';
+  button.textContent = isOpen ? '✕ Zavřít nabídku' : '☰ Nabídka';
 }
 updateCartCount();
 updateWishlistButtons();
