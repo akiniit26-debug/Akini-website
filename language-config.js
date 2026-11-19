@@ -56,6 +56,11 @@
     it:["Vai al contenuto","Si applicano le condizioni di spedizione del rivenditore","Il pagamento avviene sul sito del rivenditore","Contatta AKINI","Menu","Animali felici, una vita più felice!","Scopri prodotti utili","Confronta le opzioni dei rivenditori","Acquista direttamente dai rivenditori"]
   };
   const code = (document.documentElement.lang || 'en').slice(0,2);
+  // The English homepage template accidentally retained a Danish skip-link label.
+  if (code === 'en') {
+    const skipLink = document.querySelector('.skip-link');
+    if (skipLink && skipLink.textContent.trim() === 'Gå til indhold') skipLink.textContent = 'Skip to content';
+  }
   const words = copy[code];
   if (words) {
     const source = [
