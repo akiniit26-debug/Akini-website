@@ -193,8 +193,8 @@ cards.forEach(card => {
     const found = cart.find(item => item.id === id || item.name === name);
     if (found) found.qty++;
     else cart.push({id, name, qty: 1});
-    updateCartCount(); button.textContent = '✓ Added';
-    setTimeout(() => button.textContent = '+ Add to Cart', 1000);
+    updateCartCount(); button.textContent = '✓ ' + ((window.AKINI_PRODUCT_COPY && window.AKINI_PRODUCT_COPY.added) || 'Added');
+    setTimeout(() => button.textContent = '+ ' + ((window.AKINI_PRODUCT_COPY && window.AKINI_PRODUCT_COPY.addCart) || 'Add to Cart'), 1000);
   });
   card.querySelector('.product-actions').prepend(button);
   const saveButton = card.querySelector('.save');
@@ -220,7 +220,7 @@ function updateWishlistButtons() {
 function showWishlist() {
   wishlistItems.replaceChildren();
   if (!wishlist.length) {
-    const p = document.createElement('p'); p.textContent = 'Your wishlist is empty. Tap a heart to save a product.';
+    const p = document.createElement('p'); p.textContent = (window.AKINI_PRODUCT_COPY && window.AKINI_PRODUCT_COPY.emptyWishlist) || 'Your wishlist is empty. Tap a heart to save a product.';
     wishlistItems.append(p);
   } else {
     wishlist.forEach(name => {
@@ -279,7 +279,7 @@ function openCart() {
       minus.type = 'button'; minus.textContent = '−'; minus.setAttribute('aria-label', 'Decrease ' + item.name);
       minus.addEventListener('click', () => changeQty(index, -1));
       const quantity = document.createElement('span');
-      quantity.textContent = ',' + item.qty;
+      quantity.textContent = '× ' + item.qty;
       const plus = document.createElement('button');
       plus.type = 'button'; plus.textContent = '+'; plus.setAttribute('aria-label', 'Increase ' + item.name);
       plus.addEventListener('click', () => changeQty(index, 1));
@@ -288,7 +288,7 @@ function openCart() {
       row.append(details);
       cartItems.append(row);
     });
-    cartTotal.textContent = ',' + cart.reduce((n, item) => n + item.qty, 0);
+    cartTotal.textContent = 'Items: ' + cart.reduce((n, item) => n + item.qty, 0);
   }
   if (cartDialog.showModal) cartDialog.showModal();
   else alert(cartItems.textContent);
