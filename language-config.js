@@ -79,6 +79,7 @@
     while ((node = walker.nextNode())) {
       const value = node.nodeValue.trim();
       if (replacements.has(value)) node.nodeValue = node.nodeValue.replace(value,replacements.get(value));
+      else for (const [from,to] of replacements) { if (from && node.nodeValue.includes(from)) node.nodeValue = node.nodeValue.replace(from,to); }
     }
     document.querySelectorAll('[aria-label],[placeholder]').forEach(el => {
       for (const attr of ['aria-label','placeholder']) {
