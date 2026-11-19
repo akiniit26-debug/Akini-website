@@ -90,6 +90,53 @@
     });
   }
 
+
+  // Localize visible shared homepage controls and merchandising copy.
+  const ui = {
+    bg:["Към съдържанието","Условията за доставка на търговеца важат","Плащането се извършва на сайта на търговеца","Свържете се с AKINI","Меню","Всички продукти за вашите любимци, дома и начина ви на живот!","Щастливи любимци, по-щастливи стопани!","Открийте полезни продукти","Сравнете офертите на търговците","Пазарувайте директно от търговците","Любимци","Дом","Начин на живот"],
+    hr:["Preskoči na sadržaj","Primjenjuju se uvjeti dostave trgovca","Plaćanje se obavlja na web-stranici trgovca","Kontaktirajte AKINI","Izbornik","Proizvodi za vaše ljubimce, dom i stil života!","Sretni ljubimci, sretniji vi!","Otkrijte korisne proizvode","Usporedite ponude trgovaca","Kupujte izravno kod trgovaca","Ljubimci","Dom","Životni stil"],
+    cs:["Přejít k obsahu","Platí podmínky dopravy prodejce","Platba probíhá na webu prodejce","Kontaktujte AKINI","Nabídka","Produkty pro vaše mazlíčky, domov a životní styl!","Spokojení mazlíčci, spokojenější vy!","Objevte užitečné produkty","Porovnejte nabídky prodejců","Nakupujte přímo u prodejců","Mazlíčci","Domov","Životní styl"],
+    da:["Gå til indhold","Forhandlerens leveringsvilkår gælder","Betaling foregår på forhandlerens hjemmeside","Kontakt AKINI","Menu","Produkter til dine kæledyr, dit hjem og din livsstil!","Glade kæledyr, gladere dig!","Find nyttige produkter","Sammenlign forhandlernes muligheder","Køb direkte hos forhandlerne","Kæledyr","Hjem","Livsstil"],
+    nl:["Ga naar de inhoud","De verzendvoorwaarden van de verkoper zijn van toepassing","Afrekenen gebeurt op de website van de verkoper","Neem contact op met AKINI","Menu","Producten voor je huisdieren, huis en levensstijl!","Blije huisdieren, een blijere jij!","Ontdek handige producten","Vergelijk opties van verkopers","Koop rechtstreeks bij verkopers","Huisdieren","Thuis","Levensstijl"],
+    et:["Liigu sisu juurde","Kehtivad müüja tarnetingimused","Maksmine toimub müüja veebilehel","Võta AKINI-ga ühendust","Menüü","Tooted sinu lemmikloomadele, koju ja elustiiliks!","Õnnelikud lemmikud, õnnelikum sina!","Avasta kasulikke tooteid","Võrdle müüjate pakkumisi","Osta otse müüjatelt","Lemmikloomad","Kodu","Elustiil"],
+    fi:["Siirry sisältöön","Jälleenmyyjän toimitusehdot ovat voimassa","Maksaminen tapahtuu jälleenmyyjän sivustolla","Ota yhteyttä AKINIin","Valikko","Tuotteita lemmikeille, kotiin ja elämäntyyliin!","Onnelliset lemmikit, onnellisempi sinä!","Löydä hyödyllisiä tuotteita","Vertaile jälleenmyyjien vaihtoehtoja","Osta suoraan jälleenmyyjiltä","Lemmikit","Koti","Elämäntyyli"],
+    fr:["Aller au contenu","Les conditions de livraison du vendeur s’appliquent","Le paiement s’effectue sur le site du vendeur","Contacter AKINI","Menu","Des produits pour vos animaux, votre maison et votre style de vie !","Des animaux heureux, pour une vie plus heureuse !","Découvrez des produits utiles","Comparez les offres des vendeurs","Achetez directement auprès des vendeurs","Animaux","Maison","Style de vie"],
+    de:["Zum Inhalt springen","Es gelten die Versandbedingungen des Händlers","Die Zahlung erfolgt auf der Website des Händlers","AKINI kontaktieren","Menü","Produkte für Haustiere, Zuhause und Lifestyle!","Glückliche Haustiere, glücklicheres Leben!","Nützliche Produkte entdecken","Angebote der Händler vergleichen","Direkt bei Händlern einkaufen","Haustiere","Zuhause","Lifestyle"],
+    el:["Μετάβαση στο περιεχόμενο","Ισχύουν οι όροι αποστολής του εμπόρου","Η πληρωμή γίνεται στον ιστότοπο του εμπόρου","Επικοινωνία με την AKINI","Μενού","Προϊόντα για κατοικίδια, σπίτι και τρόπο ζωής!","Χαρούμενα κατοικίδια, πιο χαρούμενοι άνθρωποι!","Ανακαλύψτε χρήσιμα προϊόντα","Συγκρίνετε επιλογές εμπόρων","Αγοράστε απευθείας από εμπόρους","Κατοικίδια","Σπίτι","Τρόπος ζωής"],
+    hu:["Ugrás a tartalomhoz","A kereskedő szállítási feltételei érvényesek","A fizetés a kereskedő weboldalán történik","Kapcsolatfelvétel az AKINI-val","Menü","Termékek háziállatoknak, otthonra és életstílushoz!","Boldog háziállatok, boldogabb gazdik!","Hasznos termékek felfedezése","Kereskedői ajánlatok összehasonlítása","Vásároljon közvetlenül a kereskedőktől","Háziállatok","Otthon","Életmód"],
+    ga:["Téigh chuig an ábhar","Tá téarmaí seachadta an mhiondíoltóra i bhfeidhm","Déantar íocaíocht ar shuíomh an mhiondíoltóra","Déan teagmháil le AKINI","Roghchlár","Táirgí do pheataí, do theach agus do stíl mhaireachtála!","Peataí sona, tusa níos sona!","Aimsigh táirgí úsáideacha","Déan comparáid idir roghanna miondíoltóirí","Ceannaigh go díreach ó mhiondíoltóirí","Peataí","Baile","Stíl mhaireachtála"],
+    lv:["Pāriet uz saturu","Piemēro tirgotāja piegādes noteikumus","Maksājums notiek tirgotāja vietnē","Sazināties ar AKINI","Izvēlne","Produkti mājdzīvniekiem, mājai un dzīvesveidam!","Laimīgi mājdzīvnieki, laimīgāks tu!","Atklāj noderīgus produktus","Salīdzini tirgotāju piedāvājumus","Iegādājies tieši pie tirgotājiem","Mājdzīvnieki","Mājas","Dzīvesveids"],
+    lt:["Pereiti prie turinio","Taikomos pardavėjo pristatymo sąlygos","Apmokėjimas vyksta pardavėjo svetainėje","Susisiekti su AKINI","Meniu","Produktai augintiniams, namams ir gyvenimo būdui!","Laimingi augintiniai, laimingesni jūs!","Atraskite naudingų produktų","Palyginkite pardavėjų pasiūlymus","Pirkite tiesiogiai iš pardavėjų","Augintiniai","Namai","Gyvenimo būdas"],
+    mt:["Aqbeż għall-kontenut","Japplikaw il-kundizzjonijiet tat-tbaħħir tal-bejjiegħ","Il-ħlas isir fuq is-sit tal-bejjiegħ","Ikkuntattja lil AKINI","Menu","Prodotti għall-annimali domestiċi, għad-dar u għall-istil tal-ħajja!","Annimali domestiċi ferħanin, int aktar ferħan!","Skopri prodotti utli","Qabbel l-għażliet tal-bejjiegħa","Ixtri direttament mingħand il-bejjiegħa","Annimali domestiċi","Dar","Stil ta’ ħajja"],
+    pl:["Przejdź do treści","Obowiązują warunki dostawy sprzedawcy","Płatność odbywa się na stronie sprzedawcy","Skontaktuj się z AKINI","Menu","Produkty dla zwierząt, domu i stylu życia!","Szczęśliwe zwierzęta, szczęśliwszy Ty!","Odkryj przydatne produkty","Porównaj oferty sprzedawców","Kupuj bezpośrednio u sprzedawców","Zwierzęta","Dom","Styl życia"],
+    pt:["Saltar para o conteúdo","Aplicam-se as condições de envio do vendedor","O pagamento é efetuado no site do vendedor","Contactar a AKINI","Menu","Produtos para animais, casa e estilo de vida!","Animais felizes, uma vida mais feliz!","Descubra produtos úteis","Compare as opções dos vendedores","Compre diretamente aos vendedores","Animais","Casa","Estilo de vida"],
+    ro:["Treci la conținut","Se aplică termenii de livrare ai comerciantului","Plata se face pe site-ul comerciantului","Contactează AKINI","Meniu","Produse pentru animale, casă și stilul tău de viață!","Animale fericite, tu mai fericit!","Descoperă produse utile","Compară ofertele comercianților","Cumpără direct de la comercianți","Animale","Casă","Stil de viață"],
+    sk:["Prejsť na obsah","Platia podmienky doručenia predajcu","Platba prebieha na stránke predajcu","Kontaktovať AKINI","Ponuka","Produkty pre domácich miláčikov, domov a životný štýl!","Šťastné domáce zvieratá, šťastnejší vy!","Objavte užitočné produkty","Porovnajte ponuky predajcov","Nakupujte priamo u predajcov","Domáce zvieratá","Domov","Životný štýl"],
+    sl:["Preskoči na vsebino","Veljajo pogoji dostave trgovca","Plačilo poteka na spletni strani trgovca","Stopite v stik z AKINI","Meni","Izdelki za hišne ljubljenčke, dom in življenjski slog!","Srečni ljubljenčki, še srečnejši vi!","Odkrijte uporabne izdelke","Primerjajte ponudbe trgovcev","Kupujte neposredno pri trgovcih","Hišni ljubljenčki","Dom","Življenjski slog"],
+    es:["Ir al contenido","Se aplican las condiciones de envío del vendedor","El pago se realiza en el sitio web del vendedor","Contactar con AKINI","Menú","Productos para tus mascotas, tu hogar y tu estilo de vida","Mascotas felices, ¡tú más feliz!","Descubre productos útiles","Compara las opciones de los vendedores","Compra directamente a los vendedores","Mascotas","Hogar","Estilo de vida"],
+    sv:["Hoppa till innehållet","Återförsäljarens leveransvillkor gäller","Betalning sker på återförsäljarens webbplats","Kontakta AKINI","Meny","Produkter för husdjur, hem och livsstil!","Glada husdjur, gladare du!","Upptäck användbara produkter","Jämför återförsäljarnas alternativ","Handla direkt från återförsäljare","Husdjur","Hem","Livsstil"],
+    it:["Vai al contenuto","Si applicano le condizioni di spedizione del rivenditore","Il pagamento avviene sul sito del rivenditore","Contatta AKINI","Menu","Prodotti per animali, casa e stile di vita!","Animali felici, una vita più felice!","Scopri prodotti utili","Confronta le opzioni dei rivenditori","Acquista direttamente dai rivenditori","Animali","Casa","Stile di vita"]
+  };
+  const localeCopy = ui[code];
+  if (localeCopy) {
+    const skip = document.querySelector('.skip-link');
+    if (skip) skip.textContent = localeCopy[0];
+    const bar = document.querySelector('.topbar');
+    if (bar) bar.textContent = '🚚 ' + localeCopy[1] + '  🛡 ' + localeCopy[2] + '  🎧 ' + localeCopy[3];
+    const menu = document.querySelector('.mobile-menu-toggle');
+    if (menu && !menu.getAttribute('aria-expanded') || (menu && menu.getAttribute('aria-expanded') === 'false')) menu.textContent = '☰ ' + localeCopy[4];
+    const heroTitle = document.querySelector('.hero-copy h1');
+    if (heroTitle) heroTitle.textContent = localeCopy[5];
+    const heroStrong = document.querySelector('.hero-aside strong');
+    if (heroStrong) heroStrong.textContent = localeCopy[6];
+    const heroPoints = document.querySelector('.hero-aside p');
+    if (heroPoints) heroPoints.innerHTML = '<span>✔</span> ' + localeCopy[7] + '<br><span>✔</span> ' + localeCopy[8] + '<br><span>✔</span> ' + localeCopy[9];
+    document.querySelectorAll('.category').forEach((card, i) => {
+      const label = card.querySelectorAll('span')[1];
+      if (label && i < 3) label.firstChild.textContent = localeCopy[10+i] + ' ';
+    });
+  }
+
   const selector = document.getElementById('lang');
   if (!selector) return;
   const current = document.documentElement.lang || 'en';
