@@ -230,6 +230,45 @@
     document.querySelectorAll('.add-cart').forEach(b=>b.textContent='+ '+pc[12]);
   }
 
+  // Final pass: translate remaining fixed homepage labels that were previously left in English.
+  if (localeCopy && moreCopy && pc) {
+    const fixedText = new Map([
+      ['Wishlist', pc[15]],
+      ['Product Ideas · Preview Only', moreCopy[17] + ' · ' + moreCopy[9]],
+      ['All', moreCopy[3]],
+      ['Demo', moreCopy[8]],
+      ['(demo)', ''],
+      ['Preview only', moreCopy[9]],
+      ['Explore Buying Guides →', localeCopy[7] + ' →'],
+      ['Shipping', moreCopy[11]],
+      ['Retailer terms apply', moreCopy[12]],
+      ['Retailer Checkout', moreCopy[13]],
+      ['Payments handled by retailer', moreCopy[14]],
+      ['Returns', moreCopy[15]],
+      ['Retailer policies apply', moreCopy[16]],
+      ['Product preview:', moreCopy[17]],
+      ['Questions and feedback', moreCopy[14]],
+      ['Affiliate Disclosure', pc[9]],
+      ['Buying Guides', pc[10]],
+      ['About', pc[9]],
+      ['Information', pc[10]]
+    ]);
+    document.querySelectorAll('body *').forEach(el => {
+      if (el.children.length === 0) {
+        const value = (el.textContent || '').trim();
+        if (fixedText.has(value)) el.textContent = fixedText.get(value);
+      }
+    });
+    const heroTitle = document.querySelector('.hero-copy h1');
+    if (heroTitle) heroTitle.textContent = localeCopy[5];
+    const wishlistButton = [...document.querySelectorAll('button')].find(b => (b.textContent || '').trim() === 'Wishlist');
+    if (wishlistButton) wishlistButton.textContent = pc[15];
+    const cartTitle = document.querySelector('#cartDialogTitle');
+    if (cartTitle) cartTitle.textContent = pc[14];
+    const wishTitle = document.querySelector('#wishlistDialogTitle');
+    if (wishTitle) wishTitle.textContent = pc[15];
+  }
+
   const selector = document.getElementById('lang');
   if (!selector) return;
   const current = document.documentElement.lang || 'en';
