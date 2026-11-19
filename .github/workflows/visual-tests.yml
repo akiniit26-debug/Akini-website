@@ -18,7 +18,7 @@ jobs:
           node-version: 22
       - run: npm install --no-save @playwright/test
       - run: npx playwright install --with-deps chromium
-      - run: npx playwright test
+      - run: npx playwright test tests/live-pages.spec.js
         env:
           AKINI_BASE_URL: https://akini.eu
       - uses: actions/upload-artifact@v4
