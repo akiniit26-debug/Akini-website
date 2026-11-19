@@ -1,0 +1,6 @@
+{
+  "name": "akini-live-quality-checks",
+  "private": true,
+  "scripts": { "test:visual": "playwright test" },
+  "devDependencies": { "@playwright/test": "^1.56.0" }
+}
