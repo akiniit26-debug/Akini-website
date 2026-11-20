@@ -1,0 +1,66 @@
+name: Add AKINI product
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: Product name (English)
+        required: true
+        type: string
+      name_it:
+        description: Product name (Italian, optional)
+        required: false
+        type: string
+      category:
+        description: Category
+        required: true
+        type: choice
+        options:
+          - Pets
+          - Home
+          - Lifestyle
+      price:
+        description: Price (example 19.99 EUR)
+        required: true
+        type: string
+      image_url:
+        description: Public HTTPS image URL
+        required: true
+        type: string
+      retailer_url:
+        description: Retailer product page URL (HTTPS)
+        required: true
+        type: string
+      description:
+        description: Short description (English)
+        required: false
+        type: string
+      description_it:
+        description: Short description (Italian, optional)
+        required: false
+        type: string
+permissions:
+  contents: write
+jobs:
+  add-product:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out website
+        uses: actions/checkout@v4
+      - name: Add or update product
+        env:
+          PRODUCT_NAME: ${{ inputs.name }}
+          PRODUCT_NAME_IT: ${{ inputs.name_it }}
+          PRODUCT_CATEGORY: ${{ inputs.category }}
+          PRODUCT_PRICE: ${{ inputs.price }}
+          PRODUCT_IMAGE: ${{ inputs.image_url }}
+          PRODUCT_URL: ${{ inputs.retailer_url }}
+          PRODUCT_DESCRIPTION: ${{ inputs.description }}
+          PRODUCT_DESCRIPTION_IT: ${{ inputs.description_it }}
+        run: python3 .github/scripts/add_product.py
+      - name: Commit product catalogue
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add products.json
+          git diff --cached --quiet || git commit -m "Add or update AKINI product"
+          git push
