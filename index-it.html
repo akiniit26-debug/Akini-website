@@ -102,7 +102,7 @@
 <h2 id="wishlistDialogTitle">I tuoi preferiti AKINI</h2><div id="wishlistItems"></div>
 <button type="button" onclick="closeWishlist()" style="background:var(--navy);color:white;border:0;border-radius:22px;padding:10px 18px">Chiudi</button>
 </dialog>
-<footer class="footer" id="footer"><div id="about"><strong style="font-size:25px">AKINI</strong><br>Compro. Scelgo. Amo.<br><small>Animali · Casa · Lifestyle</small></div><div><strong>Esplora</strong><br><small><a href="about-it.html" style="color:#fff">Chi siamo</a> · <a href="contact-it.html" style="color:#fff">Contatti</a> · <a href="affiliate-disclosure-it.html" style="color:#fff">Informativa affiliazioni</a> · <a href="guides-it.html" style="color:#fff">Guide all’acquisto</a> · <a href="editorial-policy-it.html" style="color:#fff">Politica editoriale</a></small></div><div><strong>Informazioni</strong><br><small><a href="privacy-policy-it.html" style="color:#fff">Informativa sulla privacy</a><br><a href="cookie-policy-it.html" style="color:#fff">Informativa sui cookie</a><br><a href="terms-it.html" style="color:#fff">Termini e condizioni</a></small></div><div><small>© 2026 AKINI — Anteprima di sviluppo</small></div></footer>
+<footer class="footer" id="footer"><div id="about"><strong style="font-size:25px">AKINI</strong><br>Compro. Scelgo. Amo.<br><small>Animali · Casa · Lifestyle</small></div><div><strong>Esplora</strong><br><small><a href="about-it.html" style="color:#fff">Chi siamo</a> · <a href="contact-it.html" style="color:#fff">Contatti</a> · <a href="affiliate-disclosure-it.html" style="color:#fff">Informativa affiliazioni</a> · <a href="guides-it.html" style="color:#fff">Guide all’acquisto</a> · <a href="editorial-policy-it.html" style="color:#fff">Politica editoriale</a> · <a href="manage-products.html" style="color:#fff">Gestisci prodotti</a></small></div><div><strong>Informazioni</strong><br><small><a href="privacy-policy-it.html" style="color:#fff">Informativa sulla privacy</a><br><a href="cookie-policy-it.html" style="color:#fff">Informativa sui cookie</a><br><a href="terms-it.html" style="color:#fff">Termini e condizioni</a></small></div><div><small>© 2026 AKINI — Anteprima di sviluppo</small></div></footer>
 <script>
 // Keep the language switch working on both localized homepages.
 const cards = [...document.querySelectorAll('.product')];
@@ -301,4 +301,70 @@ updateWishlistButtons();
 updateProducts();
 </script>
 <script src="/language-config.js"></script>
+
+<script>
+/* AKINI no-code catalogue: products are added through the GitHub Actions form. */
+(async function loadAkiniCatalogue() {
+  const grid = document.getElementById('productGrid');
+  if (!grid) return;
+  const isItalian = document.documentElement.lang === 'it';
+  const labels = isItalian
+    ? {Pets:'Animali',Home:'Casa',visit:'Vai al rivenditore',add:'Aggiungi al carrello',save:'Salva prodotto'}
+    : {Pets:'Pets',Home:'Home',visit:'Visit retailer',add:'Add to Cart',save:'Save product'};
+  try {
+    const response = await fetch('/products.json', {cache:'no-store'});
+    if (!response.ok) return;
+    const products = await response.json();
+    if (!Array.isArray(products)) return;
+    products.forEach(product => {
+      if (!product || !product.id || !product.name || !product.image || !product.url) return;
+      const category = isItalian ? (product.category === 'Pets' ? 'Animali' : product.category === 'Home' ? 'Casa' : 'Lifestyle') : product.category;
+      const name = (isItalian && product.name_it) ? product.name_it : product.name;
+      const description = (isItalian && product.description_it) ? product.description_it : product.description;
+      const card = document.createElement('article');
+      card.className = 'product';
+      card.dataset.category = category;
+      card.dataset.productId = String(product.id);
+      card.dataset.name = (name + ' ' + (description || '')).toLowerCase();
+      const imageBox = document.createElement('div');
+      imageBox.className = 'product-image';
+      const image = document.createElement('img');
+      image.loading = 'lazy'; image.src = product.image; image.alt = name;
+      imageBox.append(image);
+      const info = document.createElement('div'); info.className = 'product-info';
+      const heading = document.createElement('h3'); heading.textContent = name;
+      const detail = document.createElement('p'); detail.textContent = description || '';
+      detail.style.cssText = 'font-size:12px;color:#64748b;min-height:0;margin:4px 0';
+      const price = document.createElement('div'); price.className = 'price';
+      price.textContent = new Intl.NumberFormat(isItalian ? 'it-IT' : 'en-IE', {style:'currency',currency:product.currency || 'EUR'}).format(Number(product.price) || 0);
+      const actions = document.createElement('div'); actions.className = 'product-actions';
+      const visit = document.createElement('a'); visit.className = 'visit'; visit.href = product.url;
+      visit.target = '_blank'; visit.rel = 'nofollow noopener'; visit.textContent = labels.visit;
+      const add = document.createElement('button'); add.type = 'button'; add.className = 'add-cart'; add.textContent = '+ ' + labels.add;
+      add.addEventListener('click', () => {
+        const itemName = name;
+        const found = cart.find(item => item.id === String(product.id) || item.name === itemName);
+        if (found) found.qty++; else cart.push({id:String(product.id),name:itemName,qty:1});
+        updateCartCount(); add.textContent = '✓ ' + ((window.AKINI_PRODUCT_COPY && window.AKINI_PRODUCT_COPY.added) || 'Added');
+      });
+      const save = document.createElement('button'); save.type = 'button'; save.className = 'save';
+      save.textContent = '♡'; save.setAttribute('aria-label', labels.save);
+      save.addEventListener('click', () => {
+        const id = String(product.id);
+        if (wishlist.includes(id)) wishlist = wishlist.filter(item => item !== id); else wishlist.push(id);
+        saveStore('akiniWishlist', wishlist); updateWishlistButtons();
+      });
+      actions.append(add, visit, save);
+      info.append(heading, detail, price, actions);
+      card.append(imageBox, info);
+      grid.append(card);
+      cards.push(card);
+    });
+    updateWishlistButtons();
+    updateProducts();
+  } catch (error) {
+    console.warn('AKINI catalogue could not be loaded.', error);
+  }
+})();
+</script>
 </body></html>
