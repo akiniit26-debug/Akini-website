@@ -344,7 +344,7 @@ updateProducts();
       price.textContent = new Intl.NumberFormat(isItalian ? 'it-IT' : 'en-IE', {style:'currency',currency:product.currency || 'EUR'}).format(Number(product.price) || 0);
       const actions = document.createElement('div'); actions.className = 'product-actions';
       const visit = document.createElement('a'); visit.className = 'visit'; visit.href = product.url;
-      visit.target = '_blank'; visit.rel = 'nofollow noopener'; visit.textContent = labels.visit;
+      visit.target = '_blank'; visit.rel = 'sponsored nofollow noopener'; visit.textContent = labels.visit;
       const add = document.createElement('button'); add.type = 'button'; add.className = 'add-cart'; add.textContent = '+ ' + labels.add;
       add.addEventListener('click', () => {
         const itemName = name;
