@@ -304,8 +304,8 @@ updateProducts();
   if (!grid) return;
   const isItalian = document.documentElement.lang === 'it';
   const labels = isItalian
-    ? {Pets:'Animali',Home:'Casa',visit:'Vai al rivenditore',add:'Aggiungi al carrello',save:'Salva prodotto'}
-    : {Pets:'Pets',Home:'Home',visit:'Visit retailer',add:'Add to Cart',save:'Save product'};
+    ? {Pets:'Animali',Home:'Casa',visit:'Acquista su Amazon',add:'Aggiungi al carrello',save:'Salva prodotto'}
+    : {Pets:'Pets',Home:'Home',visit:'Shop on Amazon',add:'Add to Cart',save:'Save product'};
   try {
     const response = await fetch('/products.json', {cache:'no-store'});
     if (!response.ok) return;
@@ -328,18 +328,11 @@ updateProducts();
       imageBox.append(image);
       const info = document.createElement('div'); info.className = 'product-info';
       const heading = document.createElement('h3'); heading.textContent = name;
-      const price = document.createElement('p'); price.className = 'product-price';
+      const price = document.createElement('a'); price.className = 'price-check'; price.href = product.url;
+      price.target = '_blank'; price.rel = 'sponsored nofollow noopener';
+      price.textContent = 'Controlla il prezzo attuale su Amazon';
       const priceNote = document.createElement('p'); priceNote.className = 'price-note';
-      if (Number.isFinite(Number(product.price)) && Number(product.price) > 0) {
-        price.textContent = new Intl.NumberFormat('it-IT', {style:'currency',currency:product.currency || 'EUR'}).format(Number(product.price));
-        priceNote.textContent = 'Prezzo controllato il ' + (product.price_checked || '');
-      } else {
-        price.textContent = 'Prezzo Amazon.it';
-        const checkPrice = document.createElement('a'); checkPrice.className = 'price-check'; checkPrice.href = product.url;
-        checkPrice.target = '_blank'; checkPrice.rel = 'sponsored nofollow noopener';
-        checkPrice.textContent = 'Controlla il prezzo attuale su Amazon';
-        priceNote.append(checkPrice);
-      }
+      priceNote.textContent = 'Prezzo e disponibilità possono variare. Consulta Amazon per i dettagli aggiornati.';
       const ratingLine = document.createElement('p'); ratingLine.className = 'rating-line';
       if (Number(product.rating) > 0) {
         ratingLine.textContent = '★ ' + Number(product.rating).toFixed(1) + ' / 5 ';
