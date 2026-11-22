@@ -31,7 +31,8 @@
     "brand": "PetSafe",
     "description": "A lightweight, breathable no-pull dog harness with a front-chest leash attachment and a patented martingale loop designed to gently redirect pulling. Quick-snap shoulder and belly straps make fitting easier. Medium size: measure your dog's chest/girth before ordering; PetSafe's chart lists a 22–32 in (about 56–81 cm) girth and an approximate 25–50 lb (about 11–23 kg) weight range.",
     "description_it": "Pettorina leggera e traspirante anti-tiro, con attacco del guinzaglio sul petto e anello martingala brevettato, progettato per reindirizzare delicatamente il cane quando tira. Le fibbie a sgancio rapido sulle cinghie della spalla e del ventre facilitano la vestibilità. Taglia M: misura il torace del cane prima dell'acquisto; la tabella PetSafe indica una circonferenza di circa 56–81 cm e un peso indicativo di 11–23 kg.",
-    "image": "https://crittercountry.ca/cdn/shop/products/EasyWalkHarnessBlack.jpg?v=1629232534&width=1445"
+    "image": "https://crittercountry.ca/cdn/shop/products/EasyWalkHarnessBlack.jpg?v=1629232534&width=1445",
+    "active": false
   },
   {
     "id": "songmics-set-4-kitchen-organizers",
@@ -43,7 +44,8 @@
     "image": "https://m.media-amazon.com/images/I/71BLfazllXL._SL500_.jpg",
     "url": "https://www.amazon.it/dp/B0CLDC9N3J?tag=akiniit26-21",
     "description": "A flexible set of four countertop shelves for organizing spices, tins and kitchen essentials. The units can be stacked, nested, arranged side by side or used separately; each shelf is reported to support up to 15 kg.",
-    "description_it": "Set flessibile di quattro ripiani da appoggio per organizzare spezie, lattine e accessori da cucina. Gli elementi possono essere impilati, inseriti uno nell'altro, affiancati o utilizzati separatamente; ogni ripiano è indicato per sostenere fino a 15 kg."
+    "description_it": "Set flessibile di quattro ripiani da appoggio per organizzare spezie, lattine e accessori da cucina. Gli elementi possono essere impilati, inseriti uno nell'altro, affiancati o utilizzati separatamente; ogni ripiano è indicato per sostenere fino a 15 kg.",
+    "active": false
   },
   {
     "id": "amazon-basics-lazy-susan-2-tier-305cm",
@@ -71,16 +73,16 @@
   },
   {
     "id": "cosori-cp158-af-air-fryer-57l",
-    "name": "COSORI CP158-AF Air Fryer 5.7 L",
-    "name_it": "COSORI CP158-AF Friggitrice ad Aria 5,7 L",
+    "name": "COSORI CP158-AF Air Fryer 5.5 L",
+    "name_it": "COSORI CP158-AF Friggitrice ad Aria 5,5 L",
     "category": "Home",
     "brand": "COSORI",
     "asin": "B07N8N6C85",
     "image": "https://m.media-amazon.com/images/I/81xafenO7aL._AC_SL500_.jpg",
     "url": "https://www.amazon.it/dp/B07N8N6C85?tag=akiniit26-21",
     "trend_label": "Trending",
-    "description": "A popular 5.7-litre single-basket air fryer with 1700 W power, touchscreen controls and multiple cooking presets. A practical option for everyday meals for roughly 2–4 people; check counter space and basket capacity before buying. Selected as a trending Home pick based on recent Italian Amazon bestseller and product-review coverage.",
-    "description_it": "Friggitrice ad aria molto apprezzata con cestello singolo da 5,7 litri, potenza di 1700 W, comandi touch e diversi programmi di cottura. Una soluzione pratica per i pasti quotidiani di circa 2–4 persone; controlla lo spazio sul piano di lavoro e la capacità del cestello prima dell'acquisto. Selezionata come prodotto Home di tendenza sulla base di recenti classifiche Amazon italiane e recensioni."
+    "description": "A 5.5-litre single-basket air fryer with 1700 W power, touchscreen controls and cooking presets. A practical option for everyday meals; check counter space and basket capacity before buying.",
+    "description_it": "Friggitrice ad aria con cestello singolo da 5,5 litri, potenza di 1700 W, comandi touch e programmi di cottura. Una soluzione pratica per i pasti quotidiani; controlla lo spazio sul piano di lavoro e la capacità del cestello prima dell'acquisto."
   },
   {
     "id": "ninja-max-dual-zone-dz400-95l",
@@ -130,11 +132,8 @@
     "asin": "B09P8CX1X7",
     "image": "https://cdn.shopify.com/s/files/1/0491/8227/7795/products/A1641011-Anker_633_Magnetic_Battery_5.png?v=1749202642",
     "url": "https://www.amazon.it/dp/B09P8CX1X7?tag=akiniit26-21",
-    "trend_label": "Black Friday Deal",
     "description": "A 10,000mAh magnetic wireless power bank with a built-in foldable stand for hands-free phone viewing. It supports up to 7.5W wireless charging and wired charging through USB-C and USB-A. Check device and magnetic-case compatibility before buying; wireless charging performance depends on the phone and case.",
-    "description_it": "Power bank magnetico wireless da 10.000 mAh con supporto pieghevole integrato per utilizzare il telefono a mani libere. Supporta la ricarica wireless fino a 7,5 W e la ricarica cablata tramite USB-C e USB-A. Verifica la compatibilità con il dispositivo e con la custodia magnetica prima dell'acquisto; le prestazioni wireless dipendono dal telefono e dalla custodia.",
-    "black_friday": true,
-    "black_friday_until": "2026-11-30"
+    "description_it": "Power bank magnetico wireless da 10.000 mAh con supporto pieghevole integrato per utilizzare il telefono a mani libere. Supporta la ricarica wireless fino a 7,5 W e la ricarica cablata tramite USB-C e USB-A. Verifica la compatibilità con il dispositivo e con la custodia magnetica prima dell'acquisto; le prestazioni wireless dipendono dal telefono e dalla custodia."
   },
   {
     "id": "yankee-candle-midsummers-night-large-jar",
@@ -147,7 +146,8 @@
     "url": "https://www.amazon.it/dp/B00389H738?tag=akiniit26-21",
     "trend_label": "Trending",
     "description": "A large glass-jar scented candle with a fresh, woody fragrance blending musk, patchouli, sage and mahogany. The manufacturer lists a burn time of up to 150 hours. Always follow the candle safety instructions and never leave a burning candle unattended.",
-    "description_it": "Candela profumata in grande giara di vetro, con una fragranza fresca e legnosa che combina muschio, patchouli, salvia e mogano. Il produttore indica una durata di combustione fino a 150 ore. Segui sempre le istruzioni di sicurezza e non lasciare mai una candela accesa incustodita."
+    "description_it": "Candela profumata in grande giara di vetro, con una fragranza fresca e legnosa che combina muschio, patchouli, salvia e mogano. Il produttore indica una durata di combustione fino a 150 ore. Segui sempre le istruzioni di sicurezza e non lasciare mai una candela accesa incustodita.",
+    "active": false
   },
   {
     "id": "yankee-candle-snow-globe-wonderland-large-jar",
@@ -158,9 +158,6 @@
     "asin": "B0BDYT9JKV",
     "image": "https://images-eu.ssl-images-amazon.com/images/I/41brY6M-dIL._AC_SX1080_.jpg",
     "url": "https://www.amazon.it/dp/B0BDYT9JKV?tag=akiniit26-21",
-    "trend_label": "Black Friday Deal",
-    "black_friday": true,
-    "black_friday_until": "2026-11-30",
     "description": "A 623 g large-jar scented candle from the Snow Globe Wonderland collection, with winter-inspired notes of peppermint, eucalyptus and cedarwood. The listed burn time is up to 150 hours. Always follow the candle safety instructions and never leave a burning candle unattended.",
     "description_it": "Candela profumata da 623 g in giara grande della collezione Snow Globe Wonderland, con note invernali di menta piperita, eucalipto e legno di cedro. La durata di combustione indicata arriva fino a 150 ore. Segui sempre le istruzioni di sicurezza e non lasciare mai una candela accesa incustodita."
   }
