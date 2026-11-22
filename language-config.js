@@ -27,6 +27,8 @@
     { code: 'en', name: 'English', locale: 'en', path: '/', enabled: true },
     { code: 'it', name: 'Italiano', locale: 'it-IT', path: 'index-it.html', enabled: true }
   ];
+  // Keep every language in alphabetical order by its displayed native name.
+  languages.sort((a, b) => a.name.localeCompare(b.name, 'en', { sensitivity: 'base' }));
   window.AKINI_LANGUAGES = Object.freeze(languages.map(item => Object.freeze(item)));
 
   // Correct shared interface copy that was left untranslated or copied from another locale.
