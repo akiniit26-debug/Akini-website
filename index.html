@@ -366,7 +366,7 @@ updateProducts();
     clearTimeout(catalogueTimeout);
   }
   try {
-    grid.innerHTML = ''; // Replace server-rendered fallback only after JavaScript is ready.
+    const catalogueFragment = document.createDocumentFragment();
     products.forEach(product => {
       if (!product || product.active === false || !product.id || !product.name || !product.image || !product.url) return;
       const category = isItalian ? (product.category === 'Pets' ? 'Animali' : product.category === 'Home' ? 'Casa' : 'Lifestyle') : product.category;
@@ -425,9 +425,10 @@ updateProducts();
       actions.append(add, visit, save);
       info.append(heading, ratingLine, price, priceNote, detail, actions);
       card.append(imageBox, info);
-      grid.append(card);
+      catalogueFragment.append(card);
       cards.push(card);
     });
+    if (catalogueFragment.childElementCount) grid.replaceChildren(catalogueFragment);
     updateWishlistButtons();
     updateProducts();
   } catch (error) {
