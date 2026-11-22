@@ -324,7 +324,7 @@ updateProducts();
     const products = await response.json();
     if (!Array.isArray(products)) return;
     products.forEach(product => {
-      if (!product || !product.id || !product.name || !product.image || !product.url) return;
+      if (!product || product.active === false || !product.id || !product.name || !product.image || !product.url) return;
       const category = isItalian ? (product.category === 'Pets' ? 'Animali' : product.category === 'Home' ? 'Casa' : 'Lifestyle') : product.category;
       const name = (isItalian && product.name_it) ? product.name_it : product.name;
       const description = (isItalian && product.description_it) ? product.description_it : product.description;
