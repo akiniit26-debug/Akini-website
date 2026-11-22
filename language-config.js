@@ -289,4 +289,38 @@
     const selected = languages.find(item => item.code === event.target.value);
     if (selected) window.location.assign(selected.code === 'en' ? '/' : '/' + selected.path);
   });
+
+  // Searchable language picker: visitors can type a language name instead of scrolling.
+  const picker = document.createElement('div');
+  picker.className = 'akini-language-picker';
+  picker.innerHTML = '<button type="button" class="akini-language-trigger" aria-expanded="false" aria-controls="akini-language-panel"></button><div class="akini-language-panel" id="akini-language-panel" hidden><input type="search" class="akini-language-search" placeholder="Search languages..." aria-label="Search languages"><div class="akini-language-options" role="listbox"></div></div>';
+  selector.insertAdjacentElement('afterend', picker);
+  selector.hidden = true;
+  const trigger = picker.querySelector('.akini-language-trigger');
+  const panel = picker.querySelector('.akini-language-panel');
+  const search = picker.querySelector('.akini-language-search');
+  const options = picker.querySelector('.akini-language-options');
+  const activeLanguage = languages.find(item => item.code === current) || languages[0];
+  trigger.textContent = activeLanguage.name + ' ▾';
+  const style = document.createElement('style');
+  style.textContent = '.akini-language-picker{position:relative;display:inline-block;vertical-align:middle}.akini-language-trigger{border:0;background:transparent;color:#fff;font:inherit;font-weight:700;cursor:pointer;padding:8px 5px}.akini-language-panel{position:absolute;right:0;top:100%;z-index:1000;width:230px;padding:9px;background:#fff;border:1px solid #d9dee8;border-radius:10px;box-shadow:0 8px 24px #0003;color:#172033}.akini-language-panel[hidden]{display:none}.akini-language-search{box-sizing:border-box;width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:7px;font:inherit;color:#172033;background:#fff}.akini-language-options{max-height:260px;overflow-y:auto;margin-top:6px}.akini-language-option{display:block;width:100%;text-align:left;padding:8px 10px;border:0;border-radius:6px;background:#fff;color:#172033;font:inherit;cursor:pointer}.akini-language-option:hover,.akini-language-option:focus{background:#eef2f7}.akini-language-empty{padding:9px;color:#64748b;font-size:13px}';
+  document.head.appendChild(style);
+  function renderLanguageOptions(query='') {
+    options.replaceChildren();
+    const matches = languages.filter(item => item.name.toLocaleLowerCase().includes(query.trim().toLocaleLowerCase()) || item.code.toLowerCase().includes(query.trim().toLowerCase()));
+    if (!matches.length) { const empty = document.createElement('div'); empty.className='akini-language-empty'; empty.textContent='No languages found'; options.append(empty); return; }
+    matches.forEach(item => {
+      const option = document.createElement('button');
+      option.type='button'; option.className='akini-language-option'; option.setAttribute('role','option');
+      option.textContent=item.name; option.addEventListener('click', () => { selector.value=item.code; selector.dispatchEvent(new Event('change')); });
+      options.append(option);
+    });
+  }
+  renderLanguageOptions();
+  trigger.addEventListener('click', () => {
+    const open = panel.hidden; panel.hidden = !open; trigger.setAttribute('aria-expanded', String(open));
+    if (open) { search.value=''; renderLanguageOptions(); search.focus(); }
+  });
+  search.addEventListener('input', () => renderLanguageOptions(search.value));
+  document.addEventListener('click', event => { if (!picker.contains(event.target)) { panel.hidden=true; trigger.setAttribute('aria-expanded','false'); } });
 })();
