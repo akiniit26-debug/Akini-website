@@ -1,6 +1,5 @@
 import json
 import os
-import re
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -20,11 +19,6 @@ name = required("PRODUCT_NAME")
 category = required("PRODUCT_CATEGORY")
 if category not in {"Pets", "Home", "Lifestyle"}:
     raise SystemExit("Invalid category")
-price_raw = required("PRODUCT_PRICE").replace("€", "").replace(",", ".").strip()
-match = re.search(r"\d+(?:\.\d{1,2})?", price_raw)
-if not match:
-    raise SystemExit("Price must contain a number, e.g. 19.99")
-price = float(match.group())
 image_url = https_url(required("PRODUCT_IMAGE"), "Image URL")
 retailer_url = https_url(required("PRODUCT_URL"), "Retailer URL")
 slug = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")[:60]
@@ -44,8 +38,6 @@ product = {
     "name": name,
     "name_it": os.environ.get("PRODUCT_NAME_IT", "").strip(),
     "category": category,
-    "price": price,
-    "currency": "EUR",
     "image": image_url,
     "url": retailer_url,
     "description": os.environ.get("PRODUCT_DESCRIPTION", "").strip(),
