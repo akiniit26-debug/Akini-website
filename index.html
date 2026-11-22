@@ -356,7 +356,7 @@ updateProducts();
       if (Number(product.rating) > 0) {
         ratingLine.textContent = '★ ' + Number(product.rating).toFixed(1) + ' / 5 ';
         const reviewText = document.createElement('small');
-        reviewText.textContent = '(' + (Number(product.review_count) > 0 ? Number(product.review_count).toLocaleString('en-IE') : 'reviews') + ' reviews)';
+        reviewText.textContent = '(' + (Number(product.review_count) > 0 ? Number(product.review_count).toLocaleString('en-IE') + ' reviews' : 'reviews') + ')';
         ratingLine.append(reviewText);
       }
       const detail = document.createElement('p'); detail.textContent = description || '';
