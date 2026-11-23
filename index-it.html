@@ -216,7 +216,16 @@ cards.forEach(card => {
     setTimeout(() => button.textContent = '+ Aggiungi al carrello', 1000);
   });
   card.querySelector('.product-actions').prepend(button);
-  const saveButton = card.querySelector('.save');
+  let saveButton = card.querySelector('.save');
+  if (!saveButton) {
+    saveButton = document.createElement('button');
+    saveButton.type = 'button';
+    saveButton.className = 'save';
+    saveButton.textContent = '♡';
+    saveButton.setAttribute('aria-pressed', 'false');
+    saveButton.setAttribute('aria-label', 'Save ' + name + ' to wishlist');
+    card.querySelector('.product-actions').append(saveButton);
+  }
   saveButton.addEventListener('click', () => {
     const id = card.dataset.productId || name;
     if (wishlist.includes(id) || wishlist.includes(name)) wishlist = wishlist.filter(item => item !== id && item !== name);
