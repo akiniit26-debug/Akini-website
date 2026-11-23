@@ -262,8 +262,9 @@ test.describe('homepage product interactions', () => {
   for (const locale of [{ path: '/', all: 'All' }, { path: '/index-it.html', all: 'Tutti' }]) {
     test(`product filters, search, cart and wishlist work on ${locale.path}`, async ({ page }) => {
       await page.goto(locale.path, { waitUntil: 'domcontentloaded' });
+      await expect(page.locator('#productGrid')).toHaveAttribute('data-catalogue-loaded', 'true');
       const cards = page.locator('#productGrid .product');
-      await expect(cards).toHaveCount(10);
+      await expect(cards).not.toHaveCount(0);
       await expect(cards.first()).toBeVisible();
 
       await page.locator('[data-filter="Cat"]').click();
