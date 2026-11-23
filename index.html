@@ -456,6 +456,7 @@ updateProducts();
       const card = document.createElement('article');
       card.className = 'product';
       card.dataset.category = category;
+      if (product.subcategory) card.dataset.subcategory = String(product.subcategory);
       card.dataset.productId = String(product.id);
       card.dataset.blackFriday = String(product.black_friday === true);
       card.dataset.name = (name + ' ' + (description || '')).toLowerCase();

@@ -292,6 +292,9 @@ test.describe('homepage product interactions', () => {
   }
   test('Black Friday controls are hidden until verified offers exist', async ({ page }) => {
     await page.goto('/', { waitUntil: 'domcontentloaded' });
-    await expect(page.locator('[data-filter="BlackFriday"]')).toBeHidden();
+    const blackFridayControls = page.locator('[data-filter="BlackFriday"]');
+    await expect(blackFridayControls).toHaveCount(2);
+    await expect(blackFridayControls.nth(0)).toBeHidden();
+    await expect(blackFridayControls.nth(1)).toBeHidden();
   });
 });
