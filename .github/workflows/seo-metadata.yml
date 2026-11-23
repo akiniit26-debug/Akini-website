@@ -1,0 +1,16 @@
+name: AKINI SEO metadata checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  seo-metadata:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate page titles, descriptions, canonical URLs and sitemap
+        run: python3 .github/scripts/check_seo_metadata.py
