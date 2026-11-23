@@ -282,7 +282,7 @@ test.describe('homepage product interactions', () => {
       await expect(page.locator('#cartDialog')).toBeVisible();
       await expect(page.locator('#cartItems')).toContainText('FURminator');
 
-      await page.locator('#cartDialog button').click();
+      await page.locator('#cartDialog button[onclick="closeCart()"]:visible').click();
       await page.locator('#productGrid .product').first().locator('.save').click();
       await page.locator('.header-actions button').first().click();
       await expect(page.locator('#wishlistDialog')).toBeVisible();
