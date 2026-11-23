@@ -256,3 +256,41 @@ for (const path of pages) {
     await page.screenshot({ path: `test-results/screenshots/${path.replace(/[^a-z0-9]/gi, '_') || 'home'}.png`, fullPage: true });
   });
 }
+
+
+test.describe('homepage product interactions', () => {
+  for (const locale of [{ path: '/', all: 'All' }, { path: '/index-it.html', all: 'Tutti' }]) {
+    test(`product filters, search, cart and wishlist work on ${locale.path}`, async ({ page }) => {
+      await page.goto(locale.path, { waitUntil: 'domcontentloaded' });
+      const cards = page.locator('#productGrid .product');
+      await expect(cards).toHaveCount(10);
+      await expect(cards.first()).toBeVisible();
+
+      await page.locator('[data-filter="Cat"]').click();
+      await expect(page.locator('#productGrid .product:visible')).toHaveCount(2);
+      await expect(page.locator('#productGrid .product:visible h3')).toContainText(['Catit', 'PETKIT']);
+
+      await page.locator(`[data-filter="${locale.all}"]`).click();
+      await page.locator('#searchInput').fill('catit');
+      await expect(page.locator('#productGrid .product:visible')).toHaveCount(1);
+      await expect(page.locator('#productGrid .product:visible h3')).toContainText('Catit');
+
+      await page.locator('#searchInput').fill('');
+      await page.locator('#productGrid .product').first().locator('.add-cart').click();
+      await page.locator('.header-actions button').nth(1).click();
+      await expect(page.locator('#cartDialog')).toBeVisible();
+      await expect(page.locator('#cartItems')).toContainText('FURminator');
+
+      await page.locator('#cartDialog button').click();
+      await page.locator('#productGrid .product').first().locator('.save').click();
+      await page.locator('.header-actions button').first().click();
+      await expect(page.locator('#wishlistDialog')).toBeVisible();
+      await expect(page.locator('#wishlistItems')).toContainText('FURminator');
+      await expect(page.locator('#wishlistItems img')).toHaveCount(1);
+    });
+  }
+  test('Black Friday controls are hidden until verified offers exist', async ({ page }) => {
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('[data-filter="BlackFriday"]')).toBeHidden();
+  });
+});
