@@ -86,58 +86,7 @@
 </style>
 </head>
 <body>
-<div id="akini-cookie-banner" role="dialog" aria-modal="false" aria-labelledby="akini-cookie-title" hidden>
-<strong id="akini-cookie-title">Le tue scelte sulla privacy</strong>
-<p>AKINI utilizza Google Analytics per comprendere le visite al sito. Analytics è facoltativo e si attiva solo se acconsenti. Puoi rifiutarlo o modificare la scelta in seguito. <a href="cookie-policy-it.html">Informativa sui cookie</a> · <a href="privacy-policy-it.html">Informativa sulla privacy</a>.</p>
-<div class="akini-cookie-actions"><button id="akini-cookie-accept" type="button">Accetta Analytics</button><button id="akini-cookie-reject" type="button">Rifiuta gli opzionali</button><button id="akini-cookie-manage" type="button">Chiudi</button></div></div>
-<button id="akini-cookie-settings" type="button">Impostazioni cookie</button>
-<script>
-(function(){
-  var measurementId='G-BM804ST8G6';
-  var storageKey='akiniAnalyticsConsent';
-  var banner=document.getElementById('akini-cookie-banner');
-  var settings=document.getElementById('akini-cookie-settings');
-  var accept=document.getElementById('akini-cookie-accept');
-  var reject=document.getElementById('akini-cookie-reject');
-  var manage=document.getElementById('akini-cookie-manage');
-  if(!banner||!settings||!accept||!reject||!manage)return;
-  function getChoice(){try{return localStorage.getItem(storageKey)}catch(e){return null}}
-  function show(){banner.hidden=false;settings.hidden=true}
-  function hide(){banner.hidden=true;settings.hidden=false}
-  function loadAnalytics(){
-    if(window.__akiniAnalyticsLoaded)return;
-    window.__akiniAnalyticsLoaded=true;
-    window.dataLayer=window.dataLayer||[];
-    window.gtag=function(){window.dataLayer.push(arguments)};
-    window.gtag('js',new Date());
-    window.gtag('config',measurementId,{allow_google_signals:false,allow_ad_personalization_signals:false});
-    var tag=document.createElement('script');
-    tag.async=true;
-    tag.src='https://www.googletagmanager.com/gtag/js?id='+measurementId;
-    document.head.appendChild(tag);
-  }
-  function saveChoice(choice){
-    try{localStorage.setItem(storageKey,choice)}catch(e){}
-    if(choice==='accepted')loadAnalytics();
-    if(choice==='rejected'&&window.__akiniAnalyticsLoaded){
-      if(window.gtag)window.gtag('consent','update',{analytics_storage:'denied'});
-      document.cookie.split(';').forEach(function(item){
-        var name=item.split('=')[0].trim();
-        if(name.indexOf('_ga')===0)document.cookie=name+'=; Max-Age=0; path=/; SameSite=Lax';
-      });
-    }
-    hide();
-  }
-  accept.addEventListener('click',function(){saveChoice('accepted')});
-  reject.addEventListener('click',function(){saveChoice('rejected')});
-  manage.addEventListener('click',hide);
-  settings.addEventListener('click',show);
-  var choice=getChoice();
-  if(choice==='accepted')loadAnalytics();
-  else if(choice==='rejected')hide();
-  else show();
-})();
-</script>
+<script src="/analytics-consent.js" defer></script>
 
 <a class="skip-link" href="#mainContent">Vai al contenuto</a>
 <div class="topbar"><div class="top-left"><span>🚚 Si applicano le condizioni di spedizione del rivenditore</span><span>🛡 Pagamento sul sito del rivenditore</span><span>🎧 Contatta AKINI</span></div><div>🇮🇹 Italia　<select id="lang" aria-label="Scegli la lingua del sito"><option value="en">English</option><option value="it" selected>Italiano</option></select></div></div>
