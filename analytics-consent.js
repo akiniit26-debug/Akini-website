@@ -23,7 +23,7 @@
   }
   function writeChoice(v){
     try{localStorage.setItem(storageKey,v)}catch(e){}
-    try{document.cookie=storageKey+'='+encodeURIComponent(v)+'; Max-Age=15552000; Path=/; SameSite=Lax; Secure'}catch(e){}
+    try{document.cookie=storageKey+'='+encodeURIComponent(v)+'; Max-Age=15552000; Path=/; Domain=.akini.eu; SameSite=Lax; Secure'}catch(e){}
   }
   function loadAnalytics(){
     if(window.__akiniAnalyticsLoaded)return;
@@ -65,6 +65,25 @@
   accept.addEventListener('click',function(){writeChoice('accepted');loadAnalytics();hide()});
   reject.addEventListener('click',function(){writeChoice('rejected');revokeAnalytics();hide()});
   close.addEventListener('click',hide);settings.addEventListener('click',show);
+  // Track outbound Amazon affiliate clicks only after analytics consent.
+  document.addEventListener('click',function(event){
+    var link=event.target.closest('a');
+    if(!link||!window.gtag)return;
+    try{
+      var url=new URL(link.href,window.location.href);
+      var host=url.hostname.toLowerCase();
+      if(host!=='link.amazon'&&!/(^|\\.)amazon\\./.test(host))return;
+      var card=link.closest('.product');
+      var heading=card&&card.querySelector('h3');
+      window.gtag('event','affiliate_click',{
+        product_id:card?card.dataset.productId||'':'',
+        product_name:heading?heading.textContent.trim():link.textContent.trim(),
+        product_category:card?card.dataset.category||'':'',
+        link_position:link.classList.contains('price-check')?'price_check':(link.classList.contains('visit')?'shop_button':'other'),
+        destination_host:host
+      });
+    }catch(error){console.warn('AKINI affiliate click tracking failed.',error);}
+  });
   var choice=readChoice();
   if(choice==='accepted'){loadAnalytics();hide()}else if(choice==='rejected'){hide()}else{show()}
 })();
