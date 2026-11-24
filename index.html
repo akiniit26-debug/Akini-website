@@ -111,7 +111,7 @@
   var reject=document.getElementById('akini-cookie-reject');
   var manage=document.getElementById('akini-cookie-manage');
   if(!banner||!settings||!accept||!reject||!manage)return;
-  function getChoice(){try{return localStorage.getItem(storageKey)}catch(e){return null}}
+  function getChoice(){try{var saved=localStorage.getItem(storageKey);if(saved==='accepted'||saved==='rejected')return saved}catch(e){}var match=document.cookie.match(new RegExp('(?:^|; )'+storageKey+'=([^;]*)'));var value=match?decodeURIComponent(match[1]):null;return value==='accepted'||value==='rejected'?value:null}
   function show(){banner.hidden=false;settings.hidden=true}
   function hide(){banner.hidden=true;settings.hidden=false}
   function loadAnalytics(){
@@ -127,7 +127,7 @@
     document.head.appendChild(tag);
   }
   function saveChoice(choice){
-    try{localStorage.setItem(storageKey,choice)}catch(e){}
+    try{localStorage.setItem(storageKey,choice)}catch(e){};try{document.cookie=storageKey+'='+encodeURIComponent(choice)+'; Max-Age=15552000; Path=/; SameSite=Lax; Secure'}catch(e){}
     if(choice==='accepted')loadAnalytics();
     if(choice==='rejected'&&window.__akiniAnalyticsLoaded){
       if(window.gtag)window.gtag('consent','update',{analytics_storage:'denied'});
