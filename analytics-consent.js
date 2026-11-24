@@ -15,8 +15,16 @@
     accept: 'Accept analytics', reject: 'Reject optional', close: 'Close',
     settings: 'Cookie settings', cookie: 'Cookie Policy', privacy: 'Privacy Policy'
   };
-  function readChoice(){try{return localStorage.getItem(storageKey)}catch(e){return null}}
-  function writeChoice(v){try{localStorage.setItem(storageKey,v)}catch(e){}}
+  function readChoice(){
+    try{var saved=localStorage.getItem(storageKey);if(saved==='accepted'||saved==='rejected')return saved}catch(e){}
+    var match=document.cookie.match(new RegExp('(?:^|; )'+storageKey+'=([^;]*)'));
+    var value=match?decodeURIComponent(match[1]):null;
+    return value==='accepted'||value==='rejected'?value:null;
+  }
+  function writeChoice(v){
+    try{localStorage.setItem(storageKey,v)}catch(e){}
+    try{document.cookie=storageKey+'='+encodeURIComponent(v)+'; Max-Age=15552000; Path=/; SameSite=Lax; Secure'}catch(e){}
+  }
   function loadAnalytics(){
     if(window.__akiniAnalyticsLoaded)return;
     window.__akiniAnalyticsLoaded=true;
