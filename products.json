@@ -33,7 +33,7 @@
     "description": "A lightweight, breathable no-pull dog harness with a front-chest leash attachment and a patented martingale loop designed to gently redirect pulling. Quick-snap shoulder and belly straps make fitting easier. Medium size: measure your dog's chest/girth before ordering; PetSafe's chart lists a 22–32 in (about 56–81 cm) girth and an approximate 25–50 lb (about 11–23 kg) weight range.",
     "description_it": "Pettorina leggera e traspirante anti-tiro, con attacco del guinzaglio sul petto e anello martingala brevettato, progettato per reindirizzare delicatamente il cane quando tira. Le fibbie a sgancio rapido sulle cinghie della spalla e del ventre facilitano la vestibilità. Taglia M: misura il torace del cane prima dell'acquisto; la tabella PetSafe indica una circonferenza di circa 56–81 cm e un peso indicativo di 11–23 kg.",
     "image": "https://crittercountry.ca/cdn/shop/products/EasyWalkHarnessBlack.jpg?v=1629232534&width=1445",
-    "active": false
+    "active": true
   },
   {
     "id": "songmics-set-4-kitchen-organizers",
@@ -46,7 +46,7 @@
     "url": "https://www.amazon.it/dp/B0CLDC9N3J?tag=akiniit26-21",
     "description": "A flexible set of four countertop shelves for organizing spices, tins and kitchen essentials. The units can be stacked, nested, arranged side by side or used separately; each shelf is reported to support up to 15 kg.",
     "description_it": "Set flessibile di quattro ripiani da appoggio per organizzare spezie, lattine e accessori da cucina. Gli elementi possono essere impilati, inseriti uno nell'altro, affiancati o utilizzati separatamente; ogni ripiano è indicato per sostenere fino a 15 kg.",
-    "active": false
+    "active": true
   },
   {
     "id": "amazon-basics-lazy-susan-2-tier-305cm",
@@ -149,7 +149,7 @@
     "trend_label": "Trending",
     "description": "A large glass-jar scented candle with a fresh, woody fragrance blending musk, patchouli, sage and mahogany. The manufacturer lists a burn time of up to 150 hours. Always follow the candle safety instructions and never leave a burning candle unattended.",
     "description_it": "Candela profumata in grande giara di vetro, con una fragranza fresca e legnosa che combina muschio, patchouli, salvia e mogano. Il produttore indica una durata di combustione fino a 150 ore. Segui sempre le istruzioni di sicurezza e non lasciare mai una candela accesa incustodita.",
-    "active": false
+    "active": true
   },
   {
     "id": "yankee-candle-snow-globe-wonderland-large-jar",
