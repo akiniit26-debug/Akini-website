@@ -6,6 +6,7 @@ const pages = [
   '/index-mt.html','/index-pl.html','/index-pt.html','/index-ro.html','/index-sk.html',
   '/index-sl.html','/index-es.html','/index-sv.html',
   '/guides.html','/guides-it.html',
+  '/air-fryer-comparison-guide.html','/air-fryer-comparison-guide-it.html',
   '/dog-harness-fit-guide.html','/dog-harness-fit-guide-it.html',
   '/cat-litter-box-guide.html','/cat-litter-box-guide-it.html',
   '/pet-carrier-travel-guide.html','/pet-carrier-travel-guide-it.html',
