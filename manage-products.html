@@ -1,17 +1,72 @@
 <!doctype html>
-<html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow"><title>AKINI Product Manager</title>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#062b52">
+<title>AKINI Admin — Product Manager</title>
 <style>
-body{font-family:Arial,sans-serif;margin:0;background:#f4f6f9;color:#09264a;line-height:1.6}.wrap{max-width:760px;margin:32px auto;padding:18px}.card{background:#fff;border-radius:18px;padding:24px;box-shadow:0 6px 24px #09264a12}h1{margin-top:0;color:#062b52}.btn{display:inline-block;background:#a44700;color:white;padding:13px 20px;border-radius:10px;text-decoration:none;font-weight:bold;margin:10px 0}.step{padding:12px 0;border-bottom:1px solid #e5eaf0}.muted{color:#526174;font-size:14px}.warn{background:#fff7e8;padding:14px;border-radius:10px;margin-top:16px}
-</style></head><body><main class="wrap"><section class="card">
-<h1>AKINI – Product Manager</h1>
-<p>এই পেজ থেকে Coding ছাড়াই নতুন Product যোগ করতে পারবে। এটি বিনামূল্যের GitHub Actions ব্যবহার করে; আলাদা Hosting বা মাসিক পেমেন্ট লাগবে না।</p>
-<a class="btn" href="https://github.com/akiniit26-debug/Akini-website/actions/workflows/add-product.yml" target="_blank" rel="noopener">নতুন Product যোগ করো →</a>
-<div class="step"><strong>১.</strong> উপরের বাটনে চাপ দাও এবং নিজের GitHub account-এ Login করো।</div>
-<div class="step"><strong>২.</strong> “Run workflow” চাপ দাও।</div>
-<div class="step"><strong>৩.</strong> Product name, category, image URL এবং Amazon affiliate URL পূরণ করো। Italian নাম ও বিবরণ ঐচ্ছিক।</div>
-<div class="step"><strong>৪.</strong> English ও Italian বিবরণ চাইলে দাও, তারপর “Run workflow” চাপ দাও। কাজ সফল হলে ওয়েবসাইটে Product স্বয়ংক্রিয়ভাবে যোগ হবে। GitHub Pages deploy হতে কয়েক মিনিট লাগতে পারে।</div>
-<div class="warn"><strong>ছবি ও লিংক:</strong> ছবির জন্য সরাসরি খোলা যায় এমন HTTPS image URL দিতে হবে। Retailer-এর আসল Product page URL দেবে। স্থায়ীভাবে Amazon-এর দাম বা রেটিং লিখবে না; বর্তমান দাম দেখতে Amazon লিংক ব্যবহার করবে। শুধু নিজের অনুমোদিত ও সঠিক Tracking ID-সহ affiliate link ব্যবহার করবে।</div>
-<p class="muted">এই Product Manager শুধু AKINI repository-তে যাদের write access আছে, তাদের GitHub login-এর মাধ্যমে কাজ করবে। GitHub account-এর password কাউকে দেবে না।</p>
-<p><a href="/">← AKINI ওয়েবসাইটে ফিরে যাও</a></p>
-</section></main></body></html>
+:root{--navy:#062b52;--orange:#ff7900;--ink:#09264a;--muted:#64748b;--line:#e5eaf0;--bg:#f3f6fa}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px Arial,Helvetica,sans-serif}
+header{background:var(--navy);color:white;padding:18px max(18px,calc((100% - 1120px)/2));display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-size:24px;font-weight:900;letter-spacing:1px}.brand span{color:#ff9a35}.back{color:white;text-decoration:none;font-weight:700}
+main{max-width:1120px;margin:24px auto;padding:0 16px}.intro,.panel{background:white;border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:16px;box-shadow:0 4px 16px #09264a0b}
+h1{margin:0 0 8px;font-size:27px}h2{font-size:19px;margin:0 0 14px}.muted{color:var(--muted);line-height:1.5}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}.btn{display:inline-block;background:var(--orange);color:white;text-decoration:none;border:0;border-radius:10px;padding:12px 16px;font-weight:800;cursor:pointer}.btn.secondary{background:var(--navy)}.btn.danger{background:#a52b32}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}.stat{background:#f5f7fa;border-radius:12px;padding:12px}.stat strong{display:block;font-size:23px}.stat span{font-size:12px;color:var(--muted)}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.toolbar input,.toolbar select{min-width:0;flex:1;padding:12px;border:1px solid var(--line);border-radius:9px;font:inherit;background:white}
+.list{display:grid;gap:10px}.item{display:grid;grid-template-columns:76px minmax(0,1fr) auto;gap:13px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px}.item img{width:76px;height:76px;object-fit:cover;border-radius:9px;background:#f1f3f5}.item h3{font-size:15px;margin:0 0 5px}.meta{font-size:12px;color:var(--muted);overflow-wrap:anywhere}.item-actions{display:flex;flex-direction:column;gap:7px}.item-actions a{font-size:12px;padding:8px 10px;text-align:center}
+.notice{background:#fff6e8;border-left:4px solid var(--orange);padding:13px;border-radius:8px;margin-top:14px;font-size:13px;line-height:1.5}
+.error{color:#a52b32;padding:12px}.loading{padding:18px;color:var(--muted)}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
+@media(max-width:620px){header{padding:15px}.stats{grid-template-columns:repeat(3,1fr)}.stat strong{font-size:19px}.item{grid-template-columns:58px minmax(0,1fr)}.item img{width:58px;height:58px}.item-actions{grid-column:1/-1;flex-direction:row}.item-actions a{flex:1}.intro,.panel{padding:15px}h1{font-size:23px}}
+</style>
+</head>
+<body>
+<header><div class="brand">A<span>KINI</span> <small style="font-size:13px;font-weight:600;letter-spacing:0">ADMIN</small></div><a class="back" href="/">← View website</a></header>
+<main>
+<section class="intro">
+<h1>Product Manager</h1>
+<p class="muted">Manage the AKINI product catalogue from this page. You can review existing products here; product changes are securely committed through GitHub Actions after you sign in to your authorised GitHub account.</p>
+<div class="actions">
+<a class="btn" href="https://github.com/akiniit26-debug/Akini-website/actions/workflows/add-product.yml" target="_blank" rel="noopener">＋ Add / Edit Product</a>
+<a class="btn secondary" href="https://github.com/akiniit26-debug/Akini-website/actions/workflows/delete-product.yml" target="_blank" rel="noopener">Delete Product</a>
+</div>
+<div class="stats">
+<div class="stat"><strong id="total">—</strong><span>Total products</span></div>
+<div class="stat"><strong id="pets">—</strong><span>Pets</span></div>
+<div class="stat"><strong id="homeLife">—</strong><span>Home + Lifestyle</span></div>
+</div>
+<div class="notice"><strong>Security:</strong> This page never asks for your GitHub password or token. To add, edit or delete, GitHub will ask you to sign in and checks repository write permission. Never paste access tokens into this page or a spreadsheet.</div>
+</section>
+<section class="panel">
+<h2>Product catalogue</h2>
+<div class="toolbar"><input id="search" type="search" placeholder="Search product name or ASIN…"><select id="category"><option value="">All categories</option><option>Pets</option><option>Home</option><option>Lifestyle</option></select></div>
+<div id="list" class="list"><div class="loading">Loading AKINI products…</div></div>
+<p class="muted" style="font-size:12px;margin-top:14px">To edit an existing product, open Add / Edit Product and enter the same English product name so its existing product ID is updated. For deletion, copy the exact Product ID shown below and enter it in the Delete Product workflow.</p>
+</section>
+</main>
+<footer>AKINI Admin · Product data is read from the public catalogue. Changes require authorised GitHub access.</footer>
+<script>
+let products=[];
+const list=document.getElementById('list');
+const search=document.getElementById('search');
+const category=document.getElementById('category');
+function safe(value){return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function render(){
+ const q=search.value.trim().toLowerCase(),cat=category.value;
+ const filtered=products.filter(p=>(!cat||p.category===cat)&&[p.name,p.name_it,p.asin,p.id].some(v=>String(v||'').toLowerCase().includes(q)));
+ if(!filtered.length){list.innerHTML='<div class="loading">No matching products.</div>';return;}
+ list.innerHTML=filtered.map(p=>'<article class="item"><img src="'+safe(p.image)+'" alt="" loading="lazy" onerror="this.style.visibility=\'hidden\'"><div><h3>'+safe(p.name||'Unnamed product')+'</h3><div class="meta">'+safe(p.category||'Uncategorised')+' · ASIN: '+safe(p.asin||'Not set')+'</div><div class="meta">ID: '+safe(p.id||'—')+'</div><div class="meta">'+safe(p.name_it||'Italian name not set')+'</div></div><div class="item-actions"><a class="btn secondary" href="https://github.com/akiniit26-debug/Akini-website/actions/workflows/add-product.yml" target="_blank" rel="noopener">Edit</a><a class="btn danger" href="https://github.com/akiniit26-debug/Akini-website/actions/workflows/delete-product.yml" target="_blank" rel="noopener">Delete</a></div></article>').join('');
+}
+fetch('/products.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Catalogue could not be loaded');return r.json()}).then(data=>{
+ if(!Array.isArray(data))throw Error('Catalogue format is invalid');
+ products=data;
+ document.getElementById('total').textContent=products.length;
+ document.getElementById('pets').textContent=products.filter(p=>p.category==='Pets').length;
+ document.getElementById('homeLife').textContent=products.filter(p=>p.category==='Home'||p.category==='Lifestyle').length;
+ render();
+}).catch(e=>{list.innerHTML='<div class="error">Could not load products.json. Please refresh the page.</div>';});
+search.addEventListener('input',render);category.addEventListener('change',render);
+</script>
+</body></html>
