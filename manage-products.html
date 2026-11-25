@@ -1,72 +1,50 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
-<meta name="theme-color" content="#062b52">
-<title>AKINI Admin — Product Manager</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#062b52"><title>AKINI Admin · Product Manager</title>
 <style>
-:root{--navy:#062b52;--orange:#ff7900;--ink:#09264a;--muted:#64748b;--line:#e5eaf0;--bg:#f3f6fa}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px Arial,Helvetica,sans-serif}
-header{background:var(--navy);color:white;padding:18px max(18px,calc((100% - 1120px)/2));display:flex;align-items:center;justify-content:space-between;gap:12px}
-.brand{font-size:24px;font-weight:900;letter-spacing:1px}.brand span{color:#ff9a35}.back{color:white;text-decoration:none;font-weight:700}
-main{max-width:1120px;margin:24px auto;padding:0 16px}.intro,.panel{background:white;border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:16px;box-shadow:0 4px 16px #09264a0b}
-h1{margin:0 0 8px;font-size:27px}h2{font-size:19px;margin:0 0 14px}.muted{color:var(--muted);line-height:1.5}
-.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}.btn{display:inline-block;background:var(--orange);color:white;text-decoration:none;border:0;border-radius:10px;padding:12px 16px;font-weight:800;cursor:pointer}.btn.secondary{background:var(--navy)}.btn.danger{background:#a52b32}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}.stat{background:#f5f7fa;border-radius:12px;padding:12px}.stat strong{display:block;font-size:23px}.stat span{font-size:12px;color:var(--muted)}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.toolbar input,.toolbar select{min-width:0;flex:1;padding:12px;border:1px solid var(--line);border-radius:9px;font:inherit;background:white}
-.list{display:grid;gap:10px}.item{display:grid;grid-template-columns:76px minmax(0,1fr) auto;gap:13px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px}.item img{width:76px;height:76px;object-fit:cover;border-radius:9px;background:#f1f3f5}.item h3{font-size:15px;margin:0 0 5px}.meta{font-size:12px;color:var(--muted);overflow-wrap:anywhere}.item-actions{display:flex;flex-direction:column;gap:7px}.item-actions a{font-size:12px;padding:8px 10px;text-align:center}
-.notice{background:#fff6e8;border-left:4px solid var(--orange);padding:13px;border-radius:8px;margin-top:14px;font-size:13px;line-height:1.5}
-.error{color:#a52b32;padding:12px}.loading{padding:18px;color:var(--muted)}
-footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
-@media(max-width:620px){header{padding:15px}.stats{grid-template-columns:repeat(3,1fr)}.stat strong{font-size:19px}.item{grid-template-columns:58px minmax(0,1fr)}.item img{width:58px;height:58px}.item-actions{grid-column:1/-1;flex-direction:row}.item-actions a{flex:1}.intro,.panel{padding:15px}h1{font-size:23px}}
-</style>
-</head>
-<body>
-<header><div class="brand">A<span>KINI</span> <small style="font-size:13px;font-weight:600;letter-spacing:0">ADMIN</small></div><a class="back" href="/">← View website</a></header>
+:root{--navy:#062b52;--orange:#ff7900;--ink:#09264a;--muted:#64748b;--line:#e5eaf0;--bg:#f3f6fa}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px Arial,sans-serif}header{background:var(--navy);color:#fff;padding:17px max(16px,calc((100% - 1100px)/2));display:flex;justify-content:space-between;align-items:center}.logo{font-size:23px;font-weight:900}.logo span{color:#ff9a35}main{max-width:1100px;margin:22px auto;padding:0 14px}.panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:15px}h1{font-size:25px;margin:0 0 7px}h2{font-size:18px;margin:0 0 13px}.muted{color:var(--muted);line-height:1.5}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.field{display:flex;flex-direction:column;gap:5px}.field.full{grid-column:1/-1}label{font-weight:700;font-size:13px}input,select,textarea{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:8px;font:inherit;background:#fff}textarea{min-height:75px;resize:vertical}.btn{border:0;border-radius:9px;padding:11px 15px;background:var(--orange);color:white;font-weight:800;cursor:pointer}.btn.dark{background:var(--navy)}.btn.gray{background:#e8edf3;color:var(--ink)}.btn.red{background:#a52b32}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.hidden{display:none!important}.status{padding:10px;border-radius:8px;background:#eef4f9;margin:10px 0;white-space:pre-wrap}.status.bad{background:#fff0f0;color:#9b1c1c}.status.good{background:#ecfdf3;color:#166534}.toolbar{display:flex;gap:9px;margin-bottom:12px}.toolbar input{flex:1}.list{display:grid;gap:9px}.item{display:grid;grid-template-columns:65px minmax(0,1fr) auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:9px}.item img{width:65px;height:65px;object-fit:cover;border-radius:7px}.item h3{margin:0 0 5px;font-size:14px}.meta{font-size:12px;color:var(--muted);overflow-wrap:anywhere}.item .actions{margin:0}.item .btn{padding:8px 10px;font-size:12px}.notice{font-size:13px;background:#fff7e8;border-left:4px solid var(--orange);padding:11px;line-height:1.5;margin-top:12px}@media(max-width:620px){main{margin:12px auto}.panel{padding:13px}.grid{grid-template-columns:1fr}.field.full{grid-column:auto}.item{grid-template-columns:52px minmax(0,1fr)}.item img{width:52px;height:52px}.item .actions{grid-column:1/-1}.toolbar{flex-direction:column}header{padding:14px}}
+</style></head><body>
+<header><div class="logo">A<span>KINI</span> ADMIN</div><a href="/" style="color:white;font-weight:700">View website</a></header>
 <main>
-<section class="intro">
-<h1>Product Manager</h1>
-<p class="muted">Manage the AKINI product catalogue from this page. You can review existing products here; product changes are securely committed through GitHub Actions after you sign in to your authorised GitHub account.</p>
-<div class="actions">
-<a class="btn" href="https://github.com/akiniit26-debug/Akini-website/actions/workflows/add-product.yml" target="_blank" rel="noopener">＋ Add / Edit Product</a>
-<a class="btn secondary" href="https://github.com/akiniit26-debug/Akini-website/actions/workflows/delete-product.yml" target="_blank" rel="noopener">Delete Product</a>
-</div>
-<div class="stats">
-<div class="stat"><strong id="total">—</strong><span>Total products</span></div>
-<div class="stat"><strong id="pets">—</strong><span>Pets</span></div>
-<div class="stat"><strong id="homeLife">—</strong><span>Home + Lifestyle</span></div>
-</div>
-<div class="notice"><strong>Security:</strong> This page never asks for your GitHub password or token. To add, edit or delete, GitHub will ask you to sign in and checks repository write permission. Never paste access tokens into this page or a spreadsheet.</div>
+<section class="panel"><h1>Product Manager</h1><p class="muted">Manage the AKINI catalogue. Product data is stored in Supabase; only the authorised AKINI admin account can make changes.</p>
+<div id="setupNotice" class="notice hidden"></div>
+<div id="authBox"><h2>Admin login</h2><div class="grid"><div class="field"><label for="email">Email</label><input id="email" type="email" autocomplete="username" value="mansurahmed833@gmail.com"></div><div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password"></div></div><div class="actions"><button class="btn" id="loginBtn">Sign in</button></div></div>
+<div id="sessionBox" class="hidden"><div id="who" class="muted"></div><div class="actions"><button class="btn gray" id="importBtn">Import existing products.json</button><button class="btn gray" id="refreshBtn">Refresh</button><button class="btn dark" id="logoutBtn">Sign out</button></div></div>
+<div id="status" class="status">Checking configuration…</div>
 </section>
-<section class="panel">
-<h2>Product catalogue</h2>
-<div class="toolbar"><input id="search" type="search" placeholder="Search product name or ASIN…"><select id="category"><option value="">All categories</option><option>Pets</option><option>Home</option><option>Lifestyle</option></select></div>
-<div id="list" class="list"><div class="loading">Loading AKINI products…</div></div>
-<p class="muted" style="font-size:12px;margin-top:14px">To edit an existing product, open Add / Edit Product and enter the same English product name so its existing product ID is updated. For deletion, copy the exact Product ID shown below and enter it in the Delete Product workflow.</p>
-</section>
-</main>
-<footer>AKINI Admin · Product data is read from the public catalogue. Changes require authorised GitHub access.</footer>
+<section id="manager" class="hidden">
+<section class="panel"><h2 id="formTitle">Add product</h2><form id="productForm"><input id="pid" type="hidden"><div class="grid">
+<div class="field full"><label>Product name (English) *</label><input id="name" required maxlength="200"></div>
+<div class="field full"><label>Product name (Italian)</label><input id="name_it" maxlength="200"></div>
+<div class="field"><label>Category *</label><select id="category" required><option>Pets</option><option>Home</option><option>Lifestyle</option></select></div>
+<div class="field"><label>ASIN</label><input id="asin" maxlength="10"></div>
+<div class="field"><label>Brand</label><input id="brand"></div><div class="field"><label>Subcategory</label><input id="subcategory"></div>
+<div class="field full"><label>Image URL (HTTPS) *</label><input id="image" type="url" required></div>
+<div class="field full"><label>Retailer / Amazon affiliate URL (HTTPS) *</label><input id="url" type="url" required></div>
+<div class="field full"><label>Description (English)</label><textarea id="description"></textarea></div>
+<div class="field full"><label>Description (Italian)</label><textarea id="description_it"></textarea></div>
+<div class="field"><label><input id="active" type="checkbox" checked style="width:auto"> Active / visible</label></div>
+</div><div class="actions"><button class="btn" type="submit">Save product</button><button class="btn gray" type="button" id="clearBtn">Clear form</button></div></form></section>
+<section class="panel"><h2>Product catalogue <span id="count" class="muted"></span></h2><div class="toolbar"><input id="search" placeholder="Search name or ASIN"><select id="filter"><option value="">All categories</option><option>Pets</option><option>Home</option><option>Lifestyle</option></select></div><div id="list" class="list"></div></section>
+</section></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="/supabase-config.js"></script>
 <script>
-let products=[];
-const list=document.getElementById('list');
-const search=document.getElementById('search');
-const category=document.getElementById('category');
-function safe(value){return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function render(){
- const q=search.value.trim().toLowerCase(),cat=category.value;
- const filtered=products.filter(p=>(!cat||p.category===cat)&&[p.name,p.name_it,p.asin,p.id].some(v=>String(v||'').toLowerCase().includes(q)));
- if(!filtered.length){list.innerHTML='<div class="loading">No matching products.</div>';return;}
- list.innerHTML=filtered.map(p=>'<article class="item"><img src="'+safe(p.image)+'" alt="" loading="lazy" onerror="this.style.visibility=\'hidden\'"><div><h3>'+safe(p.name||'Unnamed product')+'</h3><div class="meta">'+safe(p.category||'Uncategorised')+' · ASIN: '+safe(p.asin||'Not set')+'</div><div class="meta">ID: '+safe(p.id||'—')+'</div><div class="meta">'+safe(p.name_it||'Italian name not set')+'</div></div><div class="item-actions"><a class="btn secondary" href="https://github.com/akiniit26-debug/Akini-website/actions/workflows/add-product.yml" target="_blank" rel="noopener">Edit</a><a class="btn danger" href="https://github.com/akiniit26-debug/Akini-website/actions/workflows/delete-product.yml" target="_blank" rel="noopener">Delete</a></div></article>').join('');
-}
-fetch('/products.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Catalogue could not be loaded');return r.json()}).then(data=>{
- if(!Array.isArray(data))throw Error('Catalogue format is invalid');
- products=data;
- document.getElementById('total').textContent=products.length;
- document.getElementById('pets').textContent=products.filter(p=>p.category==='Pets').length;
- document.getElementById('homeLife').textContent=products.filter(p=>p.category==='Home'||p.category==='Lifestyle').length;
- render();
-}).catch(e=>{list.innerHTML='<div class="error">Could not load products.json. Please refresh the page.</div>';});
-search.addEventListener('input',render);category.addEventListener('change',render);
-</script>
-</body></html>
+(()=>{const $=id=>document.getElementById(id);let client=null,products=[];
+function msg(t,type=''){const e=$('status');e.textContent=t;e.className='status '+type}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function slug(s){return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,70)}
+function mapRow(p){const known=['id','name','name_it','category','image','url','asin','brand','subcategory','description','description_it','active','created_at','updated_at'];const extra={...(p.extra||{})};Object.keys(p).forEach(k=>{if(!known.includes(k))extra[k]=p[k]});return {id:p.id||slug(p.name),name:p.name,name_it:p.name_it||null,category:p.category,image:p.image,url:p.url,asin:p.asin||null,brand:p.brand||null,subcategory:p.subcategory||null,description:p.description||null,description_it:p.description_it||null,active:p.active!==false,extra}}
+function reset(){ $('productForm').reset();$('pid').value='';$('active').checked=true;$('formTitle').textContent='Add product'}
+function fill(p){$('pid').value=p.id;$('name').value=p.name||'';$('name_it').value=p.name_it||'';$('category').value=p.category||'Pets';$('asin').value=p.asin||'';$('brand').value=p.brand||'';$('subcategory').value=p.subcategory||'';$('image').value=p.image||'';$('url').value=p.url||'';$('description').value=p.description||'';$('description_it').value=p.description_it||'';$('active').checked=p.active!==false;$('formTitle').textContent='Edit product';window.scrollTo({top:0,behavior:'smooth'})}
+function render(){const q=$('search').value.toLowerCase(),cat=$('filter').value;const rows=products.filter(p=>(!cat||p.category===cat)&&[p.name,p.name_it,p.asin,p.id].some(v=>String(v||'').toLowerCase().includes(q)));$('count').textContent='('+products.length+')';$('list').innerHTML=rows.length?rows.map(p=>'<article class="item"><img src="'+esc(p.image)+'" alt="" loading="lazy" onerror="this.style.visibility=\'hidden\'"><div><h3>'+esc(p.name)+'</h3><div class="meta">'+esc(p.category)+' · ASIN '+esc(p.asin||'—')+' · '+(p.active===false?'Hidden':'Active')+'</div><div class="meta">'+esc(p.id)+'</div></div><div class="actions"><button class="btn dark" data-edit="'+esc(p.id)+'">Edit</button><button class="btn red" data-delete="'+esc(p.id)+'">Delete</button></div></article>').join(''):'<p class="muted">No products found.</p>'}
+async function load(){const {data,error}=await client.from('products').select('*').order('category').order('name');if(error)throw error;products=(data||[]).map(p=>({...p,...(p.extra||{})}));render()}
+async function authChanged(session){const ok=!!session;$('authBox').classList.toggle('hidden',ok);$('sessionBox').classList.toggle('hidden',!ok);$('manager').classList.toggle('hidden',!ok);if(ok){$('who').textContent='Signed in: '+session.user.email;await load();msg('Connected. '+products.length+' products loaded.','good')}else{msg('Please sign in with the authorised AKINI admin account.')}}
+async function start(){const c=window.AKINI_SUPABASE;if(!c||!c.url||!c.publishableKey||c.publishableKey.includes('PASTE_')){$('setupNotice').classList.remove('hidden');$('setupNotice').textContent='Setup required: add the Supabase publishable (or legacy anon) key to supabase-config.js. Never use a secret/service_role key.';msg('Waiting for Supabase public key.');return}if(!window.supabase){msg('Supabase library could not load. Check internet connection.','bad');return}client=window.supabase.createClient(c.url,c.publishableKey);const {data:{session}}=await client.auth.getSession();await authChanged(session);client.auth.onAuthStateChange((_event,s)=>{setTimeout(()=>authChanged(s).catch(e=>msg(e.message,'bad')),0)})}
+$('loginBtn').onclick=async()=>{if(!$('email').value||!$('password').value)return msg('Enter email and password.','bad');const {error}=await client.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error)msg(error.message,'bad')};
+$('logoutBtn').onclick=async()=>{const {error}=await client.auth.signOut();if(error)msg(error.message,'bad')};
+$('productForm').onsubmit=async e=>{e.preventDefault();const name=$('name').value.trim(),id=$('pid').value||slug(name),image=$('image').value.trim(),url=$('url').value.trim();if(!id)return msg('Product name is required.','bad');if(!image.startsWith('https://')||!url.startsWith('https://'))return msg('Image and retailer links must use HTTPS.','bad');const row=mapRow({id,name,name_it:$('name_it').value.trim(),category:$('category').value,asin:$('asin').value.trim().toUpperCase(),brand:$('brand').value.trim(),subcategory:$('subcategory').value.trim(),image,url,description:$('description').value.trim(),description_it:$('description_it').value.trim(),active:$('active').checked});const {error}=await client.from('products').upsert(row);if(error)return msg(error.message,'bad');reset();await load();msg('Product saved successfully.','good')};
+$('list').onclick=async e=>{const edit=e.target.closest('[data-edit]'),del=e.target.closest('[data-delete]');if(edit){const p=products.find(x=>x.id===edit.dataset.edit);if(p)fill(p)}if(del){const p=products.find(x=>x.id===del.dataset.delete);if(!p||!confirm('Delete '+p.name+' permanently?'))return;const {error}=await client.from('products').delete().eq('id',p.id);if(error)return msg(error.message,'bad');await load();msg('Product deleted.','good')}};
+$('clearBtn').onclick=reset;$('refreshBtn').onclick=()=>load().then(()=>msg('Catalogue refreshed.','good')).catch(e=>msg(e.message,'bad'));$('search').oninput=render;$('filter').onchange=render;
+$('importBtn').onclick=async()=>{if(!confirm('Import products.json into Supabase? Existing matching IDs will be updated; unrelated database products remain.'))return;try{msg('Importing existing catalogue…');const r=await fetch('/products.json',{cache:'no-store'});if(!r.ok)throw Error('Could not read /products.json');const list=await r.json();for(let i=0;i<list.length;i+=50){const rows=list.slice(i,i+50).map(mapRow);const {error}=await client.from('products').upsert(rows);if(error)throw error}await load();msg('Imported '+list.length+' existing products.','good')}catch(e){msg(e.message,'bad')}};
+start().catch(e=>msg(e.message,'bad'));
+})();
+</script></body></html>
