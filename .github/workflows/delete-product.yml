@@ -1,0 +1,43 @@
+name: Delete AKINI product
+on:
+  workflow_dispatch:
+    inputs:
+      product_id:
+        description: Exact Product ID to delete from products.json
+        required: true
+        type: string
+permissions:
+  contents: write
+jobs:
+  delete-product:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out website
+        uses: actions/checkout@v4
+      - name: Delete selected product
+        env:
+          PRODUCT_ID: ${{ inputs.product_id }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          product_id = os.environ["PRODUCT_ID"].strip()
+          if not product_id or len(product_id) > 100:
+              raise SystemExit("Invalid product ID")
+          path = Path("products.json")
+          products = json.loads(path.read_text(encoding="utf-8"))
+          if not isinstance(products, list):
+              raise SystemExit("products.json must be a JSON list")
+          remaining = [p for p in products if not (isinstance(p, dict) and p.get("id") == product_id)]
+          if len(remaining) == len(products):
+              raise SystemExit("Product ID not found; nothing was deleted")
+          path.write_text(json.dumps(remaining, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+          print(f"Deleted product: {product_id}")
+          PY
+      - name: Commit catalogue update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add products.json
+          git commit -m "Delete AKINI product"
+          git push
