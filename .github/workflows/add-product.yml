@@ -26,6 +26,10 @@ on:
         description: Retailer product page URL (HTTPS)
         required: true
         type: string
+      asin:
+        description: Amazon ASIN (optional)
+        required: false
+        type: string
       description:
         description: Short description (English)
         required: false
@@ -49,6 +53,7 @@ jobs:
           PRODUCT_CATEGORY: ${{ inputs.category }}
           PRODUCT_IMAGE: ${{ inputs.image_url }}
           PRODUCT_URL: ${{ inputs.retailer_url }}
+          PRODUCT_ASIN: ${{ inputs.asin }}
           PRODUCT_DESCRIPTION: ${{ inputs.description }}
           PRODUCT_DESCRIPTION_IT: ${{ inputs.description_it }}
         run: python3 .github/scripts/add_product.py
