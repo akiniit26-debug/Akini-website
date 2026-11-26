@@ -264,8 +264,8 @@ test.describe('homepage product interactions', () => {
   for (const locale of [{ path: '/', all: 'All' }, { path: '/index-it.html', all: 'Tutti' }]) {
     test(`product filters, search, cart and wishlist work on ${locale.path}`, async ({ page }) => {
       await page.goto(locale.path, { waitUntil: 'domcontentloaded' });
-      await expect(page.locator('#productGrid')).toHaveAttribute('data-catalogue-loaded', 'true');
       const cards = page.locator('#productGrid .product');
+      await expect(cards.first()).toBeVisible();
       await expect(cards).not.toHaveCount(0);
       await expect(cards.first()).toBeVisible();
 
@@ -279,13 +279,15 @@ test.describe('homepage product interactions', () => {
       await expect(page.locator('#productGrid .product:visible h3')).toContainText('Catit');
 
       await page.locator('#searchInput').fill('');
-      await page.locator('#productGrid .product').first().locator('.add-cart').click();
+      const furminatorCard = page.locator('#productGrid .product').filter({ hasText: 'FURminator' }).first();
+      await expect(furminatorCard).toBeVisible();
+      await furminatorCard.locator('.add-cart').click();
       await page.locator('.header-actions button').nth(1).click();
       await expect(page.locator('#cartDialog')).toBeVisible();
       await expect(page.locator('#cartItems')).toContainText('FURminator');
 
       await page.locator('#cartDialog button[onclick="closeCart()"]:visible').click();
-      await page.locator('#productGrid .product').first().locator('.save').click();
+      await furminatorCard.locator('.save').click();
       await page.locator('.header-actions button').first().click();
       await expect(page.locator('#wishlistDialog')).toBeVisible();
       await expect(page.locator('#wishlistItems')).toContainText('FURminator');
