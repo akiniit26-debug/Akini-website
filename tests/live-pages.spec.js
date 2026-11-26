@@ -264,6 +264,11 @@ test.describe('homepage product interactions', () => {
   for (const locale of [{ path: '/', all: 'All' }, { path: '/index-it.html', all: 'Tutti' }]) {
     test(`product filters, search, cart and wishlist work on ${locale.path}`, async ({ page }) => {
       await page.goto(locale.path, { waitUntil: 'domcontentloaded' });
+      // The Italian page hydrates product cards asynchronously from Supabase; wait
+      // for that replacement before asserting filters to avoid testing stale fallback cards.
+      if (locale.path === '/index-it.html') {
+        await expect(page.locator('#productGrid')).toHaveAttribute('data-catalogue-loaded', 'true');
+      }
       const cards = page.locator('#productGrid .product');
       await expect(cards.first()).toBeVisible();
       await expect(cards).not.toHaveCount(0);
