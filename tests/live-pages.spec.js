@@ -267,7 +267,7 @@ test.describe('homepage product interactions', () => {
       // The Italian page hydrates product cards asynchronously from Supabase; wait
       // for that replacement before asserting filters to avoid testing stale fallback cards.
       if (locale.path === '/index-it.html') {
-        await expect(page.locator('#productGrid')).toHaveAttribute('data-catalogue-loaded', 'true');
+        await expect(page.locator('#productGrid')).toHaveAttribute('data-catalogue-loaded', 'true', { timeout: 20000 });
       }
       const cards = page.locator('#productGrid .product');
       await expect(cards.first()).toBeVisible();
