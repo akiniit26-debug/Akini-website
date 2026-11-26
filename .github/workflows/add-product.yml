@@ -30,6 +30,18 @@ on:
         description: Amazon ASIN (optional)
         required: false
         type: string
+      price:
+        description: Verified current price (optional, e.g. €16.14)
+        required: false
+        type: string
+      rating:
+        description: Verified rating from 0 to 5 (optional)
+        required: false
+        type: number
+      review_count:
+        description: Verified review count (optional)
+        required: false
+        type: number
       description:
         description: Short description (English)
         required: false
@@ -54,6 +66,9 @@ jobs:
           PRODUCT_IMAGE: ${{ inputs.image_url }}
           PRODUCT_URL: ${{ inputs.retailer_url }}
           PRODUCT_ASIN: ${{ inputs.asin }}
+          PRODUCT_PRICE: ${{ inputs.price }}
+          PRODUCT_RATING: ${{ inputs.rating }}
+          PRODUCT_REVIEW_COUNT: ${{ inputs.review_count }}
           PRODUCT_DESCRIPTION: ${{ inputs.description }}
           PRODUCT_DESCRIPTION_IT: ${{ inputs.description_it }}
         run: python3 .github/scripts/add_product.py
