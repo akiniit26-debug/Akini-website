@@ -6,7 +6,29 @@ from pathlib import Path
 PRODUCTS = Path("products.json")
 PAGES = {
     "index.html": "en",
+    "index-bg.html": "bg",
+    "index-cs.html": "cs",
+    "index-da.html": "da",
+    "index-de.html": "de",
+    "index-el.html": "el",
+    "index-es.html": "es",
+    "index-et.html": "et",
+    "index-fi.html": "fi",
+    "index-fr.html": "fr",
+    "index-ga.html": "ga",
+    "index-hr.html": "hr",
+    "index-hu.html": "hu",
     "index-it.html": "it",
+    "index-lt.html": "lt",
+    "index-lv.html": "lv",
+    "index-mt.html": "mt",
+    "index-nl.html": "nl",
+    "index-pl.html": "pl",
+    "index-pt.html": "pt",
+    "index-ro.html": "ro",
+    "index-sk.html": "sk",
+    "index-sl.html": "sl",
+    "index-sv.html": "sv",
 }
 
 def esc(value):
@@ -18,8 +40,8 @@ def category_for(category, lang):
     return category
 
 def render_card(p, lang, index):
-    name = p.get("name_it") or p.get("name") if lang == "it" else p.get("name")
-    description = p.get("description_it") or p.get("description", "") if lang == "it" else p.get("description", "")
+    name = p.get("name") if lang == "en" else (p.get("name_" + lang) or p.get("name_it") or p.get("name", "") if lang == "it" else p.get("name_" + lang) or p.get("name", ""))
+    description = p.get("description") if lang == "en" else (p.get("description_" + lang) or p.get("description_it") or p.get("description", "") if lang == "it" else p.get("description_" + lang) or p.get("description", ""))
     category = category_for(p.get("category", ""), lang)
     image = p.get("image", "")
     url = p.get("url", "")
