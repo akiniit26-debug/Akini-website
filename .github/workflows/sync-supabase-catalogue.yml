@@ -1,0 +1,34 @@
+name: AKINI Supabase catalogue sync
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/15 * * * *"
+permissions:
+  contents: write
+concurrency:
+  group: akini-supabase-catalogue-sync
+  cancel-in-progress: true
+jobs:
+  sync-catalogue:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out AKINI website
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Pull current products from Supabase
+        run: python3 .github/scripts/sync_supabase_catalogue.py
+      - name: Build all 24 language homepages
+        run: python3 .github/scripts/sync_products.py
+      - name: Validate SEO metadata and sitemap
+        run: python3 .github/scripts/check_seo_metadata.py
+      - name: Commit catalogue and generated pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add products.json index*.html
+          git diff --cached --quiet || git commit -m "Sync AKINI catalogue from Supabase"
+          git push
