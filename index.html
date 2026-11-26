@@ -409,15 +409,19 @@ updateProducts();
       const heading = document.createElement('h3'); heading.textContent = name;
       const price = document.createElement('a'); price.className = 'price-check'; price.href = product.url;
       price.target = '_blank'; price.rel = 'sponsored nofollow noopener';
-      price.textContent = product.price ? product.price + ' · Check current price on Amazon' : 'Check current price on Amazon';
+      const priceAction = isItalian ? 'Verifica il prezzo aggiornato su Amazon' : 'Check current price on Amazon';
+      price.textContent = product.price ? product.price + ' · ' + priceAction : priceAction;
       const priceNote = document.createElement('p'); priceNote.className = 'price-note';
-      priceNote.textContent = 'Price and availability may change. See Amazon for current details.';
+      priceNote.textContent = isItalian ? 'Prezzo e disponibilità possono cambiare. Consulta Amazon per i dettagli aggiornati.' : 'Price and availability may change. See Amazon for current details.';
       const ratingLine = document.createElement('p'); ratingLine.className = 'rating-line';
       if (Number(product.rating) > 0) {
         ratingLine.textContent = '★ ' + Number(product.rating).toFixed(1) + ' / 5 ';
         const reviewText = document.createElement('small');
-        reviewText.textContent = '(' + (Number(product.review_count) > 0 ? Number(product.review_count).toLocaleString('en-IE') + ' reviews' : 'reviews') + ')';
+        reviewText.textContent = '(' + (Number(product.review_count) > 0 ? Number(product.review_count).toLocaleString(isItalian ? 'it-IT' : 'en-IE') + ' reviews' : 'reviews') + ')';
         ratingLine.append(reviewText);
+      } else {
+        ratingLine.textContent = isItalian ? 'Valutazione non verificata' : 'Rating not verified';
+        ratingLine.style.color = '#64748b';
       }
       const detail = document.createElement('p'); detail.textContent = description || '';
       detail.style.cssText = 'font-size:12px;color:#64748b;min-height:0;margin:4px 0';
