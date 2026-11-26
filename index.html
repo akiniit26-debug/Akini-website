@@ -455,7 +455,7 @@ updateProducts();
     const sb = window.AKINI_SUPABASE;
     if (sb && sb.url && sb.publishableKey && !sb.publishableKey.includes('PASTE_')) {
       try {
-        const endpoint = sb.url.replace(/\\/$/, '') + '/rest/v1/products?select=*&active=eq.true&order=category.asc,name.asc';
+        const endpoint = sb.url.replace(/\/$/, '') + '/rest/v1/products?select=*&active=eq.true&order=category.asc,name.asc';
         const response = await fetch(endpoint, {headers:{apikey:sb.publishableKey,Authorization:'Bearer '+sb.publishableKey},cache:'no-store'});
         if (!response.ok) throw new Error('Supabase catalogue returned HTTP '+response.status);
         const rows = await response.json();
