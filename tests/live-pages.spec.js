@@ -17,6 +17,7 @@ const pages = [
   '/reusable-everyday-items-guide.html','/reusable-everyday-items-guide-it.html',
   '/home-office-setup-guide.html','/home-office-setup-guide-it.html',
   '/travel-organiser-guide.html','/travel-organiser-guide-it.html',
+  '/manage-products.html',
   '/about.html','/contact.html','/privacy-policy.html','/privacy-policy-it.html',
   '/terms.html','/terms-it.html','/cookie-policy.html','/cookie-policy-it.html',
   '/affiliate-disclosure.html','/affiliate-disclosure-it.html'
@@ -298,4 +299,12 @@ test.describe('homepage product interactions', () => {
     await expect(blackFridayControls.nth(0)).toBeHidden();
     await expect(blackFridayControls.nth(1)).toBeHidden();
   });
+});
+
+test('admin product form exposes price, rating and review count fields', async ({ page }) => {
+  await page.goto('/manage-products.html', { waitUntil: 'domcontentloaded' });
+  await expect(page.locator('#authBox')).toBeVisible();
+  await expect(page.locator('#price')).toHaveAttribute('maxlength', '30');
+  await expect(page.locator('#rating')).toHaveAttribute('max', '5');
+  await expect(page.locator('#review_count')).toHaveAttribute('type', 'number');
 });
