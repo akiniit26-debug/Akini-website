@@ -200,7 +200,7 @@
     "url": "https://link.amazon/B0a6uBheX",
     "description": "An officially licensed New York Yankees 9FORTY baseball cap in olive green, with a white embroidered NY logo, structured crown, curved visor and adjustable strapback closure. Made from 100% cotton. One size; adjust the rear strap for fit. Check the current Amazon price, colour and seller before ordering.",
     "description_it": "Cappellino 9FORTY ufficiale dei New York Yankees in verde oliva, con logo NY ricamato in bianco, corona strutturata, visiera curva e chiusura regolabile sul retro. Realizzato in 100% cotone. Taglia unica; regola il cinturino posteriore per adattarlo. Prima dell'acquisto, verifica su Amazon il prezzo, il colore e il venditore aggiornati.",
-    "active": true
+    "active": false
   },
   {
     "id": "supvan-e10-bluetooth-label-maker",
@@ -219,5 +219,23 @@
     "price": "€18.98",
     "description": "A compact Bluetooth thermal label maker for home, kitchen, school and office organization. Create custom labels from an iOS or Android phone using the companion app, with no ink or toner required. The box includes the E10 printer, one white continuous label tape, USB-C cable and setup guide. The E10 requires original SUPVAN-compatible label tapes; check tape availability and current Amazon price before ordering.",
     "description_it": "Etichettatrice termica Bluetooth compatta per organizzare casa, cucina, scuola e ufficio. Crea etichette personalizzate dallo smartphone iOS o Android tramite l'app dedicata, senza inchiostro né toner. La confezione include la stampante E10, un rotolo continuo di etichette bianche, cavo USB-C e guida rapida. Il modello E10 richiede nastri originali compatibili SUPVAN; verifica la disponibilità dei ricambi e il prezzo aggiornato su Amazon prima dell'acquisto."
+  },
+  {
+    "id": "trendplain-oil-spray-for-air-fryer-470ml-2-in-1",
+    "name": "TrendPlain Oil Spray for Air Fryer, 470ml, 2 in 1",
+    "name_it": "TrendPlain Spruzzatore Olio 2 in 1 per Friggitrice ad Aria, 470 ml",
+    "category": "Home",
+    "subcategory": "Kitchen Accessories",
+    "brand": "TrendPlain",
+    "asin": "B0DNJPXK3X",
+    "image": "https://m.media-amazon.com/images/I/71RR1u5CNAL._AC_SX679_AIweblab1392912,T1_.jpg",
+    "url": "https://www.amazon.it/dp/B0DNJPXK3X?tag=akiniit26-21",
+    "price": "€16.14",
+    "rating": 4.6,
+    "review_count": 35746,
+    "trend_label": "Trending",
+    "active": true,
+    "description": "A versatile 2-in-1 glass oil dispenser with a 470ml capacity. It works as both an oil sprayer and a pouring dispenser, making it useful for air fryers, salads, grilling and everyday cooking. Its dual dispensing design helps distribute oil more evenly and control the amount used.",
+    "description_it": "Un versatile dispenser per olio in vetro da 470 ml con doppia funzione: spray e versatore. Ideale per friggitrici ad aria, insalate, grigliate e cucina quotidiana. Il sistema a doppia erogazione aiuta a distribuire l'olio in modo uniforme e a controllarne la quantità."
   }
 ]
