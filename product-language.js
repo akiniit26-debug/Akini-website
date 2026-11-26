@@ -51,7 +51,6 @@
         card.dataset.productId=p.id;
         card.dataset.name=(name+' '+description).toLocaleLowerCase(document.documentElement.lang||'en');
         const imageBox=el('div','product-image');
-        const img=el('img);';
         const image=document.createElement('img'); image.loading='lazy'; image.src=p.image; image.alt=name;
         imageBox.append(image);
         const info=el('div','product-info');
