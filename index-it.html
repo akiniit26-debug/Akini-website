@@ -428,6 +428,9 @@ updateProducts();
         const reviewText = document.createElement('small');
         reviewText.textContent = '(' + (Number(product.review_count) > 0 ? Number(product.review_count).toLocaleString('it-IT') + ' recensioni' : 'recensioni') + ')';
         ratingLine.append(reviewText);
+      } else {
+        ratingLine.textContent = isItalian ? 'Valutazione non verificata' : 'Rating not verified';
+        ratingLine.style.color = '#64748b';
       }
       const detail = document.createElement('p'); detail.textContent = description || '';
       detail.style.cssText = 'font-size:12px;color:#64748b;min-height:0;margin:4px 0';
