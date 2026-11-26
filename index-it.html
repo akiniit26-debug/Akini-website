@@ -186,7 +186,7 @@ function updateProducts() {
   const q = searchInput.value.trim().toLowerCase();
   let count = 0;
   cards.forEach(card => {
-    const categoryMatch = active === 'BlackFriday' ? card.dataset.blackFriday === 'true' : (active === 'Tutti' || (active === 'Cat' ? card.dataset.subcategory === 'Cat' : card.dataset.category === active));
+    const categoryMatch = active === 'BlackFriday' ? card.dataset.blackFriday === 'true' : (active === 'Tutti' || (active === 'Cat' ? (card.dataset.subcategory || '').toLowerCase() === 'cat' : card.dataset.category === active));
     const show = categoryMatch && (card.dataset.name || '').toLowerCase().includes(q);
     card.hidden = !show;
     if (show) count++;
@@ -399,8 +399,13 @@ updateProducts();
       const description = (isItalian && product.description_it) ? product.description_it : product.description;
       const card = document.createElement('article');
       card.className = 'product';
-      card.dataset.category = String(product.category);
-      if (product.subcategory) card.dataset.subcategory = String(product.subcategory);
+      // Keep database taxonomy (Pets/Home/Lifestyle) aligned with the Italian filter labels.
+      const rawCategory = String(product.category || '');
+      card.dataset.category = isItalian
+        ? ({Pets:'Animali',Home:'Casa',Lifestyle:'Lifestyle'}[rawCategory] || rawCategory)
+        : rawCategory;
+      if (product.subcategory) card.dataset.subcategory = String(product.subcategory).trim().toLowerCase();
+      // The Cat filter uses the normalized subcategory value, not product-name guesses.
       card.dataset.productId = String(product.id);
       card.dataset.blackFriday = String(product.black_friday === true);
       card.dataset.name = (name + ' ' + (description || '')).toLowerCase();
