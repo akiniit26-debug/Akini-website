@@ -11,7 +11,7 @@ CONFIG = ROOT / "supabase-config.js"
 OUTPUT = ROOT / "products.json"
 
 def config_value(source, key):
-    match = re.search(r'\\b' + re.escape(key) + r'\\s*:\\s*["\\']([^"\\']+)["\\']', source)
+    match = re.search(r'\b' + re.escape(key) + r'\s*:\s*["\']([^"\']+)["\']', source)
     if not match:
         raise SystemExit(f"Missing {key} in supabase-config.js")
     return match.group(1)
@@ -46,5 +46,5 @@ for row in rows:
 if not products:
     raise SystemExit("No valid product records were returned; refusing to overwrite products.json")
 
-OUTPUT.write_text(json.dumps(products, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+OUTPUT.write_text(json.dumps(products, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 print(f"Pulled {len(products)} AKINI products from Supabase into products.json")
