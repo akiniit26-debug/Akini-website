@@ -27,6 +27,26 @@ slug = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")[:60]
 if not slug:
     raise SystemExit("Could not create a product ID from the name")
 
+price = os.environ.get("PRODUCT_PRICE", "").strip()
+rating_text = os.environ.get("PRODUCT_RATING", "").strip()
+review_count_text = os.environ.get("PRODUCT_REVIEW_COUNT", "").strip()
+rating = None
+review_count = None
+if rating_text:
+    try:
+        rating = float(rating_text)
+    except ValueError:
+        raise SystemExit("Rating must be a number from 0 to 5")
+    if not 0 <= rating <= 5:
+        raise SystemExit("Rating must be between 0 and 5")
+if review_count_text:
+    try:
+        review_count = int(review_count_text)
+    except ValueError:
+        raise SystemExit("Review count must be a whole number")
+    if review_count < 0:
+        raise SystemExit("Review count cannot be negative")
+
 asin = os.environ.get("PRODUCT_ASIN", "").strip().upper()
 if not asin:
     match = re.search(r"/(?:dp|gp/product)/([A-Z0-9]{10})", retailer_url, re.I)
@@ -59,6 +79,18 @@ product = {
 }
 if asin:
     product["asin"] = asin
+if price:
+    product["price"] = price
+elif existing.get("price"):
+    product["price"] = existing["price"]
+if rating is not None:
+    product["rating"] = rating
+elif existing.get("rating") is not None:
+    product["rating"] = existing["rating"]
+if review_count is not None:
+    product["review_count"] = review_count
+elif existing.get("review_count") is not None:
+    product["review_count"] = existing["review_count"]
 if existing_index is not None:
     products[existing_index] = product
 else:
