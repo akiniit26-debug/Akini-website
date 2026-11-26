@@ -29,6 +29,26 @@ def render_card(p, lang, index):
     searchable = (str(name) + " " + str(description)).lower()
     subcategory = p.get("subcategory", "")
     black_friday = "true" if p.get("black_friday") is True else "false"
+    price = str(p.get("price") or "").strip()
+    rating = p.get("rating")
+    review_count = p.get("review_count")
+    try:
+        rating = float(rating) if rating not in (None, "") else None
+    except (TypeError, ValueError):
+        rating = None
+    try:
+        review_count = int(review_count) if review_count not in (None, "") else None
+    except (TypeError, ValueError):
+        review_count = None
+    if rating is not None and not 0 <= rating <= 5:
+        rating = None
+    if review_count is not None and review_count < 0:
+        review_count = None
+    price_html = f'<div class="product-price">{esc(price)}</div>' if price else ""
+    reviews_label = "recensioni" if lang == "it" else "reviews"
+    rating_html = (f'<div class="rating-line">★ {rating:.1f}/5' +
+                   (f' <small>({review_count:,} {reviews_label})</small>' if review_count is not None else '') +
+                   '</div>') if rating is not None else ""
     price_note = ("Prezzo e disponibilità possono variare. Consulta il rivenditore per i dettagli aggiornati."
                   if lang == "it" else
                   "Price and availability may change. Check the retailer for current details.")
@@ -47,6 +67,7 @@ def render_card(p, lang, index):
         f'<article class="product" {" ".join(attrs)}>'
         f'<div class="product-image"><img src="{esc(image)}" alt="{esc(name)}" loading="{loading}" decoding="async"></div>'
         f'<div class="product-info"><h3>{esc(name)}</h3>'
+        f'{price_html}{rating_html}'
         f'<p class="price-note">{price_note}</p>'
         f'<p style="font-size:12px;color:#64748b;margin:4px 0">{esc(description)}</p>'
         f'<div class="product-actions"><a class="visit" href="{esc(url)}" target="_blank" rel="sponsored nofollow noopener">{shop} {target}</a></div>'
