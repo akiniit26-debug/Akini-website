@@ -33,6 +33,15 @@ except Exception as exc:
 if not isinstance(rows, list) or not rows:
     raise SystemExit("Supabase returned an empty or invalid catalogue; refusing to overwrite products.json")
 
+try:
+    previous_products = json.loads(OUTPUT.read_text(encoding="utf-8"))
+except (FileNotFoundError, json.JSONDecodeError):
+    previous_products = []
+previous_by_id = {
+    str(item.get("id")): item for item in previous_products
+    if isinstance(item, dict) and item.get("id")
+}
+
 products = []
 for row in rows:
     if not isinstance(row, dict):
@@ -41,6 +50,15 @@ for row in rows:
     extra = row.get("extra") or {}
     if isinstance(extra, dict):
         product.update(extra)
+    previous = previous_by_id.get(str(product.get("id")), {})
+    # Supabase stores the source catalogue; retain generated DeepL fields from
+    # the previous static catalogue when their English source has not changed.
+    for source_field in ("name", "description"):
+        if previous.get(source_field) == product.get(source_field):
+            prefix = source_field + "_"
+            for key, value in previous.items():
+                if key.startswith(prefix) and value and not product.get(key):
+                    product[key] = value
     products.append(product)
 
 if not products:
