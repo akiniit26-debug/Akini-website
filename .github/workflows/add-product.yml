@@ -72,12 +72,16 @@ jobs:
           PRODUCT_DESCRIPTION: ${{ inputs.description }}
           PRODUCT_DESCRIPTION_IT: ${{ inputs.description_it }}
         run: python3 .github/scripts/add_product.py
-      - name: Sync English and Italian homepages from catalogue
+      - name: Translate missing product fields with DeepL
+        env:
+          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
+        run: python3 .github/scripts/translate_products.py
+      - name: Build all 24 language homepages
         run: python3 .github/scripts/sync_products.py
       - name: Commit product catalogue and homepages
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add products.json index.html index-it.html
-          git diff --cached --quiet || git commit -m "Add or update AKINI product"
+          git add products.json index*.html
+          git diff --cached --quiet || git commit -m "Add product and translate AKINI catalogue"
           git push
