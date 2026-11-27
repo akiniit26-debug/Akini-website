@@ -80,8 +80,7 @@ def render_card(p, lang, index):
                    '</div>') if rating is not None else ""
     price_note = ui_text(lang, "Price and availability may change. Check the retailer for current details.",
                          "Price and availability may change. Check the retailer for current details.")
-    shop = ui_text(lang, "Shop", "Shop")
-    target = ui_text(lang, "the retailer", "the retailer")
+    shop = ui_text(lang, "Shop the retailer", "Shop the retailer")
     loading = "eager" if index == 0 else "lazy"
     attrs = [
         f'data-category="{esc(category)}"',
@@ -98,7 +97,7 @@ def render_card(p, lang, index):
         f'{price_html}{rating_html}'
         f'<p class="price-note">{price_note}</p>'
         f'<p style="font-size:12px;color:#64748b;margin:4px 0">{esc(description)}</p>'
-        f'<div class="product-actions"><a class="visit" href="{esc(url)}" target="_blank" rel="sponsored nofollow noopener">{shop} {target}</a></div>'
+        f'<div class="product-actions"><a class="visit" href="{esc(url)}" target="_blank" rel="sponsored nofollow noopener">{shop}</a></div>'
         f'</div></article>'
     )
 
