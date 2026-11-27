@@ -8,7 +8,6 @@ on:
       - '.github/scripts/sync_products.py'
       - '.github/scripts/translate_products.py'
       - '.github/scripts/localize_homepages.py'
-      - 'ui_translations.json'
       - 'supabase-config.js'
   workflow_dispatch:
   schedule:
@@ -47,6 +46,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add products.json index*.html
+          git add products.json index*.html ui_translations.json
           git diff --cached --quiet || git commit -m "Sync and translate AKINI catalogue"
           git push
