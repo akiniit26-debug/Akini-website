@@ -295,7 +295,6 @@
   picker.className = 'akini-language-picker';
   picker.innerHTML = '<button type="button" class="akini-language-trigger" aria-expanded="false" aria-controls="akini-language-panel"></button><div class="akini-language-panel" id="akini-language-panel" hidden><input type="search" class="akini-language-search" placeholder="Search languages..." aria-label="Search languages"><div class="akini-language-options" role="listbox"></div></div>';
   selector.insertAdjacentElement('afterend', picker);
-  selector.hidden = true;
   const trigger = picker.querySelector('.akini-language-trigger');
   const panel = picker.querySelector('.akini-language-panel');
   const search = picker.querySelector('.akini-language-search');
@@ -323,4 +322,8 @@
   });
   search.addEventListener('input', () => renderLanguageOptions(search.value));
   document.addEventListener('click', event => { if (!picker.contains(event.target)) { panel.hidden=true; trigger.setAttribute('aria-expanded','false'); } });
+  // Hide the native fallback only after the searchable picker is fully initialized.
+  // If any earlier step fails, the visitor still has a working language selector.
+  selector.hidden = false;
+  picker.hidden = false;
 })();
