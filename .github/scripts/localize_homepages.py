@@ -27,13 +27,25 @@ URLS.update({lang: f"https://akini.eu/index-{lang}.html" for lang in
 BATCH_SIZE = 40
 LABELS = [
     "Price and availability may change. Check the retailer for current details.",
-    "Shop", "the retailer", "reviews",
-    "Pets", "Home", "Lifestyle",
+    "Shop the retailer", "reviews",
 ]
+COUNTRIES = {
+    "bg": "🇧🇬 България", "cs": "🇨🇿 Česko", "da": "🇩🇰 Danmark",
+    "de": "🇩🇪 Deutschland", "el": "🇬🇷 Ελλάδα", "es": "🇪🇸 España",
+    "et": "🇪🇪 Eesti", "fi": "🇫🇮 Suomi", "fr": "🇫🇷 France",
+    "hr": "🇭🇷 Hrvatska", "hu": "🇭🇺 Magyarország", "it": "🇮🇹 Italia",
+    "lt": "🇱🇹 Lietuva", "lv": "🇱🇻 Latvija", "nl": "🇳🇱 Nederland",
+    "pl": "🇵🇱 Polska", "pt": "🇵🇹 Portugal", "ro": "🇷🇴 România",
+    "sk": "🇸🇰 Slovensko", "sl": "🇸🇮 Slovenija", "sv": "🇸🇪 Sverige",
+    "ga": "🇮🇪 Éire", "mt": "🇲🇹 Malta",
+}
+CATEGORY_CONTEXT = "These are short navigation and filter category labels for an affiliate product discovery website: Pets means pet products; Home means home and household products (decor, kitchen, living), not a website homepage; Lifestyle means fashion, wellness and everyday lifestyle products."
 
-def translate_batch(texts, target):
+def translate_batch(texts, target, context=None):
     endpoint = "https://api-free.deepl.com/v2/translate" if API_KEY.endswith(":fx") else "https://api.deepl.com/v2/translate"
     fields = [("source_lang", "EN"), ("target_lang", target), ("preserve_formatting", "1")]
+    if context:
+        fields.append(("context", context))
     fields.extend(("text", value) for value in texts)
     req = urllib.request.Request(endpoint, data=urllib.parse.urlencode(fields).encode(),
         headers={"Authorization": f"DeepL-Auth-Key {API_KEY}", "Content-Type": "application/x-www-form-urlencoded"},
@@ -57,12 +69,12 @@ def translate_batch(texts, target):
                 continue
             raise RuntimeError(f"DeepL connection failed: {exc}") from None
 
-def translate_all(values, target):
+def translate_all(values, target, context=None):
     unique = list(dict.fromkeys(v for v in values if v.strip()))
     result = {}
     for offset in range(0, len(unique), BATCH_SIZE):
         batch = unique[offset:offset+BATCH_SIZE]
-        result.update(zip(batch, translate_batch(batch, target)))
+        result.update(zip(batch, translate_batch(batch, target, context)))
     return result
 
 def strip_product_grid(source):
@@ -108,6 +120,7 @@ def translate_page(source, target):
             if m:
                 strings.append(html.unescape(m.group(1)))
     translated = translate_all(strings, target)
+    translated.update(translate_all(["Pets", "Home", "Lifestyle"], target, CATEGORY_CONTEXT))
 
     def text_node(m):
         raw = m.group(1)
@@ -152,6 +165,8 @@ def main():
                       rf'\g<1>{locale}\2', page, count=1, flags=re.I)
         Path(f"index-{lang}.html").write_text(page, encoding="utf-8")
         labels[lang] = translate_all(LABELS, target)
+        labels[lang].update(translate_all(["Pets", "Home", "Lifestyle"], target, CATEGORY_CONTEXT))
+        page = re.sub(r'(<div>)🇮🇹 [^<]*(<select id=["\']lang["\'])', lambda m: m.group(1) + COUNTRIES[lang] + "　" + m.group(2), page, count=1)
         print(f"Localized static homepage: {lang}")
     # Irish and Maltese are not DeepL targets in this API configuration; use a clean English fallback.
     for lang in ("ga", "mt"):
@@ -160,6 +175,7 @@ def main():
         page = re.sub(r'(<meta\s+property=["\']og:url["\']\s+content=["\'])https://akini\.eu/(["\'])', rf'\g<1>{URLS[lang]}\2', page, count=1, flags=re.I)
         Path(f"index-{lang}.html").write_text(page, encoding="utf-8")
         labels[lang] = {}
+        page = re.sub(r'(<div>)🇮🇹 [^<]*(<select id=["\']lang["\'])', lambda m: m.group(1) + COUNTRIES[lang] + "　" + m.group(2), page, count=1)
         print(f"English fallback homepage: {lang}")
     Path("ui_translations.json").write_text(json.dumps(labels, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"Localized {len(LANGUAGES)} languages; ga and mt use explicit English fallback.")
