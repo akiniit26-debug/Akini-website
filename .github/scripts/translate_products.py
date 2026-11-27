@@ -19,6 +19,9 @@ TARGET_LANGUAGES = {
 }
 BATCH_SIZE = 40
 
+class QuotaExceededError(RuntimeError):
+    pass
+
 def deepl_translate(texts, target_code):
     endpoint = (
         "https://api-free.deepl.com/v2/translate"
@@ -47,6 +50,8 @@ def deepl_translate(texts, target_code):
             return [item["text"] for item in results]
         except urllib.error.HTTPError as exc:
             detail = exc.read().decode("utf-8", errors="replace")[:500]
+            if exc.code == 456:
+                raise QuotaExceededError("DeepL monthly API character quota is exhausted.") from None
             if exc.code in (429, 500, 502, 503, 504) and attempt < 3:
                 time.sleep(min(2 ** attempt, 8))
                 continue
@@ -68,6 +73,7 @@ def main():
         raise SystemExit("products.json must be a JSON list.")
 
     translated = 0
+    quota_exhausted = False
     for lang, target_code in TARGET_LANGUAGES.items():
         pending = []
         # Store references to the product dictionaries and fields, then send
@@ -85,12 +91,19 @@ def main():
 
         for offset in range(0, len(pending), BATCH_SIZE):
             batch = pending[offset:offset + BATCH_SIZE]
-            results = deepl_translate([item[2] for item in batch], target_code)
+            try:
+                results = deepl_translate([item[2] for item in batch], target_code)
+            except QuotaExceededError as exc:
+                print(f"WARNING: {exc} New or changed product fields without translations will use the English fallback.")
+                quota_exhausted = True
+                break
             for (product, field, _), value in zip(batch, results):
                 product[field] = value.strip()
             translated += len(results)
-        if pending:
+        if pending and not quota_exhausted:
             print(f"Translated {len(pending)} fields into {lang}")
+        if quota_exhausted:
+            break
 
     PRODUCTS.write_text(
         json.dumps(products, ensure_ascii=False, indent=2) + "\n",
