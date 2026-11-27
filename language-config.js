@@ -277,8 +277,21 @@
     if (wishTitle) wishTitle.textContent = pc[15];
   }
 
-  const selector = document.getElementById('lang');
-  if (!selector) { document.documentElement.dataset.languageConfig = 'no-select'; return; }
+  let selector = document.getElementById('lang');
+  // Some localized HTML files may omit the native selector after translation/build edits.
+  // Recreate it from the canonical registry instead of leaving the whole language picker absent.
+  if (!selector) {
+    const host = document.querySelector('.topbar > div:last-child') || document.querySelector('.topbar');
+    if (!host) {
+      document.documentElement.dataset.languageConfig = 'no-language-host';
+      return;
+    }
+    selector = document.createElement('select');
+    selector.id = 'lang';
+    selector.setAttribute('aria-label', 'Choose website language');
+    selector.setAttribute('title', 'Choose website language');
+    host.append(document.createTextNode(' '), selector);
+  }
   const current = document.documentElement.lang || 'en';
   selector.replaceChildren();
   languages.forEach(item => {

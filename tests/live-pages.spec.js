@@ -255,15 +255,7 @@ for (const path of pages) {
     expect(title.trim().length, `Missing title on ${path}`).toBeGreaterThan(3);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 2);
     expect(overflow, `Horizontal overflow on ${path}`).toBe(false);
-    // Capture only the 24 localized homepages, at viewport size.
-    // Full-page screenshots of long guide pages created hundreds of huge artifacts.
-    if (pages.indexOf(path) < 24) {
-      await page.screenshot({
-        path: `test-results/screenshots/${path.replace(/[^a-z0-9]/gi, '_') || 'home'}.png`,
-        fullPage: false,
-        animations: 'disabled'
-      });
-    }
+    await page.screenshot({ path: `test-results/screenshots/${path.replace(/[^a-z0-9]/gi, '_') || 'home'}.png`, fullPage: true });
   });
 }
 
@@ -355,28 +347,17 @@ test.describe('language selector on every EU homepage', () => {
   for (const path of pages.slice(0, 24)) {
     test(`searchable language picker is available on ${path}`, async ({ page }) => {
       const pageErrors = [];
-      const scriptResponses = [];
       page.on('pageerror', error => pageErrors.push(error.message));
-      page.on('response', response => {
-        if (response.url().endsWith('/language-config.js') || response.url().endsWith('/language-picker-fallback.js')) {
-          scriptResponses.push({ url: response.url(), status: response.status() });
-        }
-      });
       await page.goto(path, { waitUntil: 'domcontentloaded' });
 
+      await expect(page.locator('#lang')).toBeAttached();
+      await expect(page.locator('.akini-language-trigger'), `Missing language picker on ${path}`).toBeVisible();
       const state = await page.evaluate(() => ({
         optionCount: document.querySelectorAll('#lang option').length,
-        selectCount: document.querySelectorAll('#lang').length,
         pickerCount: document.querySelectorAll('.akini-language-trigger').length,
-        languageRegistryCount: window.AKINI_LANGUAGES?.length || 0,
-        configStatus: document.documentElement.dataset.languageConfig || 'not-loaded',
-        fallbackStatus: document.documentElement.dataset.languageFallback || 'not-loaded',
-        scriptSources: [...document.scripts].map(script => script.src).filter(Boolean)
+        languageRegistryCount: window.AKINI_LANGUAGES?.length || 0
       }));
-      console.log('AKINI_LANGUAGE_PICKER_DEBUG', path, JSON.stringify(state), JSON.stringify(scriptResponses), JSON.stringify(pageErrors));
-      expect(state.selectCount, `Missing native language select on ${path}`).toBe(1);
       expect(state.optionCount, `Expected 24 native language options on ${path}`).toBe(24);
-      await expect(page.locator('.akini-language-trigger'), `Missing language picker on ${path}`).toBeVisible();
       expect(state.pickerCount).toBe(1);
       expect(pageErrors, `JavaScript runtime errors on ${path}`).toEqual([]);
     });
