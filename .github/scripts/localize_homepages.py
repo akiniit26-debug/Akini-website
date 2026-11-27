@@ -165,7 +165,8 @@ def main():
     if not SOURCE.exists():
         raise SystemExit("Canonical index.html is missing.")
     source_text = SOURCE.read_text(encoding="utf-8")
-    source_hash = hashlib.sha256(source_text.encode("utf-8")).hexdigest()
+    canonical = strip_product_grid(source_text)
+    source_hash = hashlib.sha256(canonical.encode("utf-8")).hexdigest()
     if CACHE.exists():
         try:
             cached = json.loads(CACHE.read_text(encoding="utf-8"))
@@ -176,7 +177,6 @@ def main():
         if meta.get("source_sha256") == source_hash and meta.get("version") == LOCALIZATION_VERSION and pages_exist:
             print("Homepage localization cache is current; skipping DeepL UI requests.")
             return
-    canonical = strip_product_grid(source_text)
     labels = {}
     for lang, (target, locale) in LANGUAGES.items():
         page = translate_page(canonical, target)
