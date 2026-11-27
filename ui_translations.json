@@ -5,7 +5,9 @@
     "reviews": "отзиви",
     "Pets": "Домашни любимци",
     "Home": "Дом",
-    "Lifestyle": "Lifestyle"
+    "Lifestyle": "Lifestyle",
+    "addCart": "Добави в количката",
+    "added": "Добавено"
   },
   "cs": {
     "Price and availability may change. Check the retailer for current details.": "Cena a dostupnost se mohou změnit. Aktuální informace si ověřte u prodejce.",
@@ -13,7 +15,9 @@
     "reviews": "recenze",
     "Pets": "Domácí mazlíčci",
     "Home": "Domov",
-    "Lifestyle": "Lifestyle"
+    "Lifestyle": "Lifestyle",
+    "addCart": "Přidat do košíku",
+    "added": "Přidáno"
   },
   "da": {
     "Price and availability may change. Check the retailer for current details.": "Pris og tilgængelighed kan ændre sig. Kontakt forhandleren for aktuelle oplysninger.",
@@ -21,7 +25,9 @@
     "reviews": "anmeldelser",
     "Pets": "Kæledyr",
     "Home": "Bolig",
-    "Lifestyle": "Livsstil"
+    "Lifestyle": "Livsstil",
+    "addCart": "Læg i kurv",
+    "added": "Tilføjet"
   },
   "de": {
     "Price and availability may change. Check the retailer for current details.": "Preis und Verfügbarkeit können sich ändern. Aktuelle Informationen erhalten Sie beim Händler.",
@@ -29,7 +35,9 @@
     "reviews": "Bewertungen",
     "Pets": "Haustiere",
     "Home": "Wohnen",
-    "Lifestyle": "Lifestyle"
+    "Lifestyle": "Lifestyle",
+    "addCart": "In den Warenkorb",
+    "added": "Hinzugefügt"
   },
   "el": {
     "Price and availability may change. Check the retailer for current details.": "Η τιμή και η διαθεσιμότητα ενδέχεται να αλλάξουν. Ενημερωθείτε από τον πωλητή για τις τρέχουσες λεπτομέρειες.",
@@ -37,7 +45,9 @@
     "reviews": "κριτικές",
     "Pets": "Pets",
     "Home": "Σπίτι",
-    "Lifestyle": "Lifestyle"
+    "Lifestyle": "Lifestyle",
+    "addCart": "Προσθήκη στο καλάθι",
+    "added": "Προστέθηκε"
   },
   "es": {
     "Price and availability may change. Check the retailer for current details.": "El precio y la disponibilidad pueden variar. Consulta con el distribuidor para obtener información actualizada.",
@@ -45,7 +55,9 @@
     "reviews": "opiniones",
     "Pets": "Pets",
     "Home": "Hogar",
-    "Lifestyle": "Estilo de vida"
+    "Lifestyle": "Estilo de vida",
+    "addCart": "Añadir al carrito",
+    "added": "Añadido"
   },
   "et": {
     "Price and availability may change. Check the retailer for current details.": "Hind ja kättesaadavus võivad muutuda. Aktuaalsete andmete saamiseks pöörduge müüja poole.",
@@ -53,7 +65,9 @@
     "reviews": "arvustused",
     "Pets": "Lemmikloomad",
     "Home": "Kodu",
-    "Lifestyle": "Elustiil"
+    "Lifestyle": "Elustiil",
+    "addCart": "Lisa ostukorvi",
+    "added": "Lisatud"
   },
   "fi": {
     "Price and availability may change. Check the retailer for current details.": "Hinta ja saatavuus voivat muuttua. Tarkista ajantasaiset tiedot jälleenmyyjältä.",
@@ -61,7 +75,9 @@
     "reviews": "arvostelut",
     "Pets": "Lemmikit",
     "Home": "Koti",
-    "Lifestyle": "Lifestyle"
+    "Lifestyle": "Lifestyle",
+    "addCart": "Lisää ostoskoriin",
+    "added": "Lisätty"
   },
   "fr": {
     "Price and availability may change. Check the retailer for current details.": "Le prix et la disponibilité sont susceptibles de changer. Renseignez-vous auprès du revendeur pour connaître les informations actuelles.",
@@ -69,7 +85,9 @@
     "reviews": "avis",
     "Pets": "Animaux",
     "Home": "Maison",
-    "Lifestyle": "Lifestyle"
+    "Lifestyle": "Lifestyle",
+    "addCart": "Ajouter au panier",
+    "added": "Ajouté"
   },
   "hr": {
     "Price and availability may change. Check the retailer for current details.": "Cijena i dostupnost mogu se promijeniti. Provjerite kod prodavača za trenutne detalje.",
@@ -77,7 +95,9 @@
     "reviews": "recenzije",
     "Pets": "Kućni ljubimci",
     "Home": "Dom",
-    "Lifestyle": "Životni stil"
+    "Lifestyle": "Životni stil",
+    "addCart": "Dodaj u košaricu",
+    "added": "Dodano"
   },
   "hu": {
     "Price and availability may change. Check the retailer for current details.": "Az ár és a rendelkezésre állás változhat. Az aktuális részletekről érdeklődjön a kereskedőnél.",
@@ -85,7 +105,9 @@
     "reviews": "vélemények",
     "Pets": "Pets",
     "Home": "Otthon",
-    "Lifestyle": "Életmód"
+    "Lifestyle": "Életmód",
+    "addCart": "Kosárba teszem",
+    "added": "Hozzáadva"
   },
   "it": {
     "Price and availability may change. Check the retailer for current details.": "Il prezzo e la disponibilità possono subire variazioni. Per informazioni aggiornate, rivolgersi al rivenditore.",
@@ -93,7 +115,9 @@
     "reviews": "recensioni",
     "Pets": "Animali domestici",
     "Home": "Casa",
-    "Lifestyle": "Stile di vita"
+    "Lifestyle": "Stile di vita",
+    "addCart": "Aggiungi al carrello",
+    "added": "Aggiunto"
   },
   "lt": {
     "Price and availability may change. Check the retailer for current details.": "Kaina ir prieinamumas gali keistis. Dėl naujausios informacijos kreipkitės į pardavėją.",
@@ -101,7 +125,9 @@
     "reviews": "atsiliepimai",
     "Pets": "„Pets“",
     "Home": "Namai",
-    "Lifestyle": "Gyvenimo būdas"
+    "Lifestyle": "Gyvenimo būdas",
+    "addCart": "Į krepšelį",
+    "added": "Pridėta"
   },
   "lv": {
     "Price and availability may change. Check the retailer for current details.": "Cena un pieejamība var mainīties. Aktuālo informāciju lūdzu noskaidrojiet pie pārdevēja.",
@@ -109,7 +135,9 @@
     "reviews": "atsauksmes",
     "Pets": "Mājdzīvnieki",
     "Home": "Mājoklis",
-    "Lifestyle": "Lifestyle"
+    "Lifestyle": "Lifestyle",
+    "addCart": "Pievienot grozam",
+    "added": "Pievienots"
   },
   "nl": {
     "Price and availability may change. Check the retailer for current details.": "Prijs en beschikbaarheid kunnen veranderen. Neem contact op met de verkoper voor actuele informatie.",
@@ -117,7 +145,9 @@
     "reviews": "recensies",
     "Pets": "Huisdieren",
     "Home": "Wonen",
-    "Lifestyle": "Lifestyle"
+    "Lifestyle": "Lifestyle",
+    "addCart": "In winkelwagen",
+    "added": "Toegevoegd"
   },
   "pl": {
     "Price and availability may change. Check the retailer for current details.": "Cena i dostępność mogą ulec zmianie. Aktualne informacje można uzyskać u sprzedawcy.",
@@ -125,7 +155,9 @@
     "reviews": "recenzje",
     "Pets": "Zwierzęta",
     "Home": "Dom",
-    "Lifestyle": "Lifestyle"
+    "Lifestyle": "Lifestyle",
+    "addCart": "Dodaj do koszyka",
+    "added": "Dodano"
   },
   "pt": {
     "Price and availability may change. Check the retailer for current details.": "O preço e a disponibilidade podem sofrer alterações. Consulte o revendedor para obter informações atualizadas.",
@@ -133,7 +165,9 @@
     "reviews": "críticas",
     "Pets": "Animais de estimação",
     "Home": "Casa",
-    "Lifestyle": "Estilo de vida"
+    "Lifestyle": "Estilo de vida",
+    "addCart": "Adicionar ao carrinho",
+    "added": "Adicionado"
   },
   "ro": {
     "Price and availability may change. Check the retailer for current details.": "Prețul și disponibilitatea pot suferi modificări. Consultați distribuitorul pentru detalii actualizate.",
@@ -141,7 +175,9 @@
     "reviews": "recenzii",
     "Pets": "Animale de companie",
     "Home": "Casă",
-    "Lifestyle": "Lifestyle"
+    "Lifestyle": "Lifestyle",
+    "addCart": "Adaugă în coș",
+    "added": "Adăugat"
   },
   "sk": {
     "Price and availability may change. Check the retailer for current details.": "Cena a dostupnosť sa môžu zmeniť. Aktuálne informácie si overte u predajcu.",
@@ -149,7 +185,9 @@
     "reviews": "recenzie",
     "Pets": "Domáce zvieratá",
     "Home": "Domácnosť",
-    "Lifestyle": "Lifestyle"
+    "Lifestyle": "Lifestyle",
+    "addCart": "Pridať do košíka",
+    "added": "Pridané"
   },
   "sl": {
     "Price and availability may change. Check the retailer for current details.": "Cena in razpoložljivost se lahko spremenita. Za najnovejše podatke se obrnite na prodajalca.",
@@ -157,7 +195,9 @@
     "reviews": "mnenja",
     "Pets": "Pets",
     "Home": "Dom",
-    "Lifestyle": "Lifestyle"
+    "Lifestyle": "Lifestyle",
+    "addCart": "Dodaj v košarico",
+    "added": "Dodano"
   },
   "sv": {
     "Price and availability may change. Check the retailer for current details.": "Pris och tillgänglighet kan komma att ändras. Kontakta återförsäljaren för aktuell information.",
@@ -165,7 +205,9 @@
     "reviews": "recensioner",
     "Pets": "Husdjur",
     "Home": "Hem",
-    "Lifestyle": "Livsstil"
+    "Lifestyle": "Livsstil",
+    "addCart": "Lägg i varukorgen",
+    "added": "Tillagd"
   },
   "ga": {},
   "mt": {},
