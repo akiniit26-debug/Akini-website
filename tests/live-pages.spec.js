@@ -309,6 +309,13 @@ test.describe('homepage product interactions', () => {
 });
 
 
+test('language selector is visible on every EU homepage', async ({ page }) => {
+  for (const path of pages.slice(0, 24)) {
+    await page.goto(path, { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('.akini-language-trigger'), `Missing language picker on ${path}`).toBeVisible();
+  }
+});
+
 test('searchable language picker remains available after changing languages', async ({ page }) => {
   await page.goto('/index-de.html', { waitUntil: 'domcontentloaded' });
   const trigger = page.locator('.akini-language-trigger');
