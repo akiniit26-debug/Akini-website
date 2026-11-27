@@ -43,7 +43,8 @@ def ui_text(lang, key, fallback):
     return UI.get(lang, {}).get(key, fallback)
 
 def category_for(category, lang):
-    return ui_text(lang, category, category)
+    # Keep canonical category identifiers in data-category for filter logic.
+    return category
 
 def render_card(p, lang, index):
     name = p.get("name") if lang == "en" else (p.get("name_" + lang) or p.get("name_it") or p.get("name", "") if lang == "it" else p.get("name_" + lang) or p.get("name", ""))
