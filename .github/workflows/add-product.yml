@@ -76,6 +76,10 @@ jobs:
         env:
           DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
         run: python3 .github/scripts/translate_products.py
+      - name: Localize homepage interface with DeepL
+        env:
+          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
+        run: python3 .github/scripts/localize_homepages.py
       - name: Build all 24 language homepages
         run: python3 .github/scripts/sync_products.py
       - name: Commit product catalogue and homepages
