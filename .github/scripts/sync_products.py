@@ -127,5 +127,17 @@ for page, lang in PAGES.items():
     path = Path(page)
     source = path.read_text(encoding="utf-8")
     cards = "\n".join(render_card(p, lang, i) for i, p in enumerate(products) if p.get("active", True))
-    path.write_text(replace_grid(source, '<div class="product-grid" id="productGrid">\n' + cards + '\n</div>'), encoding="utf-8")
+    source = replace_grid(source, '<div class="product-grid" id="productGrid">\n' + cards + '\n</div>')
+    # Provide localized labels to the homepage's interactive product buttons.
+    source = re.sub(r'<script id="akini-ui-copy">.*?</script>\s*', '', source, flags=re.S)
+    copy = json.dumps(UI.get(lang, {}), ensure_ascii=False, separators=(",", ":"))
+    copy_script = f'<script id="akini-ui-copy">window.AKINI_PRODUCT_COPY = {copy};</script>\n'
+    marker = '<script>\n// Keep the language switch working on both localized homepages.'
+    if marker in source:
+        source = source.replace(marker, copy_script + marker, 1)
+    source = source.replace(
+        "button.type = 'button'; button.className = 'add-cart'; button.textContent = '+ Add to Cart';",
+        "button.type = 'button'; button.className = 'add-cart'; button.textContent = '+ ' + ((window.AKINI_PRODUCT_COPY && window.AKINI_PRODUCT_COPY.addCart) || 'Add to Cart');"
+    )
+    path.write_text(source, encoding="utf-8")
     print(f"Synced {len(products)} products to {page}")
