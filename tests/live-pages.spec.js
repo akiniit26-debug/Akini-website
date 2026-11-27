@@ -255,7 +255,15 @@ for (const path of pages) {
     expect(title.trim().length, `Missing title on ${path}`).toBeGreaterThan(3);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 2);
     expect(overflow, `Horizontal overflow on ${path}`).toBe(false);
-    await page.screenshot({ path: `test-results/screenshots/${path.replace(/[^a-z0-9]/gi, '_') || 'home'}.png`, fullPage: true });
+    // Capture only the 24 localized homepages, at viewport size.
+    // Full-page screenshots of long guide pages created hundreds of huge artifacts.
+    if (pages.indexOf(path) < 24) {
+      await page.screenshot({
+        path: `test-results/screenshots/${path.replace(/[^a-z0-9]/gi, '_') || 'home'}.png`,
+        fullPage: false,
+        animations: 'disabled'
+      });
+    }
   });
 }
 
