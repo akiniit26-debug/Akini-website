@@ -7,6 +7,8 @@ on:
       - '.github/scripts/sync_supabase_catalogue.py'
       - '.github/scripts/sync_products.py'
       - '.github/scripts/translate_products.py'
+      - '.github/scripts/localize_homepages.py'
+      - 'ui_translations.json'
       - 'supabase-config.js'
   workflow_dispatch:
   schedule:
@@ -33,6 +35,10 @@ jobs:
         env:
           DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
         run: python3 .github/scripts/translate_products.py
+      - name: Localize homepage interface with DeepL
+        env:
+          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
+        run: python3 .github/scripts/localize_homepages.py
       - name: Build all 24 language homepages
         run: python3 .github/scripts/sync_products.py
       - name: Validate SEO metadata and sitemap
