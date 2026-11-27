@@ -223,9 +223,10 @@ cards.forEach(card => {
   button.type = 'button'; button.className = 'add-cart'; button.textContent = '+ Add to Cart';
   button.addEventListener('click', () => {
     const id = card.dataset.productId || name;
-    const found = cart.find(item => item.id === id || item.name === name);
+    const currentName = card.querySelector('h3').textContent.trim();
+    const found = cart.find(item => item.id === id || item.name === currentName);
     if (found) found.qty++;
-    else cart.push({id, name, qty: 1});
+    else cart.push({id, name: currentName, qty: 1});
     updateCartCount(); button.textContent = '✓ ' + ((window.AKINI_PRODUCT_COPY && window.AKINI_PRODUCT_COPY.added) || 'Added');
     setTimeout(() => button.textContent = '+ ' + ((window.AKINI_PRODUCT_COPY && window.AKINI_PRODUCT_COPY.addCart) || 'Add to Cart'), 1000);
   });

@@ -6,6 +6,7 @@
   if (!grid || !config?.url || !config?.publishableKey) return;
   const lang = (document.documentElement.lang || 'en').slice(0, 2).toLowerCase();
   const copy = {
+    it:{pets:'Animali',home:'Casa',life:'Lifestyle',visit:'Acquista su Amazon',price:'Controlla il prezzo attuale',rating:'Valutazione non verificata',reviews:'recensioni',note:'Prezzi e disponibilità possono cambiare. Verifica i dettagli aggiornati presso il rivenditore.'},
     bg:{pets:'Домашни любимци',home:'Дом',life:'Начин на живот',visit:'Виж продукта в магазина',price:'Проверете актуалната цена',rating:'Оценката не е потвърдена',reviews:'отзива',note:'Цените и наличността може да се променят. Проверете подробностите при търговеца.'},
     hr:{pets:'Kućni ljubimci',home:'Dom',life:'Životni stil',visit:'Pogledajte kod trgovca',price:'Provjerite aktualnu cijenu',rating:'Ocjena nije potvrđena',reviews:'recenzija',note:'Cijene i dostupnost mogu se promijeniti. Provjerite pojedinosti kod trgovca.'},
     cs:{pets:'Mazlíčci',home:'Domov',life:'Životní styl',visit:'Zobrazit u prodejce',price:'Ověřit aktuální cenu',rating:'Hodnocení není ověřeno',reviews:'recenzí',note:'Ceny a dostupnost se mohou změnit. Aktuální informace ověřte u prodejce.'},
@@ -29,7 +30,7 @@
     es:{pets:'Mascotas',home:'Hogar',life:'Estilo de vida',visit:'Ver en la tienda',price:'Consultar precio actual',rating:'Valoración no verificada',reviews:'reseñas',note:'Los precios y la disponibilidad pueden cambiar. Consulta los datos actualizados en la tienda.'},
     sv:{pets:'Husdjur',home:'Hem',life:'Livsstil',visit:'Visa hos återförsäljaren',price:'Kontrollera aktuellt pris',rating:'Betyget är inte verifierat',reviews:'recensioner',note:'Priser och tillgänglighet kan ändras. Kontrollera aktuell information hos återförsäljaren.'}
   };
-  const t = copy[lang] || {pets:'Pets',home:'Home',life:'Lifestyle',visit:'View at retailer',price:'Check current price',rating:'Rating not verified',reviews:'reviews',note:'Prices and availability may change. Check current details with the retailer.'};
+  const t = copy[lang] || {pets:'Pets',home:'Home',life:'Lifestyle',visit:'Shop on Amazon',price:'Check current price',rating:'Rating not verified',reviews:'reviews',note:'Prices and availability may change. Check current details with the retailer.'};
   const categoryLabels = {Pets:t.pets,Home:t.home,Lifestyle:t.life};
 const format = new Intl.NumberFormat(document.documentElement.lang || 'en');
   const render = async () => {

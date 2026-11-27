@@ -18,9 +18,21 @@ jobs:
           node-version: 22
       - run: npm install --no-save @playwright/test
       - run: npx playwright install --with-deps chromium
-      - run: npx playwright test tests/live-pages.spec.js
+      - name: Start local preview server
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/akini-http.log 2>&1 &
+          for attempt in $(seq 1 20); do
+            if curl --fail --silent http://127.0.0.1:4173/ > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/akini-http.log
+          exit 1
+      - name: Run Playwright tests against this commit
+        run: npx playwright test tests/live-pages.spec.js
         env:
-          AKINI_BASE_URL: https://akini.eu
+          AKINI_BASE_URL: http://127.0.0.1:4173
       - uses: actions/upload-artifact@v4
         if: always()
         with:
