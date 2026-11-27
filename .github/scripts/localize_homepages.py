@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Build consistent localized AKINI homepages from the canonical English template."""
 import html
+import hashlib
 import json
 import os
 import re
@@ -12,6 +13,8 @@ from pathlib import Path
 
 API_KEY = os.environ.get("DEEPL_API_KEY", "").strip()
 SOURCE = Path("index.html")
+CACHE = Path("ui_translations.json")
+LOCALIZATION_VERSION = 3
 LANGUAGES = {
     "bg": ("BG", "bg_BG"), "cs": ("CS", "cs_CZ"), "da": ("DA", "da_DK"),
     "de": ("DE", "de_DE"), "el": ("EL", "el_GR"), "es": ("ES", "es_ES"),
@@ -40,6 +43,14 @@ COUNTRIES = {
     "ga": "🇮🇪 Éire", "mt": "🇲🇹 Malta",
 }
 CATEGORY_CONTEXT = "These are short navigation and filter category labels for an affiliate product discovery website: Pets means pet products; Home means home and household products (decor, kitchen, living), not a website homepage; Lifestyle means fashion, wellness and everyday lifestyle products."
+HOME_LABELS = {
+    "BG": "Дом", "CS": "Domov", "DA": "Hjem", "DE": "Wohnen",
+    "EL": "Σπίτι", "ES": "Hogar", "ET": "Kodu", "FI": "Koti",
+    "FR": "Maison", "HR": "Dom", "HU": "Otthon", "IT": "Casa",
+    "LT": "Namai", "LV": "Mājoklis", "NL": "Wonen", "PL": "Dom",
+    "PT-PT": "Casa", "RO": "Casă", "SK": "Domácnosť",
+    "SL": "Dom", "SV": "Hem",
+}
 
 def translate_batch(texts, target, context=None):
     endpoint = "https://api-free.deepl.com/v2/translate" if API_KEY.endswith(":fx") else "https://api.deepl.com/v2/translate"
@@ -115,12 +126,13 @@ def translate_page(source, target):
         strings.append(html.unescape(m.group(1)))
     # Translate SEO description/title metadata while leaving URLs and locale values alone.
     for tag in re.findall(r"<meta\b[^>]*>", source, re.I):
-        if re.search(r'(?:name|property)=["\'](?:description|og:title|og:description|twitter:title|twitter:description)["\']', tag, re.I):
+        if re.search(r'(?:name|property)=["\'](?:description|og:title|og:description|og:image:alt|twitter:title|twitter:description)["\']', tag, re.I):
             m = re.search(r'\bcontent=["\']([^"\']*)["\']', tag, re.I)
             if m:
                 strings.append(html.unescape(m.group(1)))
     translated = translate_all(strings, target)
     translated.update(translate_all(["Pets", "Home", "Lifestyle"], target, CATEGORY_CONTEXT))
+    translated["Home"] = HOME_LABELS[target]
 
     def text_node(m):
         raw = m.group(1)
@@ -152,7 +164,19 @@ def main():
         raise SystemExit("DEEPL_API_KEY is missing.")
     if not SOURCE.exists():
         raise SystemExit("Canonical index.html is missing.")
-    canonical = strip_product_grid(SOURCE.read_text(encoding="utf-8"))
+    source_text = SOURCE.read_text(encoding="utf-8")
+    source_hash = hashlib.sha256(source_text.encode("utf-8")).hexdigest()
+    if CACHE.exists():
+        try:
+            cached = json.loads(CACHE.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            cached = {}
+        meta = cached.get("_meta", {})
+        pages_exist = all(Path(f"index-{lang}.html").exists() for lang in URLS if lang != "en")
+        if meta.get("source_sha256") == source_hash and meta.get("version") == LOCALIZATION_VERSION and pages_exist:
+            print("Homepage localization cache is current; skipping DeepL UI requests.")
+            return
+    canonical = strip_product_grid(source_text)
     labels = {}
     for lang, (target, locale) in LANGUAGES.items():
         page = translate_page(canonical, target)
@@ -163,8 +187,19 @@ def main():
                       rf'\g<1>{URLS[lang]}\2', page, count=1, flags=re.I)
         page = re.sub(r'(<meta\s+property=["\']og:locale["\']\s+content=["\'])en_GB(["\'])',
                       rf'\g<1>{locale}\2', page, count=1, flags=re.I)
+        desc_match = re.search(r'<meta\s+name=["\']description["\']\s+content=["\']([^"\']*)["\']', page, re.I)
+        if desc_match:
+            description = html.unescape(desc_match.group(1))
+            def update_jsonld(match):
+                data = json.loads(match.group(2))
+                data["description"] = description
+                data["inLanguage"] = lang
+                return match.group(1) + json.dumps(data, ensure_ascii=False, indent=2) + match.group(3)
+            page = re.sub(r'(<script\s+type=["\']application/ld\+json["\']\s*>)(.*?)(</script>)',
+                          update_jsonld, page, count=1, flags=re.I|re.S)
         labels[lang] = translate_all(LABELS, target)
         labels[lang].update(translate_all(["Pets", "Home", "Lifestyle"], target, CATEGORY_CONTEXT))
+        labels[lang]["Home"] = HOME_LABELS[target]
         page = re.sub(r'(<div>)🇮🇹 [^<]*(<select id=["\']lang["\'])', lambda m: m.group(1) + COUNTRIES[lang] + "　" + m.group(2), page, count=1)
         Path(f"index-{lang}.html").write_text(page, encoding="utf-8")
         print(f"Localized static homepage: {lang}")
@@ -177,6 +212,7 @@ def main():
         page = re.sub(r'(<div>)🇮🇹 [^<]*(<select id=["\']lang["\'])', lambda m: m.group(1) + COUNTRIES[lang] + "　" + m.group(2), page, count=1)
         Path(f"index-{lang}.html").write_text(page, encoding="utf-8")
         print(f"English fallback homepage: {lang}")
+    labels["_meta"] = {"source_sha256": source_hash, "version": LOCALIZATION_VERSION}
     Path("ui_translations.json").write_text(json.dumps(labels, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"Localized {len(LANGUAGES)} languages; ga and mt use explicit English fallback.")
 
