@@ -308,6 +308,31 @@ test.describe('homepage product interactions', () => {
   });
 });
 
+
+test('searchable language picker remains available after changing languages', async ({ page }) => {
+  await page.goto('/index-de.html', { waitUntil: 'domcontentloaded' });
+  const trigger = page.locator('.akini-language-trigger');
+  await expect(trigger).toBeVisible();
+  await trigger.click();
+  const search = page.locator('.akini-language-search');
+  await expect(search).toBeVisible();
+  await search.fill('Français');
+  await expect(page.locator('.akini-language-option')).toHaveCount(1);
+  await page.locator('.akini-language-option').click();
+  await page.waitForURL('**/index-fr.html');
+  await expect(page.locator('.akini-language-trigger')).toBeVisible();
+  await page.locator('.akini-language-trigger').click();
+  await page.locator('.akini-language-search').fill('');
+  await expect(page.locator('.akini-language-option')).toHaveCount(24);
+});
+
+test('English and Italian homepages load the live multilingual catalogue script', async ({ page }) => {
+  for (const path of ['/', '/index-it.html']) {
+    await page.goto(path, { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('#productGrid')).toHaveAttribute('data-catalogue-loaded', 'true', { timeout: 20000 });
+  }
+});
+
 test('admin product form exposes price, rating and review count fields', async ({ page }) => {
   await page.goto('/manage-products.html', { waitUntil: 'domcontentloaded' });
   await expect(page.locator('#authBox')).toBeVisible();
