@@ -31,8 +31,6 @@
   };
   const t = copy[lang] || {pets:'Pets',home:'Home',life:'Lifestyle',visit:'View at retailer',price:'Check current price',rating:'Rating not verified',reviews:'reviews',note:'Prices and availability may change. Check current details with the retailer.'};
   const categoryLabels = {Pets:t.pets,Home:t.home,Lifestyle:t.life};
-  const format = new Intl.NumberFormat(document.documentElement.lang || 'en');
-  const el = (tag, cls, value) => { const node=document.createElement(tag); if(cls) node.className=cls; if(value!==undefined) node.textContent=value; return node; };
 const format = new Intl.NumberFormat(document.documentElement.lang || 'en');
   const render = async () => {
     try {

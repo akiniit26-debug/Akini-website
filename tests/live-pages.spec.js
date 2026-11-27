@@ -260,15 +260,46 @@ for (const path of pages) {
 }
 
 
+test.describe('localized homepage runtime and catalogue hydration', () => {
+  for (const path of pages.slice(0, 24)) {
+    test(`homepage scripts, live products, filters and controls work on ${path}`, async ({ page }) => {
+      const pageErrors = [];
+      page.on('pageerror', error => pageErrors.push(error.message));
+      await page.goto(path, { waitUntil: 'domcontentloaded' });
+
+      const grid = page.locator('#productGrid');
+      await expect(grid).toHaveAttribute('data-catalogue-loaded', 'true', { timeout: 20000 });
+      await expect(grid).toHaveAttribute('data-catalogue-source', 'supabase', { timeout: 20000 });
+      await expect(grid).toHaveAttribute('data-catalogue-updated', '17');
+      await expect(grid.locator('.product')).toHaveCount(17);
+      await expect(grid.locator('.add-cart')).toHaveCount(17);
+      await expect(grid.locator('.save')).toHaveCount(17);
+
+      await page.locator('[data-filter="Cat"]').click();
+      await expect(grid.locator('.product:visible')).toHaveCount(2);
+      await page.locator('.filters [data-filter]').first().click();
+      await page.locator('#searchInput').fill('catit');
+      await expect(grid.locator('.product:visible')).toHaveCount(1);
+      await page.locator('#searchInput').fill('');
+
+      await grid.locator('.add-cart').first().click();
+      await expect(page.locator('#cartCount')).toHaveText('1');
+      await grid.locator('.save').first().click();
+      await page.locator('.header-actions button').first().click();
+      await expect(page.locator('#wishlistDialog')).toBeVisible();
+
+      expect(pageErrors, `JavaScript runtime errors on ${path}`).toEqual([]);
+    });
+  }
+});
+
 test.describe('homepage product interactions', () => {
   for (const locale of [{ path: '/', all: 'All' }, { path: '/index-it.html', all: 'Tutti' }]) {
     test(`product filters, search, cart and wishlist work on ${locale.path}`, async ({ page }) => {
       await page.goto(locale.path, { waitUntil: 'domcontentloaded' });
-      // The Italian page hydrates product cards asynchronously from Supabase; wait
-      // for that replacement before asserting filters to avoid testing stale fallback cards.
-      if (locale.path === '/index-it.html') {
-        await expect(page.locator('#productGrid')).toHaveAttribute('data-catalogue-loaded', 'true', { timeout: 20000 });
-      }
+      // Both homepages hydrate the existing fallback cards in place from Supabase.
+      await expect(page.locator('#productGrid')).toHaveAttribute('data-catalogue-loaded', 'true', { timeout: 20000 });
+      await expect(page.locator('#productGrid')).toHaveAttribute('data-catalogue-source', 'supabase', { timeout: 20000 });
       const cards = page.locator('#productGrid .product');
       await expect(cards.first()).toBeVisible();
       await expect(cards).not.toHaveCount(0);
