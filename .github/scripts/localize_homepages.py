@@ -160,13 +160,8 @@ def translate_page(source, target):
     return source
 
 def main():
-    if not API_KEY:
-        raise SystemExit("DEEPL_API_KEY is missing.")
     if not SOURCE.exists():
         raise SystemExit("Canonical index.html is missing.")
-    source_text = SOURCE.read_text(encoding="utf-8")
-    canonical = strip_product_grid(source_text)
-    source_hash = hashlib.sha256(canonical.encode("utf-8")).hexdigest()
     if CACHE.exists():
         try:
             cached = json.loads(CACHE.read_text(encoding="utf-8"))
@@ -174,9 +169,13 @@ def main():
             cached = {}
         meta = cached.get("_meta", {})
         pages_exist = all(Path(f"index-{lang}.html").exists() for lang in URLS if lang != "en")
-        if meta.get("source_sha256") == source_hash and meta.get("version") == LOCALIZATION_VERSION and pages_exist:
+        if meta.get("version") == LOCALIZATION_VERSION and pages_exist:
             print("Homepage localization cache is current; skipping DeepL UI requests.")
             return
+    if not API_KEY:
+        raise SystemExit("DEEPL_API_KEY is missing and no current homepage translation cache exists.")
+    source_text = SOURCE.read_text(encoding="utf-8")
+    canonical = strip_product_grid(source_text)
     labels = {}
     for lang, (target, locale) in LANGUAGES.items():
         page = translate_page(canonical, target)
@@ -212,7 +211,7 @@ def main():
         page = re.sub(r'(<div>)🇮🇹 [^<]*(<select id=["\']lang["\'])', lambda m: m.group(1) + COUNTRIES[lang] + "　" + m.group(2), page, count=1)
         Path(f"index-{lang}.html").write_text(page, encoding="utf-8")
         print(f"English fallback homepage: {lang}")
-    labels["_meta"] = {"source_sha256": source_hash, "version": LOCALIZATION_VERSION}
+    labels["_meta"] = {"version": LOCALIZATION_VERSION}
     Path("ui_translations.json").write_text(json.dumps(labels, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"Localized {len(LANGUAGES)} languages; ga and mt use explicit English fallback.")
 
