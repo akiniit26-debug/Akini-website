@@ -205,14 +205,24 @@ cards.forEach(card => {
   button.type = 'button'; button.className = 'add-cart'; button.textContent = '+ Add to Cart';
   button.addEventListener('click', () => {
     const id = card.dataset.productId || name;
-    const found = cart.find(item => item.id === id || item.name === name);
+    const currentName = card.querySelector('h3').textContent.trim();
+    const found = cart.find(item => item.id === id || item.name === currentName);
     if (found) found.qty++;
-    else cart.push({id, name, qty: 1});
+    else cart.push({id, name: currentName, qty: 1});
     updateCartCount(); button.textContent = '✓ Added';
     setTimeout(() => button.textContent = '+ Add to Cart', 1000);
   });
   card.querySelector('.product-actions').prepend(button);
-  const saveButton = card.querySelector('.save');
+  let saveButton = card.querySelector('.save');
+  if (!saveButton) {
+    saveButton = document.createElement('button');
+    saveButton.type = 'button';
+    saveButton.className = 'save';
+    saveButton.textContent = '♡';
+    saveButton.setAttribute('aria-pressed', 'false');
+    saveButton.setAttribute('aria-label', 'Save ' + name + ' to wishlist');
+    card.querySelector('.product-actions').append(saveButton);
+  }
   saveButton.addEventListener('click', () => {
     const id = card.dataset.productId || name;
     if (wishlist.includes(id) || wishlist.includes(name)) wishlist = wishlist.filter(item => item !== id && item !== name);

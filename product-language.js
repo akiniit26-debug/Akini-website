@@ -33,46 +33,127 @@
   const categoryLabels = {Pets:t.pets,Home:t.home,Lifestyle:t.life};
   const format = new Intl.NumberFormat(document.documentElement.lang || 'en');
   const el = (tag, cls, value) => { const node=document.createElement(tag); if(cls) node.className=cls; if(value!==undefined) node.textContent=value; return node; };
+const format = new Intl.NumberFormat(document.documentElement.lang || 'en');
   const render = async () => {
     try {
       const endpoint = config.url.replace(/\/$/, '') + '/rest/v1/products?select=*&active=eq.true&order=category.asc,name.asc';
-      const response = await fetch(endpoint,{headers:{apikey:config.publishableKey,Authorization:'Bearer '+config.publishableKey},cache:'no-store'});
-      if(!response.ok) throw new Error('Catalogue request failed');
-      const rows = await response.json();
-      if(!Array.isArray(rows) || !rows.length) return;
-      const products = rows.map(row=>({...row,...(row.extra||{})}));
-      const fragment=document.createDocumentFragment();
-      products.forEach(p=>{
-        if(!p.id||!p.name||!p.image||!p.url) return;
-        const name = p['name_'+lang] || (lang==='it'?p.name_it:'') || p.name;
-        const description = p['description_'+lang] || (lang==='it'?p.description_it:'') || p.description || '';
-        const card=el('article','product');
-        card.dataset.category=p.category||'';
-        card.dataset.productId=p.id;
-        card.dataset.name=(name+' '+description).toLocaleLowerCase(document.documentElement.lang||'en');
-        const imageBox=el('div','product-image');
-        const image=document.createElement('img'); image.loading='lazy'; image.src=p.image; image.alt=name;
-        imageBox.append(image);
-        const info=el('div','product-info');
-        info.append(el('h3','',name));
-        if(description) info.append(el('p','product-description',description));
-        const price=el('a','price-check',p.price ? String(p.price)+' · '+t.price : t.price);
-        price.href=p.url; price.target='_blank'; price.rel='sponsored nofollow noopener';
-        info.append(price);
-        const rating=el('p','rating-line');
-        if(Number(p.rating)>0){rating.textContent='★ '+Number(p.rating).toFixed(1)+' / 5 ('+(Number(p.review_count)>0?format.format(Number(p.review_count))+' '+t.reviews:t.reviews)+')';}
-        else rating.textContent=t.rating;
-        info.append(rating);
-        const note=el('p','price-note',t.note); info.append(note);
-        const actions=el('div','product-actions');
-        const visit=el('a','visit',t.visit); visit.href=p.url; visit.target='_blank'; visit.rel='sponsored nofollow noopener';
-        actions.append(visit); info.append(actions); card.append(imageBox,info); fragment.append(card);
+      const response = await fetch(endpoint, {
+        headers: { apikey: config.publishableKey, Authorization: 'Bearer ' + config.publishableKey },
+        cache: 'no-store'
       });
-      if(fragment.childNodes.length){grid.replaceChildren(fragment);}
-      grid.dataset.catalogueLanguage=lang;
-      grid.dataset.catalogueLoaded='true';
-    } catch(error) {
-      console.warn('AKINI multilingual catalogue could not load; leaving the page fallback in place.',error);
+      if (!response.ok) throw new Error('Catalogue request failed: HTTP ' + response.status);
+      const rows = await response.json();
+      if (!Array.isArray(rows) || !rows.length) throw new Error('Supabase returned no active products.');
+
+      const products = rows.map(row => ({ ...row, ...(row.extra || {}) }));
+      const byId = new Map(products.map(product => [String(product.id), product]));
+      const cards = [...grid.querySelectorAll('.product')];
+      let updated = 0;
+
+      cards.forEach(card => {
+        const product = byId.get(String(card.dataset.productId || ''));
+        if (!product) return;
+
+        const name = product['name_' + lang] || (lang === 'it' ? product.name_it : '') || product.name;
+        const description = product['description_' + lang] || (lang === 'it' ? product.description_it : '') || product.description || '';
+        const info = card.querySelector('.product-info');
+        const heading = info && info.querySelector('h3');
+        if (!info || !heading) return;
+
+        heading.textContent = name;
+        card.dataset.category = lang === 'it'
+          ? ({ Pets: 'Animali', Home: 'Casa', Lifestyle: 'Lifestyle' }[product.category] || product.category || '')
+          : (product.category || '');
+        if (product.subcategory) card.dataset.subcategory = String(product.subcategory).trim();
+        else delete card.dataset.subcategory;
+        card.dataset.blackFriday = String(product.black_friday === true);
+        card.dataset.name = (name + ' ' + description).toLocaleLowerCase(document.documentElement.lang || 'en');
+
+        const image = card.querySelector('.product-image img');
+        if (image && product.image) {
+          image.src = product.image;
+          image.alt = name;
+        }
+
+        let price = info.querySelector('.product-price');
+        if (product.price) {
+          if (!price) {
+            price = document.createElement('div');
+            price.className = 'product-price';
+            heading.insertAdjacentElement('afterend', price);
+          }
+          price.textContent = String(product.price);
+        } else if (price) {
+          price.remove();
+        }
+
+        let rating = info.querySelector('.rating-line');
+        if (!rating) {
+          rating = document.createElement('p');
+          rating.className = 'rating-line';
+          if (price) price.insertAdjacentElement('afterend', rating);
+          else heading.insertAdjacentElement('afterend', rating);
+        }
+        rating.replaceChildren();
+        if (Number(product.rating) > 0) {
+          rating.append(document.createTextNode('★ ' + Number(product.rating).toFixed(1) + ' / 5'));
+          const reviews = document.createElement('small');
+          reviews.textContent = ' (' + (Number(product.review_count) > 0
+            ? format.format(Number(product.review_count)) + ' ' + t.reviews
+            : t.reviews) + ')';
+          rating.append(reviews);
+        } else {
+          rating.textContent = t.rating;
+        }
+
+        let detail = info.querySelector('.product-description');
+        if (!detail) {
+          detail = [...info.querySelectorAll('p')].find(node =>
+            !node.classList.contains('price-note') && !node.classList.contains('rating-line')
+          );
+        }
+        if (!detail && description) {
+          detail = document.createElement('p');
+          info.append(detail);
+        }
+        if (detail) {
+          detail.classList.add('product-description');
+          detail.textContent = description;
+        }
+
+        let note = info.querySelector('.price-note');
+        if (!note) {
+          note = document.createElement('p');
+          note.className = 'price-note';
+          info.append(note);
+        }
+        note.textContent = t.note;
+
+        card.querySelectorAll('a.visit, a.price-check').forEach(link => {
+          link.href = product.url;
+          link.target = '_blank';
+          link.rel = 'sponsored nofollow noopener';
+        });
+        const visit = card.querySelector('a.visit');
+        if (visit) visit.textContent = t.visit;
+
+        const save = card.querySelector('.save');
+        if (save) save.setAttribute('aria-label', 'Save ' + name + ' to wishlist');
+        updated++;
+      });
+
+      if (!updated) throw new Error('No existing product cards matched the Supabase product IDs.');
+      grid.dataset.catalogueLanguage = lang;
+      grid.dataset.catalogueSource = 'supabase';
+      grid.dataset.catalogueUpdated = String(updated);
+      grid.dataset.catalogueLoaded = 'true';
+      if (typeof window.updateProducts === 'function') window.updateProducts();
+      console.info('AKINI catalogue hydrated in place:', updated, 'products for', lang);
+    } catch (error) {
+      grid.dataset.catalogueLanguage = lang;
+      grid.dataset.catalogueSource = 'static-fallback';
+      grid.dataset.catalogueLoaded = 'true';
+      console.warn('AKINI catalogue kept its static fallback:', error);
     }
   };
   render();
