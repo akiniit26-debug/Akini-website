@@ -15,17 +15,17 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: akini-supabase-catalogue-sync
-  cancel-in-progress: true
+  group: akini-catalogue-operations
+  queue: max
 jobs:
   sync-catalogue:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - name: Check out AKINI website
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - name: Pull current products from Supabase

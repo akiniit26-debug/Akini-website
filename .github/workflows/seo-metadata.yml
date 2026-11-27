@@ -11,6 +11,6 @@ jobs:
   seo-metadata:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Validate page titles, descriptions, canonical URLs and sitemap
         run: python3 .github/scripts/check_seo_metadata.py

@@ -1,4 +1,13 @@
 const { test, expect } = require('@playwright/test');
+const fs = require('fs');
+const path = require('path');
+const catalogue = JSON.parse(fs.readFileSync(path.join(__dirname, '../products.json'), 'utf8'));
+const activeProducts = catalogue.filter(product => product && product.active !== false);
+const expectedProductCount = activeProducts.length;
+const expectedPriceCount = activeProducts.filter(product => String(product.price || '').trim()).length;
+const expectedRatingCount = activeProducts.filter(product => product.rating !== null && product.rating !== '' && Number.isFinite(Number(product.rating)) && Number(product.rating) >= 0 && Number(product.rating) <= 5).length;
+const expectedCatCount = activeProducts.filter(product => product.subcategory === 'Cat').length;
+if (expectedProductCount === 0) throw new Error('products.json has no active products to test.');
 const pages = [
   '/', '/index-bg.html','/index-hr.html','/index-cs.html','/index-da.html','/index-nl.html',
   '/index-et.html','/index-fi.html','/index-fr.html','/index-de.html','/index-el.html',
@@ -255,15 +264,6 @@ for (const path of pages) {
     expect(title.trim().length, `Missing title on ${path}`).toBeGreaterThan(3);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 2);
     expect(overflow, `Horizontal overflow on ${path}`).toBe(false);
-    // Capture only the 24 localized homepages, at viewport size.
-    // Full-page screenshots of long guide pages created hundreds of huge artifacts.
-    if (pages.indexOf(path) < 24) {
-      await page.screenshot({
-        path: `test-results/screenshots/${path.replace(/[^a-z0-9]/gi, '_') || 'home'}.png`,
-        fullPage: false,
-        animations: 'disabled'
-      });
-    }
   });
 }
 
@@ -278,16 +278,16 @@ test.describe('localized homepage runtime and catalogue hydration', () => {
       const grid = page.locator('#productGrid');
       await expect(grid).toHaveAttribute('data-catalogue-loaded', 'true', { timeout: 20000 });
       await expect(grid).toHaveAttribute('data-catalogue-source', 'supabase', { timeout: 20000 });
-      await expect(grid).toHaveAttribute('data-catalogue-updated', '17');
-      await expect(grid.locator('.product')).toHaveCount(17);
-      await expect(grid.locator('.product-price')).toHaveCount(17);
-      await expect(grid.locator('.rating-line')).toHaveCount(17);
-      await expect(grid.locator('a.visit')).toHaveCount(17);
-      await expect(grid.locator('.add-cart')).toHaveCount(17);
-      await expect(grid.locator('.save')).toHaveCount(17);
+      await expect(grid).toHaveAttribute('data-catalogue-updated', String(expectedProductCount));
+      await expect(grid.locator('.product')).toHaveCount(expectedProductCount);
+      await expect(grid.locator('.product-price')).toHaveCount(expectedPriceCount);
+      await expect(grid.locator('.rating-line')).toHaveCount(expectedRatingCount);
+      await expect(grid.locator('a.visit')).toHaveCount(expectedProductCount);
+      await expect(grid.locator('.add-cart')).toHaveCount(expectedProductCount);
+      await expect(grid.locator('.save')).toHaveCount(expectedProductCount);
 
       await page.locator('[data-filter="Cat"]').click();
-      await expect(grid.locator('.product:visible')).toHaveCount(2);
+      await expect(grid.locator('.product:visible')).toHaveCount(expectedCatCount);
       await page.locator('.filters [data-filter]').first().click();
       await page.locator('#searchInput').fill('catit');
       await expect(grid.locator('.product:visible')).toHaveCount(1);
@@ -305,7 +305,7 @@ test.describe('localized homepage runtime and catalogue hydration', () => {
 });
 
 test.describe('homepage product interactions', () => {
-  for (const locale of [{ path: '/', all: 'All' }, { path: '/index-it.html', all: 'Tutti' }]) {
+  for (const locale of [{ path: '/', all: 'All', allLabel: 'All' }, { path: '/index-it.html', all: 'All', allLabel: 'Tutto' }]) {
     test(`product filters, search, cart and wishlist work on ${locale.path}`, async ({ page }) => {
       await page.goto(locale.path, { waitUntil: 'domcontentloaded' });
       // Both homepages hydrate the existing fallback cards in place from Supabase.
@@ -320,24 +320,29 @@ test.describe('homepage product interactions', () => {
       await expect(page.locator('#productGrid .product:visible')).toHaveCount(2);
       await expect(page.locator('#productGrid .product:visible h3')).toContainText(['Catit', 'PETKIT']);
 
+      await expect(page.locator(`[data-filter="${locale.all}"]`)).toHaveText(locale.allLabel);
       await page.locator(`[data-filter="${locale.all}"]`).click();
       await page.locator('#searchInput').fill('catit');
       await expect(page.locator('#productGrid .product:visible')).toHaveCount(1);
       await expect(page.locator('#productGrid .product:visible h3')).toContainText('Catit');
 
       await page.locator('#searchInput').fill('');
-      const furminatorCard = page.locator('#productGrid .product').filter({ hasText: 'FURminator' }).first();
-      await expect(furminatorCard).toBeVisible();
-      await furminatorCard.locator('.add-cart').click();
+      const firstProduct = activeProducts[0];
+      const firstProductName = locale.path === '/index-it.html'
+        ? (firstProduct.name_it || firstProduct.name)
+        : firstProduct.name;
+      const firstProductCard = page.locator(`#productGrid .product[data-product-id="${firstProduct.id}"]`);
+      await expect(firstProductCard).toBeVisible();
+      await firstProductCard.locator('.add-cart').click();
       await page.locator('.header-actions button').nth(1).click();
       await expect(page.locator('#cartDialog')).toBeVisible();
-      await expect(page.locator('#cartItems')).toContainText('FURminator');
+      await expect(page.locator('#cartItems')).toContainText(firstProductName);
 
       await page.locator('#cartDialog button[onclick="closeCart()"]:visible').click();
-      await furminatorCard.locator('.save').click();
+      await firstProductCard.locator('.save').click();
       await page.locator('.header-actions button').first().click();
       await expect(page.locator('#wishlistDialog')).toBeVisible();
-      await expect(page.locator('#wishlistItems')).toContainText('FURminator');
+      await expect(page.locator('#wishlistItems')).toContainText(firstProductName);
       await expect(page.locator('#wishlistItems img')).toHaveCount(1);
     });
   }

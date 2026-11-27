@@ -63,14 +63,26 @@ def deepl_translate(texts, target_code):
             raise RuntimeError(f"Could not reach DeepL API: {exc}") from None
 
 def main():
-    if not API_KEY:
-        raise SystemExit("DEEPL_API_KEY is missing; add it as a GitHub Actions repository secret.")
     try:
         products = json.loads(PRODUCTS.read_text(encoding="utf-8"))
     except FileNotFoundError:
         raise SystemExit("products.json was not found.")
     if not isinstance(products, list):
         raise SystemExit("products.json must be a JSON list.")
+
+    missing_fields = sum(
+        1 for product in products if isinstance(product, dict)
+        for field in ("name", "description")
+        for lang in TARGET_LANGUAGES
+        if str(product.get(field) or "").strip()
+        and not str(product.get(f"{field}_{lang}") or "").strip()
+    )
+    if not API_KEY:
+        if missing_fields:
+            print(f"WARNING: DEEPL_API_KEY is unavailable; {missing_fields} new or changed product fields will keep the English fallback.")
+        else:
+            print("All supported product translations are already present; DeepL API key is not needed.")
+        return
 
     translated = 0
     quota_exhausted = False

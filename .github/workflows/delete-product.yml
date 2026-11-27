@@ -8,12 +8,15 @@ on:
         type: string
 permissions:
   contents: write
+concurrency:
+  group: akini-catalogue-operations
+  queue: max
 jobs:
   delete-product:
     runs-on: ubuntu-latest
     steps:
       - name: Check out website
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Delete selected product
         env:
           PRODUCT_ID: ${{ inputs.product_id }}

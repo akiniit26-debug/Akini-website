@@ -52,12 +52,15 @@ on:
         type: string
 permissions:
   contents: write
+concurrency:
+  group: akini-catalogue-operations
+  queue: max
 jobs:
   add-product:
     runs-on: ubuntu-latest
     steps:
       - name: Check out website
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Add or update product
         env:
           PRODUCT_NAME: ${{ inputs.name }}
