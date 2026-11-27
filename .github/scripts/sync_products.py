@@ -4,6 +4,11 @@ import re
 from pathlib import Path
 
 PRODUCTS = Path("products.json")
+UI_TRANSLATIONS = Path("ui_translations.json")
+try:
+    UI = json.loads(UI_TRANSLATIONS.read_text(encoding="utf-8"))
+except (FileNotFoundError, json.JSONDecodeError):
+    UI = {}
 PAGES = {
     "index.html": "en",
     "index-bg.html": "bg",
@@ -34,10 +39,11 @@ PAGES = {
 def esc(value):
     return html.escape(str(value or ""), quote=True)
 
+def ui_text(lang, key, fallback):
+    return UI.get(lang, {}).get(key, fallback)
+
 def category_for(category, lang):
-    if lang == "it":
-        return {"Pets": "Animali", "Home": "Casa", "Lifestyle": "Lifestyle"}.get(category, category)
-    return category
+    return ui_text(lang, category, category)
 
 def render_card(p, lang, index):
     name = p.get("name") if lang == "en" else (p.get("name_" + lang) or p.get("name_it") or p.get("name", "") if lang == "it" else p.get("name_" + lang) or p.get("name", ""))
@@ -67,15 +73,14 @@ def render_card(p, lang, index):
     if review_count is not None and review_count < 0:
         review_count = None
     price_html = f'<div class="product-price">{esc(price)}</div>' if price else ""
-    reviews_label = "recensioni" if lang == "it" else "reviews"
+    reviews_label = ui_text(lang, "reviews", "reviews")
     rating_html = (f'<div class="rating-line">★ {rating:.1f}/5' +
                    (f' <small>({review_count:,} {reviews_label})</small>' if review_count is not None else '') +
                    '</div>') if rating is not None else ""
-    price_note = ("Prezzo e disponibilità possono variare. Consulta il rivenditore per i dettagli aggiornati."
-                  if lang == "it" else
-                  "Price and availability may change. Check the retailer for current details.")
-    shop = "Acquista" if lang == "it" else "Shop"
-    target = "il rivenditore" if lang == "it" else "the retailer"
+    price_note = ui_text(lang, "Price and availability may change. Check the retailer for current details.",
+                         "Price and availability may change. Check the retailer for current details.")
+    shop = ui_text(lang, "Shop", "Shop")
+    target = ui_text(lang, "the retailer", "the retailer")
     loading = "eager" if index == 0 else "lazy"
     attrs = [
         f'data-category="{esc(category)}"',
