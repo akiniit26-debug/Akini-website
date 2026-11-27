@@ -340,10 +340,24 @@ test.describe('homepage product interactions', () => {
 });
 
 
-test('language selector is visible on every EU homepage', async ({ page }) => {
+test.describe('language selector on every EU homepage', () => {
   for (const path of pages.slice(0, 24)) {
-    await page.goto(path, { waitUntil: 'domcontentloaded' });
-    await expect(page.locator('.akini-language-trigger'), `Missing language picker on ${path}`).toBeVisible();
+    test(`searchable language picker is available on ${path}`, async ({ page }) => {
+      const pageErrors = [];
+      page.on('pageerror', error => pageErrors.push(error.message));
+      await page.goto(path, { waitUntil: 'domcontentloaded' });
+
+      await expect(page.locator('#lang')).toBeAttached();
+      await expect(page.locator('.akini-language-trigger'), `Missing language picker on ${path}`).toBeVisible();
+      const state = await page.evaluate(() => ({
+        optionCount: document.querySelectorAll('#lang option').length,
+        pickerCount: document.querySelectorAll('.akini-language-trigger').length,
+        languageRegistryCount: window.AKINI_LANGUAGES?.length || 0
+      }));
+      expect(state.optionCount, `Expected 24 native language options on ${path}`).toBe(24);
+      expect(state.pickerCount).toBe(1);
+      expect(pageErrors, `JavaScript runtime errors on ${path}`).toEqual([]);
+    });
   }
 });
 
