@@ -163,19 +163,19 @@ def main():
                       rf'\g<1>{URLS[lang]}\2', page, count=1, flags=re.I)
         page = re.sub(r'(<meta\s+property=["\']og:locale["\']\s+content=["\'])en_GB(["\'])',
                       rf'\g<1>{locale}\2', page, count=1, flags=re.I)
-        Path(f"index-{lang}.html").write_text(page, encoding="utf-8")
         labels[lang] = translate_all(LABELS, target)
         labels[lang].update(translate_all(["Pets", "Home", "Lifestyle"], target, CATEGORY_CONTEXT))
         page = re.sub(r'(<div>)🇮🇹 [^<]*(<select id=["\']lang["\'])', lambda m: m.group(1) + COUNTRIES[lang] + "　" + m.group(2), page, count=1)
+        Path(f"index-{lang}.html").write_text(page, encoding="utf-8")
         print(f"Localized static homepage: {lang}")
     # Irish and Maltese are not DeepL targets in this API configuration; use a clean English fallback.
     for lang in ("ga", "mt"):
         page = re.sub(r'<html\b([^>]*)lang=["\']en["\']', lambda m: '<html' + m.group(1) + f'lang="{lang}"', canonical, count=1, flags=re.I)
         page = re.sub(r'(<link\s+rel=["\']canonical["\']\s+href=["\'])https://akini\.eu/(["\'])', rf'\g<1>{URLS[lang]}\2', page, count=1, flags=re.I)
         page = re.sub(r'(<meta\s+property=["\']og:url["\']\s+content=["\'])https://akini\.eu/(["\'])', rf'\g<1>{URLS[lang]}\2', page, count=1, flags=re.I)
-        Path(f"index-{lang}.html").write_text(page, encoding="utf-8")
         labels[lang] = {}
         page = re.sub(r'(<div>)🇮🇹 [^<]*(<select id=["\']lang["\'])', lambda m: m.group(1) + COUNTRIES[lang] + "　" + m.group(2), page, count=1)
+        Path(f"index-{lang}.html").write_text(page, encoding="utf-8")
         print(f"English fallback homepage: {lang}")
     Path("ui_translations.json").write_text(json.dumps(labels, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"Localized {len(LANGUAGES)} languages; ga and mt use explicit English fallback.")
