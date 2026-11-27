@@ -127,8 +127,8 @@
 <footer class="footer" id="footer"><div id="about"><strong style="font-size:25px">AKINI</strong><br>Ik koop. Ik kies. Ik hou van.<br><small>Pets · Home · Lifestyle</small></div><div><strong>Explore</strong><br><small><a href="about.html" style="color:#fff">Over ons</a> · <a href="contact.html" style="color:#fff">Contact</a> · <a href="affiliate-disclosure.html" style="color:#fff">Affiliate Disclosure</a> · <a href="guides.html" style="color:#fff">Buying Gidsen</a> · <a href="editorial-policy.html" style="color:#fff">Editorial Policy</a></small></div><div><strong>Information</strong><br><small><a href="privacy-policy.html" style="color:#fff">Privacy Policy</a><br><a href="cookie-policy.html" style="color:#fff">Cookie Policy</a><br><a href="terms.html" style="color:#fff">Terms &amp; Conditions</a></small></div><div><small>© 2026 AKINI — Development preview</small></div></footer>
 <script>
 // Keep the language switch working on both localized homepages.
-const cards = [...document.querySelectorAlle producten('.product')];
-const filterButtons = [...document.querySelectorAlle producten('[data-filter]')];
+const cards = [...document.querySelectorAll('.product')];
+const filterButtons = [...document.querySelectorAll('[data-filter]')];
 const searchInput = document.getElementById('searchInput');
 const empty = document.getElementById('empty');
 const cartDialog = document.getElementById('cartDialog');
@@ -175,10 +175,10 @@ function setFilter(value) {
   updateProducts();
 }
 filterButtons.forEach(btn => btn.addEventListener('click', () => setFilter(btn.dataset.filter)));
-document.querySelectorAlle producten('.category[data-category]').forEach(link =>
+document.querySelectorAll('.category[data-category]').forEach(link =>
   link.addEventListener('click', () => setFilter(link.dataset.category))
 );
-document.querySelectorAlle producten('.nav a[data-category]').forEach(link =>
+document.querySelectorAll('.nav a[data-category]').forEach(link =>
   link.addEventListener('click', () => {
     setFilter(link.dataset.category);
     document.getElementById('products').scrollIntoView();
