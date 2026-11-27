@@ -141,6 +141,7 @@
 <button type="button" onclick="closeWishlist()" style="background:var(--navy);color:white;border:0;border-radius:22px;padding:10px 18px">Aizvērt</button>
 </dialog>
 <footer class="footer" id="footer"><div id="about"><strong style="font-size:25px">AKINI</strong><br>Es pērku. Es izvēlos. Man patīk.<br><small>Mājdzīvnieki · Mājas · Dzīvesveids</small></div><div><strong>Izpēti</strong><br><small><a href="about.html" style="color:#fff">Par</a> · <a href="contact.html" style="color:#fff">Kontakti</a> · <a href="affiliate-disclosure.html" style="color:#fff">Informācija par partnerprogrammu</a> · <a href="guides.html" style="color:#fff">Iepirkšanās ceļveži</a> · <a href="editorial-policy.html" style="color:#fff">Redakcijas politika</a> · <a href="manage-products.html" style="color:#fff">Produktu pārvaldība</a></small></div><div><strong>Informācija</strong><br><small><a href="privacy-policy.html" style="color:#fff">Privātuma politika</a><br><a href="cookie-policy.html" style="color:#fff">Sīkdatņu politika</a><br><a href="terms.html" style="color:#fff">Lietošanas noteikumi</a></small></div><div><small>© 2026 AKINI — Neatkarīga produktu atlase</small></div></footer>
+<script id="akini-ui-copy">window.AKINI_PRODUCT_COPY = {"Price and availability may change. Check the retailer for current details.":"Cena un pieejamība var mainīties. Aktuālo informāciju lūdzu noskaidrojiet pie pārdevēja.","Shop the retailer":"Skatīt pie mazumtirgotāja","reviews":"atsauksmes","Pets":"Mājdzīvnieki","Home":"Mājoklis","Lifestyle":"Lifestyle","addCart":"Pievienot grozam","added":"Pievienots"};</script>
 <script>
 // Keep the language switch working on both localized homepages.
 let cards = [...document.querySelectorAll('.product')];
@@ -218,7 +219,7 @@ searchInput.addEventListener('input', updateProducts);
 cards.forEach(card => {
   const name = card.querySelector('h3').textContent.trim();
   const button = document.createElement('button');
-  button.type = 'button'; button.className = 'add-cart'; button.textContent = '+ Add to Cart';
+  button.type = 'button'; button.className = 'add-cart'; button.textContent = '+ ' + ((window.AKINI_PRODUCT_COPY && window.AKINI_PRODUCT_COPY.addCart) || 'Add to Cart');
   button.addEventListener('click', () => {
     const id = card.dataset.productId || name;
     const currentName = card.querySelector('h3').textContent.trim();

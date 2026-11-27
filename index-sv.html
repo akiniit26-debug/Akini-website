@@ -141,6 +141,7 @@
 <button type="button" onclick="closeWishlist()" style="background:var(--navy);color:white;border:0;border-radius:22px;padding:10px 18px">Stäng</button>
 </dialog>
 <footer class="footer" id="footer"><div id="about"><strong style="font-size:25px">AKINI</strong><br>Jag köper. Jag väljer. Jag älskar.<br><small>Husdjur · Hem · Livsstil</small></div><div><strong>Utforska</strong><br><small><a href="about.html" style="color:#fff">Om</a> · <a href="contact.html" style="color:#fff">Kontakt</a> · <a href="affiliate-disclosure.html" style="color:#fff">Information om affiliate-samarbeten</a> · <a href="guides.html" style="color:#fff">Inköpsguider</a> · <a href="editorial-policy.html" style="color:#fff">Redaktionell policy</a> · <a href="manage-products.html" style="color:#fff">Hantera produkter</a></small></div><div><strong>Information</strong><br><small><a href="privacy-policy.html" style="color:#fff">Integritetspolicy</a><br><a href="cookie-policy.html" style="color:#fff">Policy för cookies</a><br><a href="terms.html" style="color:#fff">Allmänna villkor</a></small></div><div><small>© 2026 AKINI — Oberoende produktupptäckt</small></div></footer>
+<script id="akini-ui-copy">window.AKINI_PRODUCT_COPY = {"Price and availability may change. Check the retailer for current details.":"Pris och tillgänglighet kan komma att ändras. Kontakta återförsäljaren för aktuell information.","Shop the retailer":"Se hos återförsäljaren","reviews":"recensioner","Pets":"Husdjur","Home":"Hem","Lifestyle":"Livsstil","addCart":"Lägg i varukorgen","added":"Tillagd"};</script>
 <script>
 // Keep the language switch working on both localized homepages.
 let cards = [...document.querySelectorAll('.product')];
@@ -218,7 +219,7 @@ searchInput.addEventListener('input', updateProducts);
 cards.forEach(card => {
   const name = card.querySelector('h3').textContent.trim();
   const button = document.createElement('button');
-  button.type = 'button'; button.className = 'add-cart'; button.textContent = '+ Add to Cart';
+  button.type = 'button'; button.className = 'add-cart'; button.textContent = '+ ' + ((window.AKINI_PRODUCT_COPY && window.AKINI_PRODUCT_COPY.addCart) || 'Add to Cart');
   button.addEventListener('click', () => {
     const id = card.dataset.productId || name;
     const currentName = card.querySelector('h3').textContent.trim();
