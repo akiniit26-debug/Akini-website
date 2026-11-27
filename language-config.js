@@ -324,6 +324,5 @@
   document.addEventListener('click', event => { if (!picker.contains(event.target)) { panel.hidden=true; trigger.setAttribute('aria-expanded','false'); } });
   // Hide the native fallback only after the searchable picker is fully initialized.
   // If any earlier step fails, the visitor still has a working language selector.
-  selector.hidden = false;
-  picker.hidden = false;
+  selector.hidden = true;
 })();
