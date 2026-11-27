@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build consistent localized AKINI homepages from the canonical English template."""
+"""Build consistent localized AKINI homepages; reuse committed UI copy to avoid repeat DeepL usage."""
 import html
 import hashlib
 import json
