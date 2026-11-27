@@ -3,8 +3,10 @@
    if language-config.js did not finish creating one. */
 (() => {
   'use strict';
+  document.documentElement.dataset.languageFallback = 'started';
   const selector = document.getElementById('lang');
-  if (!selector || document.querySelector('.akini-language-trigger')) return;
+  if (!selector) { document.documentElement.dataset.languageFallback = 'no-select'; return; }
+  if (document.querySelector('.akini-language-trigger')) { document.documentElement.dataset.languageFallback = 'already-present'; return; }
 
   const picker = document.createElement('div');
   picker.className = 'akini-language-picker';
@@ -61,8 +63,7 @@
       option.textContent = item.name;
       option.addEventListener('click', () => {
         selector.value = item.code;
-        if (window.AKINI_LANGUAGES) selector.dispatchEvent(new Event('change'));
-        else window.location.assign(item.code === 'en' ? '/' : '/index-' + item.code + '.html');
+        window.location.assign(item.code === 'en' ? '/' : '/index-' + item.code + '.html');
       });
       options.append(option);
     });
@@ -83,4 +84,5 @@
     }
   });
   selector.hidden = true;
+  document.documentElement.dataset.languageFallback = 'created';
 })();

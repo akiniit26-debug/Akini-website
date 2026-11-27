@@ -272,6 +272,9 @@ test.describe('localized homepage runtime and catalogue hydration', () => {
       await expect(grid).toHaveAttribute('data-catalogue-source', 'supabase', { timeout: 20000 });
       await expect(grid).toHaveAttribute('data-catalogue-updated', '17');
       await expect(grid.locator('.product')).toHaveCount(17);
+      await expect(grid.locator('.product-price')).toHaveCount(17);
+      await expect(grid.locator('.rating-line')).toHaveCount(17);
+      await expect(grid.locator('a.visit')).toHaveCount(17);
       await expect(grid.locator('.add-cart')).toHaveCount(17);
       await expect(grid.locator('.save')).toHaveCount(17);
 
@@ -344,17 +347,28 @@ test.describe('language selector on every EU homepage', () => {
   for (const path of pages.slice(0, 24)) {
     test(`searchable language picker is available on ${path}`, async ({ page }) => {
       const pageErrors = [];
+      const scriptResponses = [];
       page.on('pageerror', error => pageErrors.push(error.message));
+      page.on('response', response => {
+        if (response.url().endsWith('/language-config.js') || response.url().endsWith('/language-picker-fallback.js')) {
+          scriptResponses.push({ url: response.url(), status: response.status() });
+        }
+      });
       await page.goto(path, { waitUntil: 'domcontentloaded' });
 
-      await expect(page.locator('#lang')).toBeAttached();
-      await expect(page.locator('.akini-language-trigger'), `Missing language picker on ${path}`).toBeVisible();
       const state = await page.evaluate(() => ({
         optionCount: document.querySelectorAll('#lang option').length,
+        selectCount: document.querySelectorAll('#lang').length,
         pickerCount: document.querySelectorAll('.akini-language-trigger').length,
-        languageRegistryCount: window.AKINI_LANGUAGES?.length || 0
+        languageRegistryCount: window.AKINI_LANGUAGES?.length || 0,
+        configStatus: document.documentElement.dataset.languageConfig || 'not-loaded',
+        fallbackStatus: document.documentElement.dataset.languageFallback || 'not-loaded',
+        scriptSources: [...document.scripts].map(script => script.src).filter(Boolean)
       }));
+      console.log('AKINI_LANGUAGE_PICKER_DEBUG', path, JSON.stringify(state), JSON.stringify(scriptResponses), JSON.stringify(pageErrors));
+      expect(state.selectCount, `Missing native language select on ${path}`).toBe(1);
       expect(state.optionCount, `Expected 24 native language options on ${path}`).toBe(24);
+      await expect(page.locator('.akini-language-trigger'), `Missing language picker on ${path}`).toBeVisible();
       expect(state.pickerCount).toBe(1);
       expect(pageErrors, `JavaScript runtime errors on ${path}`).toEqual([]);
     });

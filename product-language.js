@@ -75,16 +75,13 @@ const format = new Intl.NumberFormat(document.documentElement.lang || 'en');
         }
 
         let price = info.querySelector('.product-price');
-        if (product.price) {
-          if (!price) {
-            price = document.createElement('div');
-            price.className = 'product-price';
-            heading.insertAdjacentElement('afterend', price);
-          }
-          price.textContent = String(product.price);
-        } else if (price) {
-          price.remove();
+        if (!price) {
+          price = document.createElement('div');
+          price.className = 'product-price';
+          heading.insertAdjacentElement('afterend', price);
         }
+        price.dataset.verified = String(Boolean(product.price));
+        price.textContent = product.price ? String(product.price) : t.price;
 
         let rating = info.querySelector('.rating-line');
         if (!rating) {
@@ -94,6 +91,7 @@ const format = new Intl.NumberFormat(document.documentElement.lang || 'en');
           else heading.insertAdjacentElement('afterend', rating);
         }
         rating.replaceChildren();
+        rating.dataset.verified = String(Number(product.rating) > 0);
         if (Number(product.rating) > 0) {
           rating.append(document.createTextNode('★ ' + Number(product.rating).toFixed(1) + ' / 5'));
           const reviews = document.createElement('small');

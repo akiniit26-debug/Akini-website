@@ -1,5 +1,6 @@
 /* AKINI language registry. All 24 official EU languages have homepage pages. */
 (() => {
+  document.documentElement.dataset.languageConfig = 'started';
   'use strict';
   const languages = [
     { code: 'bg', name: 'Български', locale: 'bg-BG', path: 'index-bg.html', enabled: true },
@@ -277,7 +278,7 @@
   }
 
   const selector = document.getElementById('lang');
-  if (!selector) return;
+  if (!selector) { document.documentElement.dataset.languageConfig = 'no-select'; return; }
   const current = document.documentElement.lang || 'en';
   selector.replaceChildren();
   languages.forEach(item => {
@@ -325,4 +326,5 @@
   // Hide the native fallback only after the searchable picker is fully initialized.
   // If any earlier step fails, the visitor still has a working language selector.
   selector.hidden = true;
+  document.documentElement.dataset.languageConfig = 'initialized';
 })();
