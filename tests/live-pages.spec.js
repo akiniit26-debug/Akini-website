@@ -280,8 +280,10 @@ test.describe('localized homepage runtime and catalogue hydration', () => {
       await expect(grid).toHaveAttribute('data-catalogue-source', 'supabase', { timeout: 20000 });
       await expect(grid).toHaveAttribute('data-catalogue-updated', String(expectedProductCount));
       await expect(grid.locator('.product')).toHaveCount(expectedProductCount);
-      await expect(grid.locator('.product-price')).toHaveCount(expectedPriceCount);
-      await expect(grid.locator('.rating-line')).toHaveCount(expectedRatingCount);
+      await expect(grid.locator('.product-price')).toHaveCount(expectedProductCount);
+      await expect(grid.locator('.product-price[data-verified="true"]')).toHaveCount(expectedPriceCount);
+      await expect(grid.locator('.rating-line')).toHaveCount(expectedProductCount);
+      await expect(grid.locator('.rating-line[data-verified="true"]')).toHaveCount(expectedRatingCount);
       await expect(grid.locator('a.visit')).toHaveCount(expectedProductCount);
       await expect(grid.locator('.add-cart')).toHaveCount(expectedProductCount);
       await expect(grid.locator('.save')).toHaveCount(expectedProductCount);
@@ -317,7 +319,7 @@ test.describe('homepage product interactions', () => {
       await expect(cards.first()).toBeVisible();
 
       await page.locator('[data-filter="Cat"]').click();
-      await expect(page.locator('#productGrid .product:visible')).toHaveCount(2);
+      await expect(page.locator('#productGrid .product:visible')).toHaveCount(expectedCatCount);
       await expect(page.locator('#productGrid .product:visible h3')).toContainText(['Catit', 'PETKIT']);
 
       await expect(page.locator(`[data-filter="${locale.all}"]`)).toHaveText(locale.allLabel);
